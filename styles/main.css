@@ -1,0 +1,231 @@
+:root {
+  --white: hsl(0deg 0% 100%);
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  height: 100%;
+  overflow: hidden;
+}
+
+button {
+  border: none;
+  background-color: transparent;
+}
+
+input {
+  width: 100%;
+  background-color: transparent;
+  border: none;
+}
+
+input[type=search]::-webkit-search-cancel-button {
+  display: none;
+}
+
+span {
+  width: fit-content;
+}
+
+.flex-column {
+  display: flex;
+  flex-direction: column;
+}
+
+.flex-row {
+  display: flex;
+}
+
+#app-container {
+  position: relative;
+  height: 812px;
+  background-color: green;
+  width: 23.438rem;
+  overflow: hidden;
+}
+
+#status-bar {
+  height: 50px;
+  background-color: black;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 999;
+  width: inherit;
+}
+
+main {
+  display: flex;
+  flex-direction: column;
+  padding: 1rem;
+  gap: 16px;
+  position: absolute;
+  left: 0;
+  right: 0;
+  overflow-y: auto;
+  height: 100%;
+  width: inherit;
+}
+
+.navigation-bar {
+  gap: 1rem;
+  background-color: hsl(210, 100%, 12%);
+  position: fixed;
+  bottom: 0;
+  width: inherit;
+}
+
+.nav-list {
+  display: flex;
+  justify-content: center;
+}
+
+.nav-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  padding-block: 0.25rem;
+}
+
+.nav-item a {
+  display: flex;
+  flex-direction: column;
+  color: hsl(209, 25%, 81%);
+  gap: 0.25rem;
+  text-decoration: none;
+}
+
+a span {
+  align-self: center;
+  height: 1.5rem;
+}
+
+.nav-item svg {
+  fill: hsl(209, 25%, 81%);
+  width: 1.5rem;
+  height: 1.5rem;
+}
+
+.nav-item.active a {
+  color: white;
+}
+.nav-item.active svg {
+  fill: white;
+}
+
+header {
+  background-color: black;
+  height: 140px;
+  width: 100%;
+  margin-top: 3.125rem;
+}
+
+.header-top {
+  color: white;
+  width: 100%;
+  justify-content: space-between;
+  height: 2.75rem;
+  align-items: center;
+}
+
+.header-bottom {
+  padding: 0.5rem 1rem;
+  gap: 1rem;
+  height: 100%;
+}
+
+.header-btn {
+  padding: 0 1rem;
+}
+
+.search-container {
+  background-color: gray;
+  padding: 0.5rem;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+.search-container:focus-within {
+  box-shadow: 0 0 0 3px rgba(0, 122, 255, 0.2);
+  outline: 1px solid red;
+}
+
+.search-container input[type=search] {
+  outline: none;
+  font-size: 1rem;
+  color: white;
+}
+
+.search-container input[type=search]::placeholder {
+  color: white;
+}
+
+.search-icon {
+  width: 24px;
+  height: 24px;
+  justify-content: center;
+  align-items: center;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: 2fr 2fr;
+  grid-template-rows: auto;
+  gap: 1rem;
+}
+
+.movie-poster {
+  aspect-ratio: 2/3;
+  background-color: yellow;
+}
+.movie-poster img {
+  width: 100%;
+}
+
+#hero {
+  height: 9.75rem;
+  background-color: peru;
+}
+
+.segmented-buttons {
+  display: inline-flex;
+  background-color: hsla(100, 100%, 100%, 0.12);
+  color: white;
+  border-radius: 0.75rem;
+  width: 100%;
+}
+.segmented-buttons .active {
+  background-color: blue;
+  box-shadow: 1px 1px 4px hsla(0, 0%, 0%, 0.2);
+}
+
+.segmented-btn {
+  background-color: transparent;
+  color: white;
+  border-radius: inherit;
+  padding: 0.25rem 0.625rem;
+  height: 1.75rem;
+  width: 100%;
+}
+
+.food-button {
+  position: absolute;
+  justify-content: center;
+  align-items: center;
+  bottom: 8%;
+  right: 4.5%;
+  background-color: var(--white);
+  border-radius: 50%;
+  height: 3rem;
+  width: 3rem;
+  padding: 0.5rem;
+}
+
+/*# sourceMappingURL=main.css.map */

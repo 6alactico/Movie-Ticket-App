@@ -1,0 +1,35 @@
+.segmented-buttons {
+    display: inline-flex;
+    background-color: hsla(100, 100, 100, 12%);
+    color: white;
+
+    border-radius: 0.75rem;
+    width: 100%;
+
+    .active {
+        background-color: blue;
+        box-shadow: 1px 1px 4px hsla(0, 0%, 0%, 0.2);
+    }
+}
+
+.segmented-btn {
+    background-color: transparent;
+    color: white;
+    border-radius: inherit;
+    padding: 0.25rem 0.625rem;
+    height: 1.75rem;
+    width: 100%;
+}
+
+.food-button {
+    position: absolute;
+    justify-content: center;
+    align-items: center;
+    bottom: 8%;
+    right: 4.5%;
+    background-color: var(--white);
+    border-radius: 50%;
+    height: $sp-600;
+    width: $sp-600;
+    padding: $sp-100;
+}

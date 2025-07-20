@@ -1,0 +1,49 @@
+.navigation-bar {
+    gap: 1rem;
+    background-color: hsla(210, 100%, 12%, 1);
+    position: fixed;
+    bottom: 0;
+    width: inherit;
+}
+
+.nav-list {
+    display: flex;
+    justify-content: center;
+}
+
+.nav-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    padding-block: 0.25rem;
+}
+
+.nav-item a {
+    display: flex;
+    flex-direction: column;
+    color: hsla(209, 25%, 81%, 1);
+    gap: 0.25rem;
+    text-decoration: none;
+}
+
+a span {
+    align-self: center;
+    height: 1.5rem;
+}
+
+.nav-item svg {
+    fill: hsla(209, 25%, 81%, 1);
+    width: 1.5rem;
+    height: 1.5rem;
+}
+
+.nav-item.active {
+    a {
+        color: white;
+    }
+
+    svg {
+        fill: white;
+    }
+}

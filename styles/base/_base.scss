@@ -1,0 +1,75 @@
+:root {
+    --white: hsl(0deg 0% 100%);
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    height: 100%;
+    overflow: hidden;
+}
+
+button {
+    border: none;
+    background-color: transparent;
+}
+
+input {
+    width: 100%;
+    background-color: transparent;
+    border: none;
+}
+
+input[type="search"]::-webkit-search-cancel-button {
+  display: none;
+}
+
+span {
+    width: fit-content;
+}
+
+.flex-column {
+    display: flex;
+    flex-direction: column;
+}
+
+.flex-row {
+    display: flex;
+}
+
+#app-container {
+    position: relative;
+    height: 812px;
+    background-color: green;
+    width: 23.438rem;
+    overflow: hidden;
+}
+
+#status-bar {
+    height: 50px;
+    background-color: black;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 999;
+    width: inherit;
+}
+
+main {
+    display: flex;
+    flex-direction: column;
+    padding: $sp-200;
+    gap: 16px;
+    position: absolute;
+
+    left: 0;
+    right: 0;
+    overflow-y: auto;
+    height: 100%;
+    width: inherit;
+}

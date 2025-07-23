@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/styles/main.css">
+    <script defer src="/script/script.js"></script>
+    <script defer src="/script/api.js"></script>
+    <script defer src="/script/details.js"></script>
+    <title>Movie Showtimes and Details</title>
+</head>
+<body>
+    <div id="app-container" class="flex-column">
+        <div id="status-bar"></div>
+        <main class="showtimes-and-details-page">
+            <div class="movie-overview">
+                <a href="index.html" id="back-button" class="back-button flex-row">
+                        <svg class="flex-row" width="24" height="24" viewBox="0 0 11 18" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M0 9.00001C0 9.24483 0.101227 9.46027 0.314929 9.64632L9.23415 17.2357C9.42535 17.4119 9.67281 17.5 9.96523 17.5C10.5501 17.5 11 17.1181 11 16.6089C11 16.3542 10.8763 16.1388 10.6963 15.9724L2.50818 9.00001L10.6963 2.02765C10.8763 1.86118 11 1.63594 11 1.39113C11 0.881913 10.5501 0.5 9.96523 0.5C9.67281 0.5 9.42535 0.588134 9.23415 0.754608L0.314929 8.3537C0.101227 8.52996 0 8.75519 0 9.00001Z"/>
+                        </svg>
+                </a>
+                <div class="movie-poster-lg">
+                    <img src="https://i.ebayimg.com/images/g/f7oAAOSwK-1nYF5s/s-l1200.jpg" alt="Movie Poster">
+                </div>
+                <div class="movie-characteristics">
+                    <h2 id="movie-title">Title</h2>
+                    <div class="characteristics flex-row">
+                        <p id="genre">Genre</p>
+                        <span>&bull;</span>
+                        <p id="year">Year</p>
+                        <span>&bull;</span>
+                        <p id="rating">Rating</p>
+                        <span>&bull;</span>
+                        <p id="runtime">Runtime</p>
+                    </div>
+                </div>
+                 <div class="segmented-buttons">
+                    <button type="button" id="button" class="showtimes-btn segmented-btn active" data-index="0" data-target="showtimes-section" aria-pressed="true">Showtimes</button>
+                    <button type="button" id="button" class="details-btn segmented-btn"  data-index="1" data-target="details-section" aria-pressed="false">Details</button>
+                </div>
+            </div>
+            <section id="showtimes-section" class="segmented-section">
+                <div class="date-selector flex-row">
+                </div>
+            </section>
+            <section id="details-section" class="segmented-section hidden">
+                <div class="flex-row">
+                </div>
+            </section>
+        </main>
+    </div>
+</body>
+</html>

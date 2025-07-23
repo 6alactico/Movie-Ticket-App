@@ -1,0 +1,61 @@
+.showtimes-and-details-page {
+  margin-top: 3.125rem;
+}
+
+.movie-overview {
+  position: relative;
+}
+
+.movie-characteristics {
+  position: absolute;
+  bottom: 10%;
+}
+
+.movie-poster-lg {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 23.438rem;
+  height: 23.75rem;
+  margin-left: -1rem;
+  margin-top: -2rem;
+}
+
+.movie-poster-lg img {
+  object-fit: cover;
+  width: 100%;
+  height: 100%;
+}
+
+.back-button {
+  background-color: hsla(0deg, 0%, 19%, 85%);
+  z-index: 1;
+  position: absolute;
+  top: 2rem;
+  border-radius: 50%;
+  height: fit-content;
+  padding: $sp-100;
+  fill: $neutral-50;
+}
+
+.segmented-section.hidden {
+  display: none;
+}
+
+.date-selector {
+  color: $neutral-50;
+  gap: $sp-100;
+  overflow-x: auto;
+  
+}
+
+.date-selector::-webkit-scrollbar {
+  display: none;
+}
+
+.date-tab {
+  color: $neutral-50;
+  width: 3.75rem;
+  flex: 0 0 auto;
+  padding: $sp-100 $sp-150;
+}

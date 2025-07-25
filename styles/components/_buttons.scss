@@ -7,7 +7,7 @@
   width: 100%;
 
   .active {
-    background-color: blue;
+    background-color: $accent-700;
     box-shadow: 1px 1px 4px hsla(0, 0%, 0%, 0.2);
   }
 }

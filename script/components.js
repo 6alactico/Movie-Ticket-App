@@ -65,7 +65,7 @@ setTimeout(automaticSlides, 4000);
 
 const filterButton = document.querySelector(".filter-btn");
 const bellButton = document.querySelector(".bell-btn");
-const appContainer = document.getElementById("app-container");
+const appContainer = document.querySelector("app-container");
 
 filterButton.addEventListener("click", () => {
   let filterMenu = document.querySelector(".filter-menu");

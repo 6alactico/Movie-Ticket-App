@@ -1,9 +1,9 @@
 header {
+  color: $neutral-50;
   background-color: $primary-700;
   height: 100%;
   width: 23.438rem;
   position: fixed;
-  top: 3.125rem;
   left: 0;
   z-index: 998;
   padding: 0rem 1rem;
@@ -13,20 +13,35 @@ header {
   height: fit-content;
 }
 
+.seats-tickets-header {
+  height: fit-content;
+  margin-top: 50px;
+  height: 67px;
+  padding: $sp-100 $sp-150;
+
+  .heading {
+    width: 100%;
+    align-items: center;
+  }
+}
+
 .tickets-header {
-  color: white;
   height: auto;
   gap: $sp-150;
   padding-block: $sp-150 $sp-300;
 }
 
 .profile-header {
-    height: 2.75rem;
-    justify-content: center;
+  height: 2.75rem;
+  justify-content: center;
+}
+
+.checkout-header {
+  margin-top: 50px;
+  height: 44px;
 }
 
 .header-top {
-  color: white;
   width: 100%;
   justify-content: space-between;
   height: 2.75rem;
@@ -39,16 +54,16 @@ header {
 }
 
 .header-btn {
-    padding-block: $sp-150;
-    cursor: pointer;
+  padding-block: $sp-150;
+  cursor: pointer;
 }
 
 .filter-menu, .notification-menu {
-    display: none;
-    height: 100%;
-    background-color: $neutral-50;
-    position: absolute;
-    top: 0;
+  display: none;
+  height: 100%;
+  background-color: $neutral-50;
+  position: absolute;
+  top: 0;
 }
 
 .filter-menu.active, .notification-menu.active {

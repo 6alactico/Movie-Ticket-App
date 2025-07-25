@@ -42,7 +42,7 @@
     cursor: pointer;
 }
 
-.active, .pagination-dot:hover {
+.pagination-dot.active, .pagination-dot:hover {
     background-color: #717171;
 }
 
@@ -54,14 +54,22 @@
     gap: 1rem;
 }
 
-.movie-poster {
-    position: relative;
-    aspect-ratio: 2 / 3;
+.movie-item {
+    gap: $sp-100;
+
+    .movie-poster {
+        position: relative;
+        aspect-ratio: 2 / 3;
+    }
+
+    .release-date {
+        position: absolute;
+        bottom: 0;
+        width: 100%;
+        background-color: hsla(0, 0, 0, 0.8);
+    }
 }
 
-.release-date {
-    position: absolute;
-    bottom: 0;
-    width: 100%;
-    background-color: hsla(0, 0, 0, 0.8);
+.movie-text .movie-title {
+    font-size: 1.2rem;
 }

@@ -1,0 +1,627 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/styles/main.css">
+    <script defer src="/script/api.js"></script>
+    <script defer src="/script/seats-and-tickets.js"></script>
+    <title>Seats and Tickets</title>
+</head>
+<body>
+    <div class="app-container">
+        <div id="status-bar"></div>
+        <header class="seats-tickets-header flex-row">
+            <a id="back-button" href="showtimes-and-details.html" class="flex-row">
+                <svg class="flex-row" width="24" height="24" viewBox="0 0 11 18" xmlns="http://www.w3.org/2000/svg">
+                <path d="M0 9.00001C0 9.24483 0.101227 9.46027 0.314929 9.64632L9.23415 17.2357C9.42535 17.4119 9.67281 17.5 9.96523 17.5C10.5501 17.5 11 17.1181 11 16.6089C11 16.3542 10.8763 16.1388 10.6963 15.9724L2.50818 9.00001L10.6963 2.02765C10.8763 1.86118 11 1.63594 11 1.39113C11 0.881913 10.5501 0.5 9.96523 0.5C9.67281 0.5 9.42535 0.588134 9.23415 0.754608L0.314929 8.3537C0.101227 8.52996 0 8.75519 0 9.00001Z"/>
+                </svg>
+            </a>
+            <div class="heading flex-column">
+                <h2 class="movie-title"></h2>
+                <div class="movie-overview">
+                    <!-- Selected movie time will be inserted dynamically -->
+                </div>
+            </div>
+            <a href="movies.html" id="close-button">
+                <svg class="close-button" width="24" height="24" viewBox="0 0 15 16" xmlns="http://www.w3.org/2000/svg">
+                <path d="M0.24477 14.9969C0.575843 15.3186 1.12448 15.3186 1.44609 14.9969L7.49999 8.94203L13.5539 14.9969C13.8755 15.3186 14.4336 15.328 14.7552 14.9969C15.0768 14.6657 15.0768 14.1265 14.7552 13.8049L8.70131 7.74052L14.7552 1.68566C15.0768 1.36399 15.0863 0.815268 14.7552 0.493603C14.4242 0.162478 13.8755 0.162478 13.5539 0.493603L7.49999 6.54847L1.44609 0.493603C1.12448 0.162478 0.566383 0.153017 0.24477 0.493603C-0.0768433 0.824729 -0.0768433 1.36399 0.24477 1.68566L6.29867 7.74052L0.24477 13.8049C-0.0768433 14.1265 -0.0863026 14.6752 0.24477 14.9969Z" fill="#000A14"/>
+                </svg>
+            </a>
+        </header>
+        <main id="seats-and-tickets-screen" class="seats-and-tickets-screen">
+           <section>
+                <div class="map-top">
+                    <div class="zoom-buttons">
+                        <button class="zoom-btn minify-btn">
+                            <svg viewBox="0 0 21 21" xmlns="http://www.w3.org/2000/svg" fill="currentColor"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <g fill="none" fill-rule="evenodd" stroke-linecap="round" stroke-linejoin="round" transform="translate(2 2)"> <path d="m16.5 5.5v-5h-5"></path> <path d="m16.5.5-6 5.929"></path> <path d="m5.5 16.5-5 .023v-5.023"></path> <path d="m6.5 10.5-6 6"></path> </g> </g></svg>
+                        </button>
+                        <button class="zoom-btn magnify-btn hidden">
+                            <svg viewBox="0 0 21 21" xmlns="http://www.w3.org/2000/svg"><g stroke-width="0"></g><g stroke-linecap="round" stroke-linejoin="round"></g><g> <g fill="none" fill-rule="evenodd" stroke-linecap="round" stroke-linejoin="round" transform="translate(2 2)"> <path d="m7.5 14.5v-4.978l-5-.022"></path> <path d="m16.5.5-7 7"></path> <path d="m14.5 7.5-5 .023v-5.023"></path> <path d="m7.5 9.5-7 7"></path> </g> </g></svg>
+                        </button>
+                    </div>
+                    <span class="screen-svg flex-column">
+                    <svg width="315" height="10" viewBox="0 0 315 10" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M313.5 9C313.5 9 243.656 1 157.5 1C71.3436 1 1.5 9 1.5 9" stroke="white" stroke-width="2" stroke-linecap="round"/>
+                        </svg>
+                        Screen
+                    </span>
+                </div>
+                <div class="map-container">
+                    <div id="seat-map" class="seat-map">
+                        <button type="button" class="seat" data-row="A" data-seat="1">
+                            <span class="seat-id">A1</span>
+                            <svg class="seat-svg" version="1.1" id="Icons" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 32 32" xml:space="preserve">
+                            <path d="M8.958 18.991c.474-1.911-.693-5.184-3.006-5.184V7.8C6 5.7 7.7 4 9.8 4h12.3C24.3 4 26 5.7 26 7.8V14c-1.565.169-2.915.742-2.996 4.994L8.958 18.991ZM9 29H5c-1.1 0-2-.9-2-2V17c0-1.7 1.3-3 3-3s3 1.3 3 3V29zm18 0h-4V17c0-1.7 1.3-3 3-3s3 1.3 3 3v10c0 1.1-.9 2-2 2z" />
+                            <rect x="9" y="19" width="14" height="10"/>
+                            </svg>
+                        </button>
+                        <button type="button" class="seat reserved" data-row="A" data-seat="2">
+                            <span class="seat-id">A2</span>
+                            <svg class="seat-svg" version="1.1" id="Icons" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 32 32" xml:space="preserve">
+                            <path d="M8.958 18.991c.474-1.911-.693-5.184-3.006-5.184V7.8C6 5.7 7.7 4 9.8 4h12.3C24.3 4 26 5.7 26 7.8V14c-1.565.169-2.915.742-2.996 4.994L8.958 18.991ZM9 29H5c-1.1 0-2-.9-2-2V17c0-1.7 1.3-3 3-3s3 1.3 3 3V29zm18 0h-4V17c0-1.7 1.3-3 3-3s3 1.3 3 3v10c0 1.1-.9 2-2 2z" />
+                            <rect x="9" y="19" width="14" height="10"/>
+                            </svg>
+                        </button>
+                        <button type="button" class="seat" data-row="A" data-seat="3">
+                            <span class="seat-id">A3</span>
+                            <svg class="seat-svg" version="1.1" id="Icons" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 32 32" xml:space="preserve">
+                            <path d="M8.958 18.991c.474-1.911-.693-5.184-3.006-5.184V7.8C6 5.7 7.7 4 9.8 4h12.3C24.3 4 26 5.7 26 7.8V14c-1.565.169-2.915.742-2.996 4.994L8.958 18.991ZM9 29H5c-1.1 0-2-.9-2-2V17c0-1.7 1.3-3 3-3s3 1.3 3 3V29zm18 0h-4V17c0-1.7 1.3-3 3-3s3 1.3 3 3v10c0 1.1-.9 2-2 2z" />
+                            <rect x="9" y="19" width="14" height="10"/>
+                            </svg>
+                        </button>
+                        <button type="button" class="seat" data-row="A" data-seat="4">
+                            <span class="seat-id">A4</span>
+                            <svg class="seat-svg" version="1.1" id="Icons" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 32 32" xml:space="preserve">
+                            <path d="M8.958 18.991c.474-1.911-.693-5.184-3.006-5.184V7.8C6 5.7 7.7 4 9.8 4h12.3C24.3 4 26 5.7 26 7.8V14c-1.565.169-2.915.742-2.996 4.994L8.958 18.991ZM9 29H5c-1.1 0-2-.9-2-2V17c0-1.7 1.3-3 3-3s3 1.3 3 3V29zm18 0h-4V17c0-1.7 1.3-3 3-3s3 1.3 3 3v10c0 1.1-.9 2-2 2z" />
+                            <rect x="9" y="19" width="14" height="10"/>
+                            </svg>
+                        </button>
+                        <button type="button" class="seat" data-row="A" data-seat="5">
+                            <span class="seat-id">A5</span>
+                            <svg class="seat-svg" version="1.1" id="Icons" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 32 32" xml:space="preserve">
+                            <path d="M8.958 18.991c.474-1.911-.693-5.184-3.006-5.184V7.8C6 5.7 7.7 4 9.8 4h12.3C24.3 4 26 5.7 26 7.8V14c-1.565.169-2.915.742-2.996 4.994L8.958 18.991ZM9 29H5c-1.1 0-2-.9-2-2V17c0-1.7 1.3-3 3-3s3 1.3 3 3V29zm18 0h-4V17c0-1.7 1.3-3 3-3s3 1.3 3 3v10c0 1.1-.9 2-2 2z" />
+                            <rect x="9" y="19" width="14" height="10"/>
+                            </svg>
+                        </button>
+                        <button type="button" class="seat reserved" data-row="A" data-seat="6">
+                            <span class="seat-id">A6</span>
+                            <svg class="seat-svg" version="1.1" id="Icons" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 32 32" xml:space="preserve">
+                            <path d="M8.958 18.991c.474-1.911-.693-5.184-3.006-5.184V7.8C6 5.7 7.7 4 9.8 4h12.3C24.3 4 26 5.7 26 7.8V14c-1.565.169-2.915.742-2.996 4.994L8.958 18.991ZM9 29H5c-1.1 0-2-.9-2-2V17c0-1.7 1.3-3 3-3s3 1.3 3 3V29zm18 0h-4V17c0-1.7 1.3-3 3-3s3 1.3 3 3v10c0 1.1-.9 2-2 2z" />
+                            <rect x="9" y="19" width="14" height="10"/>
+                            </svg>
+                        </button>
+                        <button type="button" class="seat reserved" data-row="A" data-seat="7">
+                            <span class="seat-id">A7</span>
+                            <svg class="seat-svg" version="1.1" id="Icons" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 32 32" xml:space="preserve">
+                            <path d="M8.958 18.991c.474-1.911-.693-5.184-3.006-5.184V7.8C6 5.7 7.7 4 9.8 4h12.3C24.3 4 26 5.7 26 7.8V14c-1.565.169-2.915.742-2.996 4.994L8.958 18.991ZM9 29H5c-1.1 0-2-.9-2-2V17c0-1.7 1.3-3 3-3s3 1.3 3 3V29zm18 0h-4V17c0-1.7 1.3-3 3-3s3 1.3 3 3v10c0 1.1-.9 2-2 2z" />
+                            <rect x="9" y="19" width="14" height="10"/>
+                            </svg>
+                        </button>
+                        <button type="button" class="seat reserved" data-row="A" data-seat="8">
+                            <span class="seat-id">A8</span>
+                            <svg class="seat-svg" version="1.1" id="Icons" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 32 32" xml:space="preserve">
+                            <path d="M8.958 18.991c.474-1.911-.693-5.184-3.006-5.184V7.8C6 5.7 7.7 4 9.8 4h12.3C24.3 4 26 5.7 26 7.8V14c-1.565.169-2.915.742-2.996 4.994L8.958 18.991ZM9 29H5c-1.1 0-2-.9-2-2V17c0-1.7 1.3-3 3-3s3 1.3 3 3V29zm18 0h-4V17c0-1.7 1.3-3 3-3s3 1.3 3 3v10c0 1.1-.9 2-2 2z" />
+                            <rect x="9" y="19" width="14" height="10"/>
+                            </svg>
+                        </button>
+                        <button type="button" class="seat" data-row="A" data-seat="9">
+                            <span class="seat-id">A9</span>
+                            <svg class="seat-svg" version="1.1" id="Icons" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 32 32" xml:space="preserve">
+                            <path d="M8.958 18.991c.474-1.911-.693-5.184-3.006-5.184V7.8C6 5.7 7.7 4 9.8 4h12.3C24.3 4 26 5.7 26 7.8V14c-1.565.169-2.915.742-2.996 4.994L8.958 18.991ZM9 29H5c-1.1 0-2-.9-2-2V17c0-1.7 1.3-3 3-3s3 1.3 3 3V29zm18 0h-4V17c0-1.7 1.3-3 3-3s3 1.3 3 3v10c0 1.1-.9 2-2 2z" />
+                            <rect x="9" y="19" width="14" height="10"/>
+                            </svg>
+                        </button>
+                        <button type="button" class="seat" data-row="A" data-seat="10">
+                            <span class="seat-id">A10</span>
+                            <svg class="seat-svg" version="1.1" id="Icons" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 32 32" xml:space="preserve">
+                            <path d="M8.958 18.991c.474-1.911-.693-5.184-3.006-5.184V7.8C6 5.7 7.7 4 9.8 4h12.3C24.3 4 26 5.7 26 7.8V14c-1.565.169-2.915.742-2.996 4.994L8.958 18.991ZM9 29H5c-1.1 0-2-.9-2-2V17c0-1.7 1.3-3 3-3s3 1.3 3 3V29zm18 0h-4V17c0-1.7 1.3-3 3-3s3 1.3 3 3v10c0 1.1-.9 2-2 2z" />
+                            <rect x="9" y="19" width="14" height="10"/>
+                            </svg>
+                        </button>
+                        <button type="button" class="seat" data-row="B" data-seat="1">
+                            <span class="seat-id">B1</span>
+                            <svg class="seat-svg" version="1.1" id="Icons" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 32 32" xml:space="preserve">
+                            <path d="M8.958 18.991c.474-1.911-.693-5.184-3.006-5.184V7.8C6 5.7 7.7 4 9.8 4h12.3C24.3 4 26 5.7 26 7.8V14c-1.565.169-2.915.742-2.996 4.994L8.958 18.991ZM9 29H5c-1.1 0-2-.9-2-2V17c0-1.7 1.3-3 3-3s3 1.3 3 3V29zm18 0h-4V17c0-1.7 1.3-3 3-3s3 1.3 3 3v10c0 1.1-.9 2-2 2z" />
+                            <rect x="9" y="19" width="14" height="10"/>
+                            </svg>
+                        </button>
+                        <button type="button" class="seat" data-row="B" data-seat="2">
+                            <span class="seat-id">B2</span>
+                            <svg class="seat-svg" version="1.1" id="Icons" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 32 32" xml:space="preserve">
+                            <path d="M8.958 18.991c.474-1.911-.693-5.184-3.006-5.184V7.8C6 5.7 7.7 4 9.8 4h12.3C24.3 4 26 5.7 26 7.8V14c-1.565.169-2.915.742-2.996 4.994L8.958 18.991ZM9 29H5c-1.1 0-2-.9-2-2V17c0-1.7 1.3-3 3-3s3 1.3 3 3V29zm18 0h-4V17c0-1.7 1.3-3 3-3s3 1.3 3 3v10c0 1.1-.9 2-2 2z" />
+                            <rect x="9" y="19" width="14" height="10"/>
+                            </svg>
+                        </button>
+                        <button type="button" class="seat" data-row="B" data-seat="3">
+                            <span class="seat-id">B3</span>
+                            <svg class="seat-svg" version="1.1" id="Icons" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 32 32" xml:space="preserve">
+                            <path d="M8.958 18.991c.474-1.911-.693-5.184-3.006-5.184V7.8C6 5.7 7.7 4 9.8 4h12.3C24.3 4 26 5.7 26 7.8V14c-1.565.169-2.915.742-2.996 4.994L8.958 18.991ZM9 29H5c-1.1 0-2-.9-2-2V17c0-1.7 1.3-3 3-3s3 1.3 3 3V29zm18 0h-4V17c0-1.7 1.3-3 3-3s3 1.3 3 3v10c0 1.1-.9 2-2 2z" />
+                            <rect x="9" y="19" width="14" height="10"/>
+                            </svg>
+                        </button>
+                        <button type="button" class="seat" data-row="B" data-seat="4">
+                            <span class="seat-id">B4</span>
+                            <svg class="seat-svg" version="1.1" id="Icons" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 32 32" xml:space="preserve">
+                            <path d="M8.958 18.991c.474-1.911-.693-5.184-3.006-5.184V7.8C6 5.7 7.7 4 9.8 4h12.3C24.3 4 26 5.7 26 7.8V14c-1.565.169-2.915.742-2.996 4.994L8.958 18.991ZM9 29H5c-1.1 0-2-.9-2-2V17c0-1.7 1.3-3 3-3s3 1.3 3 3V29zm18 0h-4V17c0-1.7 1.3-3 3-3s3 1.3 3 3v10c0 1.1-.9 2-2 2z" />
+                            <rect x="9" y="19" width="14" height="10"/>
+                            </svg>
+                        </button>
+                        <button type="button" class="seat" data-row="B" data-seat="5">
+                            <span class="seat-id">B5</span>
+                            <svg class="seat-svg" version="1.1" id="Icons" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 32 32" xml:space="preserve">
+                            <path d="M8.958 18.991c.474-1.911-.693-5.184-3.006-5.184V7.8C6 5.7 7.7 4 9.8 4h12.3C24.3 4 26 5.7 26 7.8V14c-1.565.169-2.915.742-2.996 4.994L8.958 18.991ZM9 29H5c-1.1 0-2-.9-2-2V17c0-1.7 1.3-3 3-3s3 1.3 3 3V29zm18 0h-4V17c0-1.7 1.3-3 3-3s3 1.3 3 3v10c0 1.1-.9 2-2 2z" />
+                            <rect x="9" y="19" width="14" height="10"/>
+                            </svg>
+                        </button>
+                        <button type="button" class="seat" data-row="B" data-seat="6">
+                            <span class="seat-id">B6</span>
+                            <svg class="seat-svg" version="1.1" id="Icons" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 32 32" xml:space="preserve">
+                            <path d="M8.958 18.991c.474-1.911-.693-5.184-3.006-5.184V7.8C6 5.7 7.7 4 9.8 4h12.3C24.3 4 26 5.7 26 7.8V14c-1.565.169-2.915.742-2.996 4.994L8.958 18.991ZM9 29H5c-1.1 0-2-.9-2-2V17c0-1.7 1.3-3 3-3s3 1.3 3 3V29zm18 0h-4V17c0-1.7 1.3-3 3-3s3 1.3 3 3v10c0 1.1-.9 2-2 2z" />
+                            <rect x="9" y="19" width="14" height="10"/>
+                            </svg>
+                        </button>
+                        <button type="button" class="seat" data-row="B" data-seat="7">
+                            <span class="seat-id">B7</span>
+                            <svg class="seat-svg" version="1.1" id="Icons" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 32 32" xml:space="preserve">
+                            <path d="M8.958 18.991c.474-1.911-.693-5.184-3.006-5.184V7.8C6 5.7 7.7 4 9.8 4h12.3C24.3 4 26 5.7 26 7.8V14c-1.565.169-2.915.742-2.996 4.994L8.958 18.991ZM9 29H5c-1.1 0-2-.9-2-2V17c0-1.7 1.3-3 3-3s3 1.3 3 3V29zm18 0h-4V17c0-1.7 1.3-3 3-3s3 1.3 3 3v10c0 1.1-.9 2-2 2z" />
+                            <rect x="9" y="19" width="14" height="10"/>
+                            </svg>
+                        </button>
+                        <button type="button" class="seat reserved" data-row="B" data-seat="8">
+                            <span class="seat-id">B8</span>
+                            <svg class="seat-svg" version="1.1" id="Icons" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 32 32" xml:space="preserve">
+                            <path d="M8.958 18.991c.474-1.911-.693-5.184-3.006-5.184V7.8C6 5.7 7.7 4 9.8 4h12.3C24.3 4 26 5.7 26 7.8V14c-1.565.169-2.915.742-2.996 4.994L8.958 18.991ZM9 29H5c-1.1 0-2-.9-2-2V17c0-1.7 1.3-3 3-3s3 1.3 3 3V29zm18 0h-4V17c0-1.7 1.3-3 3-3s3 1.3 3 3v10c0 1.1-.9 2-2 2z" />
+                            <rect x="9" y="19" width="14" height="10"/>
+                            </svg>
+                        </button>
+                        <button type="button" class="seat" data-row="B" data-seat="9">
+                            <span class="seat-id">B9</span>
+                            <svg class="seat-svg" version="1.1" id="Icons" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 32 32" xml:space="preserve">
+                            <path d="M8.958 18.991c.474-1.911-.693-5.184-3.006-5.184V7.8C6 5.7 7.7 4 9.8 4h12.3C24.3 4 26 5.7 26 7.8V14c-1.565.169-2.915.742-2.996 4.994L8.958 18.991ZM9 29H5c-1.1 0-2-.9-2-2V17c0-1.7 1.3-3 3-3s3 1.3 3 3V29zm18 0h-4V17c0-1.7 1.3-3 3-3s3 1.3 3 3v10c0 1.1-.9 2-2 2z" />
+                            <rect x="9" y="19" width="14" height="10"/>
+                            </svg>
+                        </button>
+                        <button type="button" class="seat" data-row="B" data-seat="10">
+                            <span class="seat-id">B10</span>
+                            <svg class="seat-svg" version="1.1" id="Icons" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 32 32" xml:space="preserve">
+                            <path d="M8.958 18.991c.474-1.911-.693-5.184-3.006-5.184V7.8C6 5.7 7.7 4 9.8 4h12.3C24.3 4 26 5.7 26 7.8V14c-1.565.169-2.915.742-2.996 4.994L8.958 18.991ZM9 29H5c-1.1 0-2-.9-2-2V17c0-1.7 1.3-3 3-3s3 1.3 3 3V29zm18 0h-4V17c0-1.7 1.3-3 3-3s3 1.3 3 3v10c0 1.1-.9 2-2 2z" />
+                            <rect x="9" y="19" width="14" height="10"/>
+                            </svg>
+                        </button>
+                        <button type="button" class="seat" data-row="C" data-seat="1">
+                            <span class="seat-id">C1</span>
+                            <svg class="seat-svg" version="1.1" id="Icons" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 32 32" xml:space="preserve">
+                            <path d="M8.958 18.991c.474-1.911-.693-5.184-3.006-5.184V7.8C6 5.7 7.7 4 9.8 4h12.3C24.3 4 26 5.7 26 7.8V14c-1.565.169-2.915.742-2.996 4.994L8.958 18.991ZM9 29H5c-1.1 0-2-.9-2-2V17c0-1.7 1.3-3 3-3s3 1.3 3 3V29zm18 0h-4V17c0-1.7 1.3-3 3-3s3 1.3 3 3v10c0 1.1-.9 2-2 2z" />
+                            <rect x="9" y="19" width="14" height="10"/>
+                            </svg>
+                        </button>
+                        <button type="button" class="seat" data-row="C" data-seat="2">
+                            <span class="seat-id">C2</span>
+                            <svg class="seat-svg" version="1.1" id="Icons" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 32 32" xml:space="preserve">
+                            <path d="M8.958 18.991c.474-1.911-.693-5.184-3.006-5.184V7.8C6 5.7 7.7 4 9.8 4h12.3C24.3 4 26 5.7 26 7.8V14c-1.565.169-2.915.742-2.996 4.994L8.958 18.991ZM9 29H5c-1.1 0-2-.9-2-2V17c0-1.7 1.3-3 3-3s3 1.3 3 3V29zm18 0h-4V17c0-1.7 1.3-3 3-3s3 1.3 3 3v10c0 1.1-.9 2-2 2z" />
+                            <rect x="9" y="19" width="14" height="10"/>
+                            </svg>
+                        </button>
+                        <button type="button" class="seat" data-row="C" data-seat="3">
+                            <span class="seat-id">C3</span>
+                            <svg class="seat-svg" version="1.1" id="Icons" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 32 32" xml:space="preserve">
+                            <path d="M8.958 18.991c.474-1.911-.693-5.184-3.006-5.184V7.8C6 5.7 7.7 4 9.8 4h12.3C24.3 4 26 5.7 26 7.8V14c-1.565.169-2.915.742-2.996 4.994L8.958 18.991ZM9 29H5c-1.1 0-2-.9-2-2V17c0-1.7 1.3-3 3-3s3 1.3 3 3V29zm18 0h-4V17c0-1.7 1.3-3 3-3s3 1.3 3 3v10c0 1.1-.9 2-2 2z" />
+                            <rect x="9" y="19" width="14" height="10"/>
+                            </svg>
+                        </button>
+                        <button type="button" class="seat" data-row="C" data-seat="4">
+                            <span class="seat-id">C4</span>
+                            <svg class="seat-svg" version="1.1" id="Icons" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 32 32" xml:space="preserve">
+                            <path d="M8.958 18.991c.474-1.911-.693-5.184-3.006-5.184V7.8C6 5.7 7.7 4 9.8 4h12.3C24.3 4 26 5.7 26 7.8V14c-1.565.169-2.915.742-2.996 4.994L8.958 18.991ZM9 29H5c-1.1 0-2-.9-2-2V17c0-1.7 1.3-3 3-3s3 1.3 3 3V29zm18 0h-4V17c0-1.7 1.3-3 3-3s3 1.3 3 3v10c0 1.1-.9 2-2 2z" />
+                            <rect x="9" y="19" width="14" height="10"/>
+                            </svg>
+                        </button>
+                        <button type="button" class="seat" data-row="C" data-seat="5">
+                            <span class="seat-id">C5</span>
+                            <svg class="seat-svg" version="1.1" id="Icons" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 32 32" xml:space="preserve">
+                            <path d="M8.958 18.991c.474-1.911-.693-5.184-3.006-5.184V7.8C6 5.7 7.7 4 9.8 4h12.3C24.3 4 26 5.7 26 7.8V14c-1.565.169-2.915.742-2.996 4.994L8.958 18.991ZM9 29H5c-1.1 0-2-.9-2-2V17c0-1.7 1.3-3 3-3s3 1.3 3 3V29zm18 0h-4V17c0-1.7 1.3-3 3-3s3 1.3 3 3v10c0 1.1-.9 2-2 2z" />
+                            <rect x="9" y="19" width="14" height="10"/>
+                            </svg>
+                        </button>
+                        <button type="button" class="seat" data-row="C" data-seat="6">
+                            <span class="seat-id">C6</span>
+                            <svg class="seat-svg" version="1.1" id="Icons" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 32 32" xml:space="preserve">
+                            <path d="M8.958 18.991c.474-1.911-.693-5.184-3.006-5.184V7.8C6 5.7 7.7 4 9.8 4h12.3C24.3 4 26 5.7 26 7.8V14c-1.565.169-2.915.742-2.996 4.994L8.958 18.991ZM9 29H5c-1.1 0-2-.9-2-2V17c0-1.7 1.3-3 3-3s3 1.3 3 3V29zm18 0h-4V17c0-1.7 1.3-3 3-3s3 1.3 3 3v10c0 1.1-.9 2-2 2z" />
+                            <rect x="9" y="19" width="14" height="10"/>
+                            </svg>
+                        </button>
+                        <button type="button" class="seat" data-row="C" data-seat="7">
+                            <span class="seat-id">C7</span>
+                            <svg class="seat-svg" version="1.1" id="Icons" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 32 32" xml:space="preserve">
+                            <path d="M8.958 18.991c.474-1.911-.693-5.184-3.006-5.184V7.8C6 5.7 7.7 4 9.8 4h12.3C24.3 4 26 5.7 26 7.8V14c-1.565.169-2.915.742-2.996 4.994L8.958 18.991ZM9 29H5c-1.1 0-2-.9-2-2V17c0-1.7 1.3-3 3-3s3 1.3 3 3V29zm18 0h-4V17c0-1.7 1.3-3 3-3s3 1.3 3 3v10c0 1.1-.9 2-2 2z" />
+                            <rect x="9" y="19" width="14" height="10"/>
+                            </svg>
+                        </button>
+                        <button type="button" class="seat" data-row="C" data-seat="8">
+                            <span class="seat-id">C8</span>
+                            <svg class="seat-svg" version="1.1" id="Icons" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 32 32" xml:space="preserve">
+                            <path d="M8.958 18.991c.474-1.911-.693-5.184-3.006-5.184V7.8C6 5.7 7.7 4 9.8 4h12.3C24.3 4 26 5.7 26 7.8V14c-1.565.169-2.915.742-2.996 4.994L8.958 18.991ZM9 29H5c-1.1 0-2-.9-2-2V17c0-1.7 1.3-3 3-3s3 1.3 3 3V29zm18 0h-4V17c0-1.7 1.3-3 3-3s3 1.3 3 3v10c0 1.1-.9 2-2 2z" />
+                            <rect x="9" y="19" width="14" height="10"/>
+                            </svg>
+                        </button>
+                        <button type="button" class="seat" data-row="C" data-seat="9">
+                            <span class="seat-id">C9</span>
+                            <svg class="seat-svg" version="1.1" id="Icons" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 32 32" xml:space="preserve">
+                            <path d="M8.958 18.991c.474-1.911-.693-5.184-3.006-5.184V7.8C6 5.7 7.7 4 9.8 4h12.3C24.3 4 26 5.7 26 7.8V14c-1.565.169-2.915.742-2.996 4.994L8.958 18.991ZM9 29H5c-1.1 0-2-.9-2-2V17c0-1.7 1.3-3 3-3s3 1.3 3 3V29zm18 0h-4V17c0-1.7 1.3-3 3-3s3 1.3 3 3v10c0 1.1-.9 2-2 2z" />
+                            <rect x="9" y="19" width="14" height="10"/>
+                            </svg>
+                        </button>
+                        <button type="button" class="seat" data-row="C" data-seat="10">
+                            <span class="seat-id">C10</span>
+                            <svg class="seat-svg" version="1.1" id="Icons" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 32 32" xml:space="preserve">
+                            <path d="M8.958 18.991c.474-1.911-.693-5.184-3.006-5.184V7.8C6 5.7 7.7 4 9.8 4h12.3C24.3 4 26 5.7 26 7.8V14c-1.565.169-2.915.742-2.996 4.994L8.958 18.991ZM9 29H5c-1.1 0-2-.9-2-2V17c0-1.7 1.3-3 3-3s3 1.3 3 3V29zm18 0h-4V17c0-1.7 1.3-3 3-3s3 1.3 3 3v10c0 1.1-.9 2-2 2z" />
+                            <rect x="9" y="19" width="14" height="10"/>
+                            </svg>
+                        </button>
+                        <button type="button" class="seat" data-row="D" data-seat="1">
+                            <span class="seat-id">D1</span>
+                            <svg class="seat-svg" version="1.1" id="Icons" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 32 32" xml:space="preserve">
+                            <path d="M8.958 18.991c.474-1.911-.693-5.184-3.006-5.184V7.8C6 5.7 7.7 4 9.8 4h12.3C24.3 4 26 5.7 26 7.8V14c-1.565.169-2.915.742-2.996 4.994L8.958 18.991ZM9 29H5c-1.1 0-2-.9-2-2V17c0-1.7 1.3-3 3-3s3 1.3 3 3V29zm18 0h-4V17c0-1.7 1.3-3 3-3s3 1.3 3 3v10c0 1.1-.9 2-2 2z" />
+                            <rect x="9" y="19" width="14" height="10"/>
+                            </svg>
+                        </button>
+                        <button type="button" class="seat" data-row="D" data-seat="2">
+                            <span class="seat-id">D2</span>
+                            <svg class="seat-svg" version="1.1" id="Icons" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 32 32" xml:space="preserve">
+                            <path d="M8.958 18.991c.474-1.911-.693-5.184-3.006-5.184V7.8C6 5.7 7.7 4 9.8 4h12.3C24.3 4 26 5.7 26 7.8V14c-1.565.169-2.915.742-2.996 4.994L8.958 18.991ZM9 29H5c-1.1 0-2-.9-2-2V17c0-1.7 1.3-3 3-3s3 1.3 3 3V29zm18 0h-4V17c0-1.7 1.3-3 3-3s3 1.3 3 3v10c0 1.1-.9 2-2 2z" />
+                            <rect x="9" y="19" width="14" height="10"/>
+                            </svg>
+                        </button>
+                        <button type="button" class="seat" data-row="D" data-seat="3">
+                            <span class="seat-id">D3</span>
+                            <svg class="seat-svg" version="1.1" id="Icons" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 32 32" xml:space="preserve">
+                            <path d="M8.958 18.991c.474-1.911-.693-5.184-3.006-5.184V7.8C6 5.7 7.7 4 9.8 4h12.3C24.3 4 26 5.7 26 7.8V14c-1.565.169-2.915.742-2.996 4.994L8.958 18.991ZM9 29H5c-1.1 0-2-.9-2-2V17c0-1.7 1.3-3 3-3s3 1.3 3 3V29zm18 0h-4V17c0-1.7 1.3-3 3-3s3 1.3 3 3v10c0 1.1-.9 2-2 2z" />
+                            <rect x="9" y="19" width="14" height="10"/>
+                            </svg>
+                        </button>
+                        <button type="button" class="seat" data-row="D" data-seat="4">
+                            <span class="seat-id">D4</span>
+                            <svg class="seat-svg" version="1.1" id="Icons" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 32 32" xml:space="preserve">
+                            <path d="M8.958 18.991c.474-1.911-.693-5.184-3.006-5.184V7.8C6 5.7 7.7 4 9.8 4h12.3C24.3 4 26 5.7 26 7.8V14c-1.565.169-2.915.742-2.996 4.994L8.958 18.991ZM9 29H5c-1.1 0-2-.9-2-2V17c0-1.7 1.3-3 3-3s3 1.3 3 3V29zm18 0h-4V17c0-1.7 1.3-3 3-3s3 1.3 3 3v10c0 1.1-.9 2-2 2z" />
+                            <rect x="9" y="19" width="14" height="10"/>
+                            </svg>
+                        </button>
+                        <button type="button" class="seat reserved" data-row="D" data-seat="5">
+                            <span class="seat-id">D5</span>
+                            <svg class="seat-svg" version="1.1" id="Icons" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 32 32" xml:space="preserve">
+                            <path d="M8.958 18.991c.474-1.911-.693-5.184-3.006-5.184V7.8C6 5.7 7.7 4 9.8 4h12.3C24.3 4 26 5.7 26 7.8V14c-1.565.169-2.915.742-2.996 4.994L8.958 18.991ZM9 29H5c-1.1 0-2-.9-2-2V17c0-1.7 1.3-3 3-3s3 1.3 3 3V29zm18 0h-4V17c0-1.7 1.3-3 3-3s3 1.3 3 3v10c0 1.1-.9 2-2 2z" />
+                            <rect x="9" y="19" width="14" height="10"/>
+                            </svg>
+                        </button>
+                        <button type="button" class="seat reserved" data-row="D" data-seat="6">
+                            <span class="seat-id">D6</span>
+                            <svg class="seat-svg" version="1.1" id="Icons" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 32 32" xml:space="preserve">
+                            <path d="M8.958 18.991c.474-1.911-.693-5.184-3.006-5.184V7.8C6 5.7 7.7 4 9.8 4h12.3C24.3 4 26 5.7 26 7.8V14c-1.565.169-2.915.742-2.996 4.994L8.958 18.991ZM9 29H5c-1.1 0-2-.9-2-2V17c0-1.7 1.3-3 3-3s3 1.3 3 3V29zm18 0h-4V17c0-1.7 1.3-3 3-3s3 1.3 3 3v10c0 1.1-.9 2-2 2z" />
+                            <rect x="9" y="19" width="14" height="10"/>
+                            </svg>
+                        </button>
+                        <button type="button" class="seat" data-row="D" data-seat="7">
+                            <span class="seat-id">D7</span>
+                            <svg class="seat-svg" version="1.1" id="Icons" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 32 32" xml:space="preserve">
+                            <path d="M8.958 18.991c.474-1.911-.693-5.184-3.006-5.184V7.8C6 5.7 7.7 4 9.8 4h12.3C24.3 4 26 5.7 26 7.8V14c-1.565.169-2.915.742-2.996 4.994L8.958 18.991ZM9 29H5c-1.1 0-2-.9-2-2V17c0-1.7 1.3-3 3-3s3 1.3 3 3V29zm18 0h-4V17c0-1.7 1.3-3 3-3s3 1.3 3 3v10c0 1.1-.9 2-2 2z" />
+                            <rect x="9" y="19" width="14" height="10"/>
+                            </svg>
+                        </button>
+                        <button type="button" class="seat" data-row="D" data-seat="8">
+                            <span class="seat-id">D8</span>
+                            <svg class="seat-svg" version="1.1" id="Icons" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 32 32" xml:space="preserve">
+                            <path d="M8.958 18.991c.474-1.911-.693-5.184-3.006-5.184V7.8C6 5.7 7.7 4 9.8 4h12.3C24.3 4 26 5.7 26 7.8V14c-1.565.169-2.915.742-2.996 4.994L8.958 18.991ZM9 29H5c-1.1 0-2-.9-2-2V17c0-1.7 1.3-3 3-3s3 1.3 3 3V29zm18 0h-4V17c0-1.7 1.3-3 3-3s3 1.3 3 3v10c0 1.1-.9 2-2 2z" />
+                            <rect x="9" y="19" width="14" height="10"/>
+                            </svg>
+                        </button>
+                        <button type="button" class="seat" data-row="D" data-seat="9">
+                            <span class="seat-id">D9</span>
+                            <svg class="seat-svg" version="1.1" id="Icons" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 32 32" xml:space="preserve">
+                            <path d="M8.958 18.991c.474-1.911-.693-5.184-3.006-5.184V7.8C6 5.7 7.7 4 9.8 4h12.3C24.3 4 26 5.7 26 7.8V14c-1.565.169-2.915.742-2.996 4.994L8.958 18.991ZM9 29H5c-1.1 0-2-.9-2-2V17c0-1.7 1.3-3 3-3s3 1.3 3 3V29zm18 0h-4V17c0-1.7 1.3-3 3-3s3 1.3 3 3v10c0 1.1-.9 2-2 2z" />
+                            <rect x="9" y="19" width="14" height="10"/>
+                            </svg>
+                        </button>
+                        <button type="button" class="seat" data-row="D" data-seat="10">
+                            <span class="seat-id">D10</span>
+                            <svg class="seat-svg" version="1.1" id="Icons" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 32 32" xml:space="preserve">
+                            <path d="M8.958 18.991c.474-1.911-.693-5.184-3.006-5.184V7.8C6 5.7 7.7 4 9.8 4h12.3C24.3 4 26 5.7 26 7.8V14c-1.565.169-2.915.742-2.996 4.994L8.958 18.991ZM9 29H5c-1.1 0-2-.9-2-2V17c0-1.7 1.3-3 3-3s3 1.3 3 3V29zm18 0h-4V17c0-1.7 1.3-3 3-3s3 1.3 3 3v10c0 1.1-.9 2-2 2z" />
+                            <rect x="9" y="19" width="14" height="10"/>
+                            </svg>
+                        </button>
+                        <button type="button" class="seat" data-row="E" data-seat="1">
+                            <span class="seat-id">E1</span>
+                            <svg class="seat-svg" version="1.1" id="Icons" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 32 32" xml:space="preserve">
+                            <path d="M8.958 18.991c.474-1.911-.693-5.184-3.006-5.184V7.8C6 5.7 7.7 4 9.8 4h12.3C24.3 4 26 5.7 26 7.8V14c-1.565.169-2.915.742-2.996 4.994L8.958 18.991ZM9 29H5c-1.1 0-2-.9-2-2V17c0-1.7 1.3-3 3-3s3 1.3 3 3V29zm18 0h-4V17c0-1.7 1.3-3 3-3s3 1.3 3 3v10c0 1.1-.9 2-2 2z" />
+                            <rect x="9" y="19" width="14" height="10"/>
+                            </svg>
+                        </button>
+                        <button type="button" class="seat" data-row="E" data-seat="2">
+                            <span class="seat-id">E2</span>
+                            <svg class="seat-svg" version="1.1" id="Icons" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 32 32" xml:space="preserve">
+                            <path d="M8.958 18.991c.474-1.911-.693-5.184-3.006-5.184V7.8C6 5.7 7.7 4 9.8 4h12.3C24.3 4 26 5.7 26 7.8V14c-1.565.169-2.915.742-2.996 4.994L8.958 18.991ZM9 29H5c-1.1 0-2-.9-2-2V17c0-1.7 1.3-3 3-3s3 1.3 3 3V29zm18 0h-4V17c0-1.7 1.3-3 3-3s3 1.3 3 3v10c0 1.1-.9 2-2 2z" />
+                            <rect x="9" y="19" width="14" height="10"/>
+                            </svg>
+                        </button>
+                        <button type="button" class="seat" data-row="E" data-seat="3">
+                            <span class="seat-id">E3</span>
+                            <svg class="seat-svg" version="1.1" id="Icons" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 32 32" xml:space="preserve">
+                            <path d="M8.958 18.991c.474-1.911-.693-5.184-3.006-5.184V7.8C6 5.7 7.7 4 9.8 4h12.3C24.3 4 26 5.7 26 7.8V14c-1.565.169-2.915.742-2.996 4.994L8.958 18.991ZM9 29H5c-1.1 0-2-.9-2-2V17c0-1.7 1.3-3 3-3s3 1.3 3 3V29zm18 0h-4V17c0-1.7 1.3-3 3-3s3 1.3 3 3v10c0 1.1-.9 2-2 2z" />
+                            <rect x="9" y="19" width="14" height="10"/>
+                            </svg>
+                        </button>
+                        <button type="button" class="seat" data-row="E" data-seat="4">
+                            <span class="seat-id">E4</span>
+                            <svg class="seat-svg" version="1.1" id="Icons" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 32 32" xml:space="preserve">
+                            <path d="M8.958 18.991c.474-1.911-.693-5.184-3.006-5.184V7.8C6 5.7 7.7 4 9.8 4h12.3C24.3 4 26 5.7 26 7.8V14c-1.565.169-2.915.742-2.996 4.994L8.958 18.991ZM9 29H5c-1.1 0-2-.9-2-2V17c0-1.7 1.3-3 3-3s3 1.3 3 3V29zm18 0h-4V17c0-1.7 1.3-3 3-3s3 1.3 3 3v10c0 1.1-.9 2-2 2z" />
+                            <rect x="9" y="19" width="14" height="10"/>
+                            </svg>
+                        </button>
+                        <button type="button" class="seat" data-row="E" data-seat="5">
+                            <span class="seat-id">E5</span>
+                            <svg class="seat-svg" version="1.1" id="Icons" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 32 32" xml:space="preserve">
+                            <path d="M8.958 18.991c.474-1.911-.693-5.184-3.006-5.184V7.8C6 5.7 7.7 4 9.8 4h12.3C24.3 4 26 5.7 26 7.8V14c-1.565.169-2.915.742-2.996 4.994L8.958 18.991ZM9 29H5c-1.1 0-2-.9-2-2V17c0-1.7 1.3-3 3-3s3 1.3 3 3V29zm18 0h-4V17c0-1.7 1.3-3 3-3s3 1.3 3 3v10c0 1.1-.9 2-2 2z" />
+                            <rect x="9" y="19" width="14" height="10"/>
+                            </svg>
+                        </button>
+                        <button type="button" class="seat" data-row="E" data-seat="6">
+                            <span class="seat-id">E6</span>
+                            <svg class="seat-svg" version="1.1" id="Icons" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 32 32" xml:space="preserve">
+                            <path d="M8.958 18.991c.474-1.911-.693-5.184-3.006-5.184V7.8C6 5.7 7.7 4 9.8 4h12.3C24.3 4 26 5.7 26 7.8V14c-1.565.169-2.915.742-2.996 4.994L8.958 18.991ZM9 29H5c-1.1 0-2-.9-2-2V17c0-1.7 1.3-3 3-3s3 1.3 3 3V29zm18 0h-4V17c0-1.7 1.3-3 3-3s3 1.3 3 3v10c0 1.1-.9 2-2 2z" />
+                            <rect x="9" y="19" width="14" height="10"/>
+                            </svg>
+                        </button>
+                        <button type="button" class="seat" data-row="E" data-seat="7">
+                            <span class="seat-id">E7</span>
+                            <svg class="seat-svg" version="1.1" id="Icons" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 32 32" xml:space="preserve">
+                            <path d="M8.958 18.991c.474-1.911-.693-5.184-3.006-5.184V7.8C6 5.7 7.7 4 9.8 4h12.3C24.3 4 26 5.7 26 7.8V14c-1.565.169-2.915.742-2.996 4.994L8.958 18.991ZM9 29H5c-1.1 0-2-.9-2-2V17c0-1.7 1.3-3 3-3s3 1.3 3 3V29zm18 0h-4V17c0-1.7 1.3-3 3-3s3 1.3 3 3v10c0 1.1-.9 2-2 2z" />
+                            <rect x="9" y="19" width="14" height="10"/>
+                            </svg>
+                        </button>
+                        <button type="button" class="seat" data-row="E" data-seat="8">
+                            <span class="seat-id">E8</span>
+                            <svg class="seat-svg" version="1.1" id="Icons" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 32 32" xml:space="preserve">
+                            <path d="M8.958 18.991c.474-1.911-.693-5.184-3.006-5.184V7.8C6 5.7 7.7 4 9.8 4h12.3C24.3 4 26 5.7 26 7.8V14c-1.565.169-2.915.742-2.996 4.994L8.958 18.991ZM9 29H5c-1.1 0-2-.9-2-2V17c0-1.7 1.3-3 3-3s3 1.3 3 3V29zm18 0h-4V17c0-1.7 1.3-3 3-3s3 1.3 3 3v10c0 1.1-.9 2-2 2z" />
+                            <rect x="9" y="19" width="14" height="10"/>
+                            </svg>
+                        </button>
+                        <button type="button" class="seat" data-row="E" data-seat="9">
+                            <span class="seat-id">E9</span>
+                            <svg class="seat-svg" version="1.1" id="Icons" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 32 32" xml:space="preserve">
+                            <path d="M8.958 18.991c.474-1.911-.693-5.184-3.006-5.184V7.8C6 5.7 7.7 4 9.8 4h12.3C24.3 4 26 5.7 26 7.8V14c-1.565.169-2.915.742-2.996 4.994L8.958 18.991ZM9 29H5c-1.1 0-2-.9-2-2V17c0-1.7 1.3-3 3-3s3 1.3 3 3V29zm18 0h-4V17c0-1.7 1.3-3 3-3s3 1.3 3 3v10c0 1.1-.9 2-2 2z" />
+                            <rect x="9" y="19" width="14" height="10"/>
+                            </svg>
+                        </button>
+                        <button type="button" class="seat" data-row="E" data-seat="10">
+                            <span class="seat-id">E10</span>
+                            <svg class="seat-svg" version="1.1" id="Icons" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 32 32" xml:space="preserve">
+                            <path d="M8.958 18.991c.474-1.911-.693-5.184-3.006-5.184V7.8C6 5.7 7.7 4 9.8 4h12.3C24.3 4 26 5.7 26 7.8V14c-1.565.169-2.915.742-2.996 4.994L8.958 18.991ZM9 29H5c-1.1 0-2-.9-2-2V17c0-1.7 1.3-3 3-3s3 1.3 3 3V29zm18 0h-4V17c0-1.7 1.3-3 3-3s3 1.3 3 3v10c0 1.1-.9 2-2 2z" />
+                            <rect x="9" y="19" width="14" height="10"/>
+                            </svg>
+                        </button>
+                        <button type="button" class="seat" data-row="F" data-seat="1">
+                            <span class="seat-id">F1</span>
+                            <svg class="seat-svg" version="1.1" id="Icons" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 32 32" xml:space="preserve">
+                            <path d="M8.958 18.991c.474-1.911-.693-5.184-3.006-5.184V7.8C6 5.7 7.7 4 9.8 4h12.3C24.3 4 26 5.7 26 7.8V14c-1.565.169-2.915.742-2.996 4.994L8.958 18.991ZM9 29H5c-1.1 0-2-.9-2-2V17c0-1.7 1.3-3 3-3s3 1.3 3 3V29zm18 0h-4V17c0-1.7 1.3-3 3-3s3 1.3 3 3v10c0 1.1-.9 2-2 2z" />
+                            <rect x="9" y="19" width="14" height="10"/>
+                            </svg>
+                        </button>
+                        <button type="button" class="seat" data-row="F" data-seat="2">
+                            <span class="seat-id">F2</span>
+                            <svg class="seat-svg" version="1.1" id="Icons" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 32 32" xml:space="preserve">
+                            <path d="M8.958 18.991c.474-1.911-.693-5.184-3.006-5.184V7.8C6 5.7 7.7 4 9.8 4h12.3C24.3 4 26 5.7 26 7.8V14c-1.565.169-2.915.742-2.996 4.994L8.958 18.991ZM9 29H5c-1.1 0-2-.9-2-2V17c0-1.7 1.3-3 3-3s3 1.3 3 3V29zm18 0h-4V17c0-1.7 1.3-3 3-3s3 1.3 3 3v10c0 1.1-.9 2-2 2z" />
+                            <rect x="9" y="19" width="14" height="10"/>
+                            </svg>
+                        </button>
+                        <button type="button" class="seat" data-row="F" data-seat="3">
+                            <span class="seat-id">F3</span>
+                            <svg class="seat-svg" version="1.1" id="Icons" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 32 32" xml:space="preserve">
+                            <path d="M8.958 18.991c.474-1.911-.693-5.184-3.006-5.184V7.8C6 5.7 7.7 4 9.8 4h12.3C24.3 4 26 5.7 26 7.8V14c-1.565.169-2.915.742-2.996 4.994L8.958 18.991ZM9 29H5c-1.1 0-2-.9-2-2V17c0-1.7 1.3-3 3-3s3 1.3 3 3V29zm18 0h-4V17c0-1.7 1.3-3 3-3s3 1.3 3 3v10c0 1.1-.9 2-2 2z" />
+                            <rect x="9" y="19" width="14" height="10"/>
+                            </svg>
+                        </button>
+                        <button type="button" class="seat" data-row="F" data-seat="4">
+                            <span class="seat-id">F4</span>
+                            <svg class="seat-svg" version="1.1" id="Icons" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 32 32" xml:space="preserve">
+                            <path d="M8.958 18.991c.474-1.911-.693-5.184-3.006-5.184V7.8C6 5.7 7.7 4 9.8 4h12.3C24.3 4 26 5.7 26 7.8V14c-1.565.169-2.915.742-2.996 4.994L8.958 18.991ZM9 29H5c-1.1 0-2-.9-2-2V17c0-1.7 1.3-3 3-3s3 1.3 3 3V29zm18 0h-4V17c0-1.7 1.3-3 3-3s3 1.3 3 3v10c0 1.1-.9 2-2 2z" />
+                            <rect x="9" y="19" width="14" height="10"/>
+                            </svg>
+                        </button>
+                        <button type="button" class="seat" data-row="F" data-seat="5">
+                            <span class="seat-id">F5</span>
+                            <svg class="seat-svg" version="1.1" id="Icons" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 32 32" xml:space="preserve">
+                            <path d="M8.958 18.991c.474-1.911-.693-5.184-3.006-5.184V7.8C6 5.7 7.7 4 9.8 4h12.3C24.3 4 26 5.7 26 7.8V14c-1.565.169-2.915.742-2.996 4.994L8.958 18.991ZM9 29H5c-1.1 0-2-.9-2-2V17c0-1.7 1.3-3 3-3s3 1.3 3 3V29zm18 0h-4V17c0-1.7 1.3-3 3-3s3 1.3 3 3v10c0 1.1-.9 2-2 2z" />
+                            <rect x="9" y="19" width="14" height="10"/>
+                            </svg>
+                        </button>
+                        <button type="button" class="seat" data-row="F" data-seat="6">
+                            <span class="seat-id">F6</span>
+                            <svg class="seat-svg" version="1.1" id="Icons" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 32 32" xml:space="preserve">
+                            <path d="M8.958 18.991c.474-1.911-.693-5.184-3.006-5.184V7.8C6 5.7 7.7 4 9.8 4h12.3C24.3 4 26 5.7 26 7.8V14c-1.565.169-2.915.742-2.996 4.994L8.958 18.991ZM9 29H5c-1.1 0-2-.9-2-2V17c0-1.7 1.3-3 3-3s3 1.3 3 3V29zm18 0h-4V17c0-1.7 1.3-3 3-3s3 1.3 3 3v10c0 1.1-.9 2-2 2z" />
+                            <rect x="9" y="19" width="14" height="10"/>
+                            </svg>
+                        </button>
+                        <button type="button" class="seat" data-row="F" data-seat="7">
+                            <span class="seat-id">F7</span>
+                            <svg class="seat-svg" version="1.1" id="Icons" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 32 32" xml:space="preserve">
+                            <path d="M8.958 18.991c.474-1.911-.693-5.184-3.006-5.184V7.8C6 5.7 7.7 4 9.8 4h12.3C24.3 4 26 5.7 26 7.8V14c-1.565.169-2.915.742-2.996 4.994L8.958 18.991ZM9 29H5c-1.1 0-2-.9-2-2V17c0-1.7 1.3-3 3-3s3 1.3 3 3V29zm18 0h-4V17c0-1.7 1.3-3 3-3s3 1.3 3 3v10c0 1.1-.9 2-2 2z" />
+                            <rect x="9" y="19" width="14" height="10"/>
+                            </svg>
+                        </button>
+                        <button type="button" class="seat" data-row="F" data-seat="8">
+                            <span class="seat-id">F8</span>
+                            <svg class="seat-svg" version="1.1" id="Icons" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 32 32" xml:space="preserve">
+                            <path d="M8.958 18.991c.474-1.911-.693-5.184-3.006-5.184V7.8C6 5.7 7.7 4 9.8 4h12.3C24.3 4 26 5.7 26 7.8V14c-1.565.169-2.915.742-2.996 4.994L8.958 18.991ZM9 29H5c-1.1 0-2-.9-2-2V17c0-1.7 1.3-3 3-3s3 1.3 3 3V29zm18 0h-4V17c0-1.7 1.3-3 3-3s3 1.3 3 3v10c0 1.1-.9 2-2 2z" />
+                            <rect x="9" y="19" width="14" height="10"/>
+                            </svg>
+                        </button>
+                        <button type="button" class="seat" data-row="F" data-seat="9">
+                            <span class="seat-id">F9</span>
+                            <svg class="seat-svg" version="1.1" id="Icons" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 32 32" xml:space="preserve">
+                            <path d="M8.958 18.991c.474-1.911-.693-5.184-3.006-5.184V7.8C6 5.7 7.7 4 9.8 4h12.3C24.3 4 26 5.7 26 7.8V14c-1.565.169-2.915.742-2.996 4.994L8.958 18.991ZM9 29H5c-1.1 0-2-.9-2-2V17c0-1.7 1.3-3 3-3s3 1.3 3 3V29zm18 0h-4V17c0-1.7 1.3-3 3-3s3 1.3 3 3v10c0 1.1-.9 2-2 2z" />
+                            <rect x="9" y="19" width="14" height="10"/>
+                            </svg>
+                        </button>
+                        <button type="button" class="seat" data-row="F" data-seat="10">
+                            <span class="seat-id">F10</span>
+                            <svg class="seat-svg" version="1.1" id="Icons" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 32 32" xml:space="preserve">
+                            <path d="M8.958 18.991c.474-1.911-.693-5.184-3.006-5.184V7.8C6 5.7 7.7 4 9.8 4h12.3C24.3 4 26 5.7 26 7.8V14c-1.565.169-2.915.742-2.996 4.994L8.958 18.991ZM9 29H5c-1.1 0-2-.9-2-2V17c0-1.7 1.3-3 3-3s3 1.3 3 3V29zm18 0h-4V17c0-1.7 1.3-3 3-3s3 1.3 3 3v10c0 1.1-.9 2-2 2z" />
+                            <rect x="9" y="19" width="14" height="10"/>
+                            </svg>
+                        </button>
+                        <button type="button" class="seat" data-row="G" data-seat="1">
+                            <span class="seat-id">G1</span>
+                            <svg class="seat-svg" version="1.1" id="Icons" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 32 32" xml:space="preserve">
+                            <path d="M8.958 18.991c.474-1.911-.693-5.184-3.006-5.184V7.8C6 5.7 7.7 4 9.8 4h12.3C24.3 4 26 5.7 26 7.8V14c-1.565.169-2.915.742-2.996 4.994L8.958 18.991ZM9 29H5c-1.1 0-2-.9-2-2V17c0-1.7 1.3-3 3-3s3 1.3 3 3V29zm18 0h-4V17c0-1.7 1.3-3 3-3s3 1.3 3 3v10c0 1.1-.9 2-2 2z" />
+                            <rect x="9" y="19" width="14" height="10"/>
+                            </svg>
+                        </button>
+                        <button type="button" class="seat" data-row="G" data-seat="2">
+                            <span class="seat-id">G2</span>
+                            <svg class="seat-svg" version="1.1" id="Icons" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 32 32" xml:space="preserve">
+                            <path d="M8.958 18.991c.474-1.911-.693-5.184-3.006-5.184V7.8C6 5.7 7.7 4 9.8 4h12.3C24.3 4 26 5.7 26 7.8V14c-1.565.169-2.915.742-2.996 4.994L8.958 18.991ZM9 29H5c-1.1 0-2-.9-2-2V17c0-1.7 1.3-3 3-3s3 1.3 3 3V29zm18 0h-4V17c0-1.7 1.3-3 3-3s3 1.3 3 3v10c0 1.1-.9 2-2 2z" />
+                            <rect x="9" y="19" width="14" height="10"/>
+                            </svg>
+                        </button>
+                        <button type="button" class="seat invisible" data-row="G" data-seat="3">
+                            <span class="seat-id">G3</span>
+                            <svg class="seat-svg" version="1.1" id="Icons" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 32 32" xml:space="preserve">
+                            <path d="M8.958 18.991c.474-1.911-.693-5.184-3.006-5.184V7.8C6 5.7 7.7 4 9.8 4h12.3C24.3 4 26 5.7 26 7.8V14c-1.565.169-2.915.742-2.996 4.994L8.958 18.991ZM9 29H5c-1.1 0-2-.9-2-2V17c0-1.7 1.3-3 3-3s3 1.3 3 3V29zm18 0h-4V17c0-1.7 1.3-3 3-3s3 1.3 3 3v10c0 1.1-.9 2-2 2z" />
+                            <rect x="9" y="19" width="14" height="10"/>
+                            </svg>
+                        </button>
+                        <button type="button" class="seat invisible" data-row="G" data-seat="4">
+                            <span class="seat-id">G4</span>
+                            <svg class="seat-svg" version="1.1" id="Icons" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 32 32" xml:space="preserve">
+                            <path d="M8.958 18.991c.474-1.911-.693-5.184-3.006-5.184V7.8C6 5.7 7.7 4 9.8 4h12.3C24.3 4 26 5.7 26 7.8V14c-1.565.169-2.915.742-2.996 4.994L8.958 18.991ZM9 29H5c-1.1 0-2-.9-2-2V17c0-1.7 1.3-3 3-3s3 1.3 3 3V29zm18 0h-4V17c0-1.7 1.3-3 3-3s3 1.3 3 3v10c0 1.1-.9 2-2 2z" />
+                            <rect x="9" y="19" width="14" height="10"/>
+                            </svg>
+                        </button>
+                        <button type="button" class="seat invisible" data-row="G" data-seat="5">
+                            <span class="seat-id">G5</span>
+                            <svg class="seat-svg" version="1.1" id="Icons" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 32 32" xml:space="preserve">
+                            <path d="M8.958 18.991c.474-1.911-.693-5.184-3.006-5.184V7.8C6 5.7 7.7 4 9.8 4h12.3C24.3 4 26 5.7 26 7.8V14c-1.565.169-2.915.742-2.996 4.994L8.958 18.991ZM9 29H5c-1.1 0-2-.9-2-2V17c0-1.7 1.3-3 3-3s3 1.3 3 3V29zm18 0h-4V17c0-1.7 1.3-3 3-3s3 1.3 3 3v10c0 1.1-.9 2-2 2z" />
+                            <rect x="9" y="19" width="14" height="10"/>
+                            </svg>
+                        </button>
+                        <button type="button" class="seat invisible" data-row="G" data-seat="6">
+                            <span class="seat-id">G6</span>
+                            <svg class="seat-svg" version="1.1" id="Icons" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 32 32" xml:space="preserve">
+                            <path d="M8.958 18.991c.474-1.911-.693-5.184-3.006-5.184V7.8C6 5.7 7.7 4 9.8 4h12.3C24.3 4 26 5.7 26 7.8V14c-1.565.169-2.915.742-2.996 4.994L8.958 18.991ZM9 29H5c-1.1 0-2-.9-2-2V17c0-1.7 1.3-3 3-3s3 1.3 3 3V29zm18 0h-4V17c0-1.7 1.3-3 3-3s3 1.3 3 3v10c0 1.1-.9 2-2 2z" />
+                            <rect x="9" y="19" width="14" height="10"/>
+                            </svg>
+                        </button>
+                        <button type="button" class="seat invisible" data-row="G" data-seat="7">
+                            <span class="seat-id">G7</span>
+                            <svg class="seat-svg" version="1.1" id="Icons" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 32 32" xml:space="preserve">
+                            <path d="M8.958 18.991c.474-1.911-.693-5.184-3.006-5.184V7.8C6 5.7 7.7 4 9.8 4h12.3C24.3 4 26 5.7 26 7.8V14c-1.565.169-2.915.742-2.996 4.994L8.958 18.991ZM9 29H5c-1.1 0-2-.9-2-2V17c0-1.7 1.3-3 3-3s3 1.3 3 3V29zm18 0h-4V17c0-1.7 1.3-3 3-3s3 1.3 3 3v10c0 1.1-.9 2-2 2z" />
+                            <rect x="9" y="19" width="14" height="10"/>
+                            </svg>
+                        </button>
+                        <button type="button" class="seat invisible" data-row="G" data-seat="8">
+                            <span class="seat-id">G8</span>
+                            <svg class="seat-svg" version="1.1" id="Icons" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 32 32" xml:space="preserve">
+                            <path d="M8.958 18.991c.474-1.911-.693-5.184-3.006-5.184V7.8C6 5.7 7.7 4 9.8 4h12.3C24.3 4 26 5.7 26 7.8V14c-1.565.169-2.915.742-2.996 4.994L8.958 18.991ZM9 29H5c-1.1 0-2-.9-2-2V17c0-1.7 1.3-3 3-3s3 1.3 3 3V29zm18 0h-4V17c0-1.7 1.3-3 3-3s3 1.3 3 3v10c0 1.1-.9 2-2 2z" />
+                            <rect x="9" y="19" width="14" height="10"/>
+                            </svg>
+                        </button>
+                        <button type="button" class="seat" data-row="G" data-seat="9">
+                            <span class="seat-id">G9</span>
+                            <svg class="seat-svg" version="1.1" id="Icons" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 32 32" xml:space="preserve">
+                            <path d="M8.958 18.991c.474-1.911-.693-5.184-3.006-5.184V7.8C6 5.7 7.7 4 9.8 4h12.3C24.3 4 26 5.7 26 7.8V14c-1.565.169-2.915.742-2.996 4.994L8.958 18.991ZM9 29H5c-1.1 0-2-.9-2-2V17c0-1.7 1.3-3 3-3s3 1.3 3 3V29zm18 0h-4V17c0-1.7 1.3-3 3-3s3 1.3 3 3v10c0 1.1-.9 2-2 2z" />
+                            <rect x="9" y="19" width="14" height="10"/>
+                            </svg>
+                        </button>
+                        <button type="button" class="seat" data-row="G" data-seat="10">
+                            <span class="seat-id">G10</span>
+                            <svg class="seat-svg" version="1.1" id="Icons" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 32 32" xml:space="preserve">
+                            <path d="M8.958 18.991c.474-1.911-.693-5.184-3.006-5.184V7.8C6 5.7 7.7 4 9.8 4h12.3C24.3 4 26 5.7 26 7.8V14c-1.565.169-2.915.742-2.996 4.994L8.958 18.991ZM9 29H5c-1.1 0-2-.9-2-2V17c0-1.7 1.3-3 3-3s3 1.3 3 3V29zm18 0h-4V17c0-1.7 1.3-3 3-3s3 1.3 3 3v10c0 1.1-.9 2-2 2z" />
+                            <rect x="9" y="19" width="14" height="10"/>
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+                <div class="seat-keys flex-row">
+                    <div class="seat seat-key flex-row">
+                        <svg class="seat-svg" version="1.1" id="Icons" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 32 32" xml:space="preserve"><path d="M8.958 18.991c.474-1.911-.693-5.184-3.006-5.184V7.8C6 5.7 7.7 4 9.8 4h12.3C24.3 4 26 5.7 26 7.8V14c-1.565.169-2.915.742-2.996 4.994L8.958 18.991ZM9 29H5c-1.1 0-2-.9-2-2V17c0-1.7 1.3-3 3-3s3 1.3 3 3V29zm18 0h-4V17c0-1.7 1.3-3 3-3s3 1.3 3 3v10c0 1.1-.9 2-2 2z" /><rect x="9" y="19" width="14" height="10"/>
+                        </svg>
+                        <span>Available</span>
+                    </div>
+                    <div class="seat seat-key selected flex-row"><svg class="seat-svg" version="1.1" id="Icons" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 32 32" xml:space="preserve"><path d="M8.958 18.991c.474-1.911-.693-5.184-3.006-5.184V7.8C6 5.7 7.7 4 9.8 4h12.3C24.3 4 26 5.7 26 7.8V14c-1.565.169-2.915.742-2.996 4.994L8.958 18.991ZM9 29H5c-1.1 0-2-.9-2-2V17c0-1.7 1.3-3 3-3s3 1.3 3 3V29zm18 0h-4V17c0-1.7 1.3-3 3-3s3 1.3 3 3v10c0 1.1-.9 2-2 2z" /><rect x="9" y="19" width="14" height="10"/></svg>
+                        <span>Selected</span>
+                    </div>
+                    <div class="seat seat-key reserved flex-row"><svg class="seat-svg" version="1.1" id="Icons" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 32 32" xml:space="preserve"><path d="M8.958 18.991c.474-1.911-.693-5.184-3.006-5.184V7.8C6 5.7 7.7 4 9.8 4h12.3C24.3 4 26 5.7 26 7.8V14c-1.565.169-2.915.742-2.996 4.994L8.958 18.991ZM9 29H5c-1.1 0-2-.9-2-2V17c0-1.7 1.3-3 3-3s3 1.3 3 3V29zm18 0h-4V17c0-1.7 1.3-3 3-3s3 1.3 3 3v10c0 1.1-.9 2-2 2z" /><rect x="9" y="19" width="14" height="10"/></svg>
+                        <span>Occupied</span>
+                    </div>
+                    <div class="seat seat-key reserved flex-row"><svg class="seat-svg" version="1.1" id="Icons" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 32 32" xml:space="preserve"><path d="M8.958 18.991c.474-1.911-.693-5.184-3.006-5.184V7.8C6 5.7 7.7 4 9.8 4h12.3C24.3 4 26 5.7 26 7.8V14c-1.565.169-2.915.742-2.996 4.994L8.958 18.991ZM9 29H5c-1.1 0-2-.9-2-2V17c0-1.7 1.3-3 3-3s3 1.3 3 3V29zm18 0h-4V17c0-1.7 1.3-3 3-3s3 1.3 3 3v10c0 1.1-.9 2-2 2z" /><rect x="9" y="19" width="14" height="10"/></svg>
+                        <span>Wheelchair</span>
+                    </div>
+                </div>
+            </section>
+           <div>
+             <p class="selection"><span class="selection-quantity">0</span> Seats Selected</p> 
+             <div class="tickets">
+            <div class="ticket flex-row" data-type="Adult">
+                <p>Adult</p>
+                <span class="ticket-price" data-price="13.50">$13.50</span>
+                <div class="counter flex-row">
+                    <button class="decrement counter-button type="button" data-change="0" aria-label="Quantity decrement">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16"><path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16"/><path d="M4 8a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7A.5.5 0 0 1 4 8"/></svg>
+                    </button>
+                    <span class="counter-value" data-quantity="0" aria-live="polite">0</span>
+                    <button class="increment counter-button" type="button" aria-label="Quantity increment">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-circle" viewBox="0 0 16 16">
+                        <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16"/>
+                        <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4"/>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+            <div class="ticket flex-row" data-type="Child">
+                <p>Child</p>
+                <span class="ticket-price" data-price="9.50">$9.50</span>
+                <div class="counter flex-row">
+                    <button class="decrement counter-button" type="button" data-change="0" aria-label="Quantity decrement">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-dash-circle" viewBox="0 0 16 16"><path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16"/><path d="M4 8a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7A.5.5 0 0 1 4 8"/></svg>
+                    </button>
+                    <span class="counter-value" data-quantity="0" aria-live="polite">0</span>
+                    <button class="increment counter-button" type="button" aria-label="Quantity increment">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-circle" viewBox="0 0 16 16">
+                        <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16"/>
+                        <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4"/>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+            <div class="ticket flex-row" data-type="Senior">
+                <p>Senior</p>
+                <span class="ticket-price" data-price="9.50">$9.50</span>
+                <div class="counter flex-row">
+                    <button class="decrement counter-button type="button" data-change="0" aria-label="Quantity decrement">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-dash-circle" viewBox="0 0 16 16"><path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16"/><path d="M4 8a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7A.5.5 0 0 1 4 8"/></svg>
+                    </button>
+                    <span class="counter-value" data-quantity="0" aria-live="polite">0</span>
+                    <button class="increment counter-button" type="button" aria-label="Quantity increment">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-circle" viewBox="0 0 16 16">
+                        <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16"/>
+                        <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4"/>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+            </div>
+           </div>
+        </main>
+
+        <footer class="footer flex-column">
+            <div class="ticket-summary flex-row" role="contentinfo" aria-label="Ticket summary">
+                <p class="ticket-quantity">Select Tickets</p>
+                <p>Subtotal: $<span class="subtotal" aria-live="polite" aria-atomic="true">0.00</span></p>
+            </div>
+            <nav class="button-group flex-row" role="group" aria-label="Footer navigation buttons">
+                <a href="concessions.html" class="button">Food & Drinks</a>
+                <a href="checkout.html" class="button">Checkout</a>
+            </nav>
+        </footer>
+    </div>
+</body>
+</html>

@@ -1,0 +1,143 @@
+.zoom-btn {
+    width: 1.5rem;
+    height: 1.5rem;
+    border: 1.25px solid rgb(255, 255, 255);
+    border-radius: 50%;
+}
+
+.zoom-btn svg {
+    display: flex;
+    margin: auto;
+    width: 1rem;
+    stroke: white;
+}
+
+.hidden {
+    display: none;
+}
+
+.map-container {
+    width: 21rem;
+    overflow: auto;
+}
+
+.seat-map {
+    display: grid;
+    grid-template-columns: repeat(10, auto);
+    row-gap: 0.25rem;
+    column-gap: 0.5rem;
+    justify-content: center;
+    width: 100%;
+}
+
+.seat-map.zoom {
+    transform: scale(1.25);
+    transform-origin: top left;
+}
+
+.seat {
+    display: flex;
+    color: hsl(210.36, 46.37%, 35.1%);
+    width: 1.5rem;
+    height: 1.5rem;
+    cursor: pointer;
+    border-radius: 4px;
+    justify-content: center;
+    line-height: 1.875rem;
+    position: relative;
+}
+
+.seat-id {
+    position: absolute;
+    color: white;
+    font-size: 0.625rem;
+    font-weight: bold;
+}
+
+.seat-svg {
+    fill: currentColor;
+    stroke: #000;
+    stroke-width: 2;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+}
+.seat-key {
+    width: 100%;
+}
+
+.seat.selected {
+    color: hsl(30, 100%, 40%);
+}
+
+.seat.reserved {
+    color: hsl(209, 25%, 81%);
+    pointer-events: none;
+    opacity: 0.6;
+}
+
+.seat.invisible {
+    visibility: hidden;
+}
+
+.ticket-summary {
+    justify-content: space-between;
+    width: 100%;
+}
+
+.counter {
+    width: fit-content;
+    gap: 1rem;
+}
+
+.counter-button {
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    justify-items: center;
+}
+
+.decrement {
+    background-color: transparent;
+    opacity: 0.5;
+}
+
+.decrement.active {
+    opacity: 1;
+}
+
+.tickets {
+    width: 100%;
+}
+
+.ticket {
+    width: 100%;
+    justify-content: space-between;
+}
+
+.footer {
+    position: fixed;
+    bottom: 0;
+    width: inherit;
+    background-color: $primary-700;
+    padding: $sp-200 $sp-300 $sp-0 $sp-300;
+    gap: $sp-150;
+    height: 120px;
+}
+
+.button-group {
+    gap: $sp-200;
+}
+
+.button-group .button {
+    padding: $sp-100 $sp-200;
+    background-color: $accent-700;
+    border-radius: 12px;
+    width: 100%;
+}
+
+.button-group .button:first-child {
+    background-color: $neutral-50;
+    color: $accent-700;
+    border: 1px solid $accent-700;
+}
+

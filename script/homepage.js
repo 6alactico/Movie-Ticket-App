@@ -2,13 +2,12 @@ const moviesWrapper = document.getElementById("movies-wrapper");
 const searchInput = document.getElementById("search");
 const searchResults = document.getElementById("search-results");
 
-const nowPlaying = [
-  1087192, 1061474, 1083433, 1234821, 911430, 1100988, 1022787,
-];
+const nowPlaying = [ 1087192, 1061474, 1083433, 1234821, 911430, 1100988, 1022787];
 const comingSoon = [617126, 1035259, 1175942, 1339658, 1125257];
 
 let allMovieDetails = {};
 let currentList = nowPlaying;
+let debounceTimeout;
 
 async function preloadAllMovies() {
   const allIds = [...nowPlaying, ...comingSoon];
@@ -22,49 +21,34 @@ async function preloadAllMovies() {
     })
   );
 
-  movies.forEach((movie) => {
-    allMovieDetails[movie.id] = movie;
-  });
+  movies.forEach(m => { allMovieDetails[m.id] = m; });
   movieContainers(currentList);
   setupButtons();
-  console.log(movies);
 }
 
-function movieContainers(movieIds, isComingSoon = false) {
+function movieContainers(ids, isComingSoon = false) {
   moviesWrapper.innerHTML = "";
-  movieIds.forEach((id) => {
-    const movie = allMovieDetails[id];
-    if (!movie) return;
+  ids.forEach((id) => {
+    const m = allMovieDetails[id];
+    if (!m) return;
 
-    const movieHTML = `
-          <div class="movie-container">
-                <a class="movie-poster" href="showtimes-and-details.html?id=${
-                  movie.id
-                }">
-                <img src="${IMAGE_BASE_URL + movie.poster_path}" alt="${
-      movie.title
-    } Poster">
-                ${
-                  isComingSoon && movie.release_date
-                    ? `<p class="release-date">Coming ${movie.release_date.substring(
-                        6,
-                        10
-                      )}</p>`
-                    : ""
-                }
-                </a>
-            <div class="movie-text">
-              <h2><a href="">${movie.title}</a></h2>
-                <div class="flex-row">
-                  <p>${movie.certification || "NR"}</p>
-                  <span>&bull;</span>
-                  <p>${convertRuntime(movie.runtime)}</p>
-                </div>
+    moviesWrapper.insertAdjacentHTML("beforeend", `
+      <div class="movie-item flex-column">
+        <a class="movie-poster" href="showtimes-and-details.html?id=${m.id}">
+          <img src="${IMAGE_BASE_URL + m.poster_path}" alt="${m.title} Poster">
+          ${isComingSoon && m.release_date ? `<p class="release-date">Coming ${m.release_date.substring(6, 10)}</p>`: ""}
+        </a>
+        <div class="movie-text">
+          <a class="movie-title" href="showtimes-and-details.html?id=${m.id}">${m.title}</a>
+            <div class="flex-row">
+              <p>${m.certification || "NR"}</p>
+              <span>&bull;</span>
+              <p>${convertRuntime(m.runtime)}</p>
             </div>
-          </div>
-        `;
-    moviesWrapper.insertAdjacentHTML("beforeend", movieHTML);
-    console.log(movie.genres[0]);
+        </div>
+      </div>
+    `);
+    console.log(m.genres[0]);
   });
 }
 
@@ -72,10 +56,15 @@ function displaySearchResults(movies) {
   searchResults.classList.remove("hidden");
   searchResults.innerHTML = "";
 
-  movies.forEach((movie) => {
-    const el = document.createElement("p");
-    el.textContent = movie.title;
-    searchResults.appendChild(el);
+  movies.forEach(m => {
+    const searchResult = document.createElement("p");
+    searchResult.className = "search-result";
+    searchResult.textContent = m.title;
+    searchResult.tabIndex = 0;
+    searchResult.addEventListener("click", () => window.location.href = `showtimes-and-details.html?id=${m.id}`);
+    searchResult.addEventListener("keypress", e => { if (e.key === "Enter") window.location.href = `showtimes-and-details.html?id=${m.id}`; });
+
+    searchResults.appendChild(searchResult);
   });
 }
 
@@ -85,28 +74,22 @@ function clearSearchResults() {
 }
 
 function searchMovie(query) {
-  if (!query) {
-    clearSearchResults();
-    return;
-  }
-
-  const lowerQuery = query.toLowerCase();
-  const matches = Object.values(allMovieDetails).filter((movie) =>
-    movie.title.toLowerCase().includes(lowerQuery)
-  );
-
+  if (!query) return clearSearchResults();
+  const q = query.toLowerCase();
+  const matches = Object.values(allMovieDetails).filter(m => m.title.toLowerCase().includes(q));
   displaySearchResults(matches);
 }
 
-searchInput.addEventListener("keypress", (event) => {
-  if (event.key === "Enter") {
-    event.preventDefault();
-    searchMovie(event.target.value.trim());
-  }
+searchInput.addEventListener("input", (e) => {
+  clearTimeout(debounceTimeout);
+  debounceTimeout = setTimeout(() => searchMovie(e.target.value.trim()), 300);
 });
 
-searchInput.addEventListener("input", (event) => {
-  searchMovie(event.target.value.trim());
+searchInput.addEventListener("keypress", (e) => {
+  if (e.key === "Enter") {
+    e.preventDefault();
+    searchMovie(e.target.value.trim());
+  }
 });
 
 preloadAllMovies();

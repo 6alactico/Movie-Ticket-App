@@ -42,6 +42,10 @@ span {
     width: fit-content;
 }
 
+::-webkit-scrollbar {
+  display: none;
+}
+
 .flex-column {
     display: flex;
     flex-direction: column;
@@ -51,45 +55,62 @@ span {
     display: flex;
 }
 
-#app-container {
+.app-container {
     position: relative;
     height: 100vh;
     width: 23.438rem;
+    background-color: $primary-800;
     color: $neutral-50;
+    overflow: hidden;
 }
 
 #status-bar {
-    height: 50px;
-    background-color: $primary-700;
     position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    z-index: 999;
+    inset: 0;
+    height: 50px;
     width: inherit;
+    background-color: $primary-700;
+    z-index: 1000;
 }
 
-main {
-    padding: $sp-300 $sp-200;
-    gap: 16px;
-    overflow-x: hidden;
-    height: 100%;
-    width: 100%;
+.screens-container {
+    flex: 1;
+    margin-top: 50px;
     position: relative;
-    background-color: $primary-800;
-}
-
-.movies-page {
-    margin-bottom: 4rem;
-    margin-top: 11.875rem;
 }
 
 .screen {
-    display: block;
-    position: relative;
+    position: absolute;
+    inset: 0;
+
+    .movies-screen {
+        padding: $sp-200 $sp-200 $sp-1000;
+    }  
+}
+
+.showtimes-and-details-screen {
+    padding: $sp-400 $sp-200 $sp-1000;
+}
+
+.seats-and-tickets-screen {
+    margin-top: 112px;
+    padding: $sp-400 $sp-200 $sp-1000;
+}
+
+.checkout-screen {
+    margin-top: 94px;
     height: 100%;
 }
 
 .screen.hidden {
     display: none;
+}
+
+.scrollable-content {
+  flex: 1;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin-top: 144px;
 }

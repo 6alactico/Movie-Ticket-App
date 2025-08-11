@@ -1,0 +1,21 @@
+{
+  "name": "movie-ticket-app",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "sass": "sass --watch styles/main.scss styles/main.css --load-path=./styles"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/6alactico/Movie-Ticket-App.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/6alactico/Movie-Ticket-App/issues"
+  },
+  "homepage": "https://github.com/6alactico/Movie-Ticket-App#readme",
+  "description": ""
+}

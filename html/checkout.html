@@ -4,97 +4,173 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/styles/main.css">
-    <script defer src="/script/api.js"></script>
-    <script defer src="/script/checkout.js"></script>
-    <title>Document</title>
+    <script type="module" src="/script/checkout.js"></script>
+    <title>Checkout</title>
 </head>
 <body>
-     <div class="app-container flex-column">
-        <div id="status-bar"></div>
-        <header class="checkout-header flex-row">
-            <a href="seats-and-tickets.html" id="back-button" class="flex-row">
-                <svg class="flex-row" width="24" height="24" viewBox="0 0 11 18" xmlns="http://www.w3.org/2000/svg">
-                <path d="M0 9.00001C0 9.24483 0.101227 9.46027 0.314929 9.64632L9.23415 17.2357C9.42535 17.4119 9.67281 17.5 9.96523 17.5C10.5501 17.5 11 17.1181 11 16.6089C11 16.3542 10.8763 16.1388 10.6963 15.9724L2.50818 9.00001L10.6963 2.02765C10.8763 1.86118 11 1.63594 11 1.39113C11 0.881913 10.5501 0.5 9.96523 0.5C9.67281 0.5 9.42535 0.588134 9.23415 0.754608L0.314929 8.3537C0.101227 8.52996 0 8.75519 0 9.00001Z"/>
+    <div class="flex-column app-container">
+    <div class="status-bar"></div>
+        <header class="flex-row checkout-header">
+            <a href="seats-and-tickets.html" class="flex-row back-button">
+                <svg class="flex-row svg" width="24" height="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M0 9.00001C0 9.24483 0.101227 9.46027 0.314929 9.64632L9.23415 17.2357C9.42535 17.4119 9.67281 17.5 9.96523 17.5C10.5501 17.5 11 17.1181 11 16.6089C11 16.3542 10.8763 16.1388 10.6963 15.9724L2.50818 9.00001L10.6963 2.02765C10.8763 1.86118 11 1.63594 11 1.39113C11 0.881913 10.5501 0.5 9.96523 0.5C9.67281 0.5 9.42535 0.588134 9.23415 0.754608L0.314929 8.3537C0.101227 8.52996 0 8.75519 0 9.00001Z"/>
                 </svg>
             </a>
-            <div>
-                <h1>Checkout</h1>
-            </div>
-            <a href="movies.html">
-                <svg id="close-btn" class="close-button" width="24" height="24" viewBox="0 0 15 16" xmlns="http://www.w3.org/2000/svg">
-                <path d="M0.24477 14.9969C0.575843 15.3186 1.12448 15.3186 1.44609 14.9969L7.49999 8.94203L13.5539 14.9969C13.8755 15.3186 14.4336 15.328 14.7552 14.9969C15.0768 14.6657 15.0768 14.1265 14.7552 13.8049L8.70131 7.74052L14.7552 1.68566C15.0768 1.36399 15.0863 0.815268 14.7552 0.493603C14.4242 0.162478 13.8755 0.162478 13.5539 0.493603L7.49999 6.54847L1.44609 0.493603C1.12448 0.162478 0.566383 0.153017 0.24477 0.493603C-0.0768433 0.824729 -0.0768433 1.36399 0.24477 1.68566L6.29867 7.74052L0.24477 13.8049C-0.0768433 14.1265 -0.0863026 14.6752 0.24477 14.9969Z" fill="#000A14"/>
+            <h1 class="checkout-header__title">Checkout</h1>
+            <a href="movies.html" class="flex-row close-button">
+               <svg class="flex-row" width="24" height="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M.245 14.997a.868.868 0 0 0 1.201 0L7.5 8.942l6.054 6.055c.322.322.88.331 1.201 0a.857.857 0 0 0 0-1.192L8.701 7.74l6.054-6.055a.848.848 0 0 0 0-1.192.85.85 0 0 0-1.201 0L7.5 6.548 1.446.494a.842.842 0 0 0-1.201 0 .857.857 0 0 0 0 1.192L6.299 7.74.245 13.805a.848.848 0 0 0 0 1.192Z"/>
                 </svg>
             </a>
         </header>
-        <main id="checkout-main" class="checkout-screen">
-            <section>
-                <div>
-                    <h2 class="movie-title"></h2>
-                    <div class="flex-row date-time-display">
-                        <p class="checkout-movie-info">
-                        </p>
-                        <a href="showtimes-and-details.html" role="button" class="edit-button">
-                            <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M2.4842 11.1664l8.1056-8.1612L8.9986 1.3945.8838 9.5557.02 11.5966c-.0909.2197.1455.4759.3637.3843l2.1005-.8145Zm8.663-8.7054.4846-.4722c.4637-.4668.491-.9701.0728-1.3911L11.3953.2865c-.4091-.4118-.9092-.3752-1.373.0824L9.5378.8502 11.1472 2.461Z" fill="#FF9830"/>
-                            </svg>
-                        </a>
-                    </div>
-                    <div class="flex-row selected-seats-display">
-                        <p>Seats: <span class="selected-seats"></span></p>
-                        <a href="seats-and-tickets.html" role="button" class="edit-button">
-                            <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M2.4842 11.1664l8.1056-8.1612L8.9986 1.3945.8838 9.5557.02 11.5966c-.0909.2197.1455.4759.3637.3843l2.1005-.8145Zm8.663-8.7054.4846-.4722c.4637-.4668.491-.9701.0728-1.3911L11.3953.2865c-.4091-.4118-.9092-.3752-1.373.0824L9.5378.8502 11.1472 2.461Z" fill="#FF9830"/>
-                            </svg>
-                        </a>
-                    </div>
-                </div>
-                <div class="order-summary">
-                    <div class="flex-row order-summary-header">
-                        <div>
-                            <h3>Order Summary</h3>
-                            <button type="button" id="dropdown-btn">
-                                <svg width="14" height="7" viewBox="0 0 14 7" fill="none" xmlns="http://www.w3.org/2000/svg">
+
+        <main class="flex-column checkout">
+            <div>
+                <section class="flex-column checkout__movie-details">
+                    <h2 class="checkout__movie-title"></h2>
+                        <ul class="checkout__info-list">
+                            <li class="flex-row checkout__info-item">
+                                <span class="checkout__movie-format"></span>
+                                <span aria-hidden="true">&bull;</span>
+                                <span class="checkout__movie-date"></span>
+                                at
+                                <span class="checkout__movie-time"></span>
+                                <!-- Selected movie time will be inserted dynamically -->
+                                <a href="showtimes-and-details.html" id="checkout__edit-time" role="button" class="checkout__edit-button">
+                                   <svg width="24" height="24" viewBox="-6 -6 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M2.4842 11.1664l8.1056-8.1612L8.9986 1.3945.8838 9.5557.02 11.5966c-.0909.2197.1455.4759.3637.3843l2.1005-.8145Zm8.663-8.7054.4846-.4722c.4637-.4668.491-.9701.0728-1.3911L11.3953.2865c-.4091-.4118-.9092-.3752-1.373.0824L9.5378.8502 11.1472 2.461Z" fill="#FF9830"/>
+                                    </svg>
+                                </a>
+                            </li>
+                            
+                            <li class="flex-row checkout__info-item">Seats: <span class="flex-row checkout__selected-seats"></span>
+                                <a href="seats-and-tickets.html" id="checkout__edit-seats" class="checkout__edit-button" role="button" >
+                                    <svg width="24" height="24" viewBox="-6 -6 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M2.4842 11.1664l8.1056-8.1612L8.9986 1.3945.8838 9.5557.02 11.5966c-.0909.2197.1455.4759.3637.3843l2.1005-.8145Zm8.663-8.7054.4846-.4722c.4637-.4668.491-.9701.0728-1.3911L11.3953.2865c-.4091-.4118-.9092-.3752-1.373.0824L9.5378.8502 11.1472 2.461Z" fill="#FF9830"/>
+                                    </svg>
+                                </a>
+                            </li>
+                        </ul>
+                    <div class="checkout__movie-poster"><img src="" alt="Image holder"></div>
+                </section>
+                <section class="order-summary">
+                    <div class="flex-row order-summary__header">
+                        <h2 class="flex-row order-summary__title">Order Summary
+                            <button type="button" id="order-summary__dropdown-button">
+                                <svg width="24" height="24" viewBox="-6 -10 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                                 <path d="M7.0037 7c-.1896 0-.3592-.0692-.5089-.2076L.7021 1.1237C.6372 1.0617.5873.9925.5524.9162.5175.835.5.7491.5.6585.5.5344.5299.4223.5898.3221.6497.2219.7295.1431.8293.0859.9341.0286 1.0513 0 1.1811 0c.1896 0 .3518.062.4865.1861L7.4004 5.7904H6.5996L12.3325.1861C12.4722.062 12.6343 0 12.8189 0c.1298 0 .2445.0286.3443.0859.1048.0573.1871.136.247.2362.0599.1002.0898.2123.0898.3364 0 .1766-.0674.3292-.2021.4581L7.5052 6.7924c-.0649.0668-.1422.1193-.232.1575C7.1883 6.9833 7.0985 7 7.0037 7Z" fill="#FBFBFA"/>
                                 </svg>
                             </button>
-                        </div>
-                        <span class="total-price"></span>
+                        </h2>
+                        <span class="order-summary__total"></span>
                     </div>
-                    <div id="dropdown">
-                        <section>
-                            <h4>Tickets</h4>
-                            <ul class="ticket-list">
+                    <div class="flex-column order-summary__dropdown hidden">
+                        <section class="flex-column order-summary__tickets">
+                            <h3 class="order-summary__tickets-title">Tickets</h3>
+                            <ul class="order-summary__ticket-list">
                                 <!-- </li> -->
                             </ul>
                         </section>
-                        <div>
-                            <a href="concessions.html" id="add-btn" class="flex-row"> Add food & drinks
-                                <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <path d="M4.9173 9c0 .1615.0538.2961.1615.4038.1137.1017.2572.1525.4307.1525H8.4168v2.9253c0 .1675.0538.308.1615.4217.1077.1077.2423.1615.4038.1615.1735 0 .3141-.0538.4217-.1615.1077-.1077.1615-.2483.1615-.4217V9.5563h2.9252c.1675 0 .3051-.0509.4128-.1525.1077-.1077.1615-.2423.1615-.4038 0-.1735-.0538-.3141-.1615-.4217-.1077-.1077-.2453-.1615-.4128-.1615H9.5653V5.5005c0-.1795-.0538-.323-.1615-.4307-.1077-.1077-.2483-.1615-.4217-.1615-.1615 0-.2961.0568-.4038.1705-.1077.1077-.1615.2483-.1615.4217V8.4168H5.5095c-.1795 0-.323.0538-.4307.1615-.1077.1077-.1615.2483-.1615.4217ZM9 16.8425c-1.0827 0-2.0997-.2034-3.0508-.6102-.9452-.4068-1.7767-.9691-2.4945-1.6869-.7178-.7179-1.2802-1.5494-1.6869-2.4946-.4068-.9511-.6102-1.968-.6102-3.0508 0-1.0827.2034-2.0997.6102-3.0508.4068-.9511.9691-1.7827 1.6869-2.4945.7178-.7178 1.5494-1.2802 2.4945-1.6869C6.9003 1.3609 7.9173 1.1575 9 1.1575c1.0828 0 2.0967.2034 3.0419.6102.9511.4068 1.7856.9691 2.5035 1.6869.7178.7119 1.2801 1.5434 1.6869 2.4945.4068.9511.6102 1.9681.6102 3.0508 0 1.0828-.2034 2.0997-.6102 3.0508-.4068.9452-.9691 1.7767-1.6869 2.4946-.7179.7178-1.5524 1.2801-2.5035 1.6869-.9452.4068-1.9591.6102-3.0419.6102ZM9 18c1.2383 0 2.4018-.2333 3.4905-.6999 1.0888-.4666 2.0429-1.1127 2.8624-1.9382.8256-.8255 1.4716-1.7796 1.9382-2.8624C17.7637 11.4108 18 10.2443 18 9c0-1.2443-.2363-2.4078-.7089-3.4905-.4666-1.0887-1.1126-2.0459-1.9382-2.8714-.8195-.8315-1.7736-1.4776-2.8624-1.9382C11.4018.2333 10.2383 0 9 0 7.7557 0 6.5892.2333 5.5005.6999c-1.0887.4606-2.0459 1.1067-2.8714 1.9382C1.8096 3.4636 1.1665 4.4207.6999 5.5095.2333 6.5922 0 7.7557 0 9s.2333 2.4108.6999 3.4995c.4666 1.0828 1.1097 2.0369 1.9292 2.8624.8255.8255 1.7827 1.4716 2.8714 1.9382C6.5892 17.7667 7.7557 18 9 18Z" fill="#FF9830"/>
-                                </svg>
-                            </a>
-                            <div class="promo-code">
-                                <p>I have a promo code</p>
+                        <div class="flex-column order-summary__add-ons-buttons">
+                            <span href="concessions.html" class="flex-row inline">Add food & drinks
+                                <a href="concessions.html?from=checkout" class="checkout__add-btn">
+                                    <svg width="24" height="24" viewBox="-4 -6 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M4.9173 9c0 .1615.0538.2961.1615.4038.1137.1017.2572.1525.4307.1525H8.4168v2.9253c0 .1675.0538.308.1615.4217.1077.1077.2423.1615.4038.1615.1735 0 .3141-.0538.4217-.1615.1077-.1077.1615-.2483.1615-.4217V9.5563h2.9252c.1675 0 .3051-.0509.4128-.1525.1077-.1077.1615-.2423.1615-.4038 0-.1735-.0538-.3141-.1615-.4217-.1077-.1077-.2453-.1615-.4128-.1615H9.5653V5.5005c0-.1795-.0538-.323-.1615-.4307-.1077-.1077-.2483-.1615-.4217-.1615-.1615 0-.2961.0568-.4038.1705-.1077.1077-.1615.2483-.1615.4217V8.4168H5.5095c-.1795 0-.323.0538-.4307.1615-.1077.1077-.1615.2483-.1615.4217ZM9 16.8425c-1.0827 0-2.0997-.2034-3.0508-.6102-.9452-.4068-1.7767-.9691-2.4945-1.6869-.7178-.7179-1.2802-1.5494-1.6869-2.4946-.4068-.9511-.6102-1.968-.6102-3.0508 0-1.0827.2034-2.0997.6102-3.0508.4068-.9511.9691-1.7827 1.6869-2.4945.7178-.7178 1.5494-1.2802 2.4945-1.6869C6.9003 1.3609 7.9173 1.1575 9 1.1575c1.0828 0 2.0967.2034 3.0419.6102.9511.4068 1.7856.9691 2.5035 1.6869.7178.7119 1.2801 1.5434 1.6869 2.4945.4068.9511.6102 1.9681.6102 3.0508 0 1.0828-.2034 2.0997-.6102 3.0508-.4068.9452-.9691 1.7767-1.6869 2.4946-.7179.7178-1.5524 1.2801-2.5035 1.6869-.9452.4068-1.9591.6102-3.0419.6102ZM9 18c1.2383 0 2.4018-.2333 3.4905-.6999 1.0888-.4666 2.0429-1.1127 2.8624-1.9382.8256-.8255 1.4716-1.7796 1.9382-2.8624C17.7637 11.4108 18 10.2443 18 9c0-1.2443-.2363-2.4078-.7089-3.4905-.4666-1.0887-1.1126-2.0459-1.9382-2.8714-.8195-.8315-1.7736-1.4776-2.8624-1.9382C11.4018.2333 10.2383 0 9 0 7.7557 0 6.5892.2333 5.5005.6999c-1.0887.4606-2.0459 1.1067-2.8714 1.9382C1.8096 3.4636 1.1665 4.4207.6999 5.5095.2333 6.5922 0 7.7557 0 9s.2333 2.4108.6999 3.4995c.4666 1.0828 1.1097 2.0369 1.9292 2.8624.8255.8255 1.7827 1.4716 2.8714 1.9382C6.5892 17.7667 7.7557 18 9 18Z" fill="#FF9830"/>
+                                    </svg>
+                                </a>
+                            </span>
+                            <span class="flex-row order-summary__promo-code ">I have a promo code
                                 <button type="button" id="promo-code-btn">
-                                    <svg width="14" height="7" viewBox="0 0 14 7" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <svg width="24" height="24" viewBox="-5 -12 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                                     <path d="M7.0037 7c-.1896 0-.3592-.0692-.5089-.2076L.7021 1.1237C.6372 1.0617.5873.9925.5524.9162.5175.835.5.7491.5.6585.5.5344.5299.4223.5898.3221.6497.2219.7295.1431.8293.0859.9341.0286 1.0513 0 1.1811 0c.1896 0 .3518.062.4865.1861L7.4004 5.7904H6.5996L12.3325.1861C12.4722.062 12.6343 0 12.8189 0c.1298 0 .2445.0286.3443.0859.1048.0573.1871.136.247.2362.0599.1002.0898.2123.0898.3364 0 .1766-.0674.3292-.2021.4581L7.5052 6.7924c-.0649.0668-.1422.1193-.232.1575C7.1883 6.9833 7.0985 7 7.0037 7Z" fill="#FBFBFA"/>
                                     </svg>
                                 </button>
+                            </span>
+                        </div>
+                        <hr class="order-summary__divider">
+                        <div class="flex-column order-summary__prices">
+                            <p class="flex-row inline">Subtotal <span class="subtotal"></span></p>
+                            <p class="flex-row inline">Taxes <span class="taxes"></span></p>
+                            <p class="flex-row inline total">Total <span class="order-summary__total"></span></p>
+                        </div>
+                    </div>
+                </section>
+            </div>
+
+            <form class="flex-column form-contact">
+                <h4 class="form-contact__title">Contact</h4>
+                <span id="error-message" aria-live="polite"></span>
+                <input type="email" id="email" class="email" 
+                placeholder="Enter your email address" 
+                pattern="[a-z0-9._%+\-]+@[a-z0-9.\-]+\.[a-z]{2,}$" 
+                autocomplete="email" required>
+                <label for="email" hidden>Email Address</label>
+                <p class="form-contact__sign-in">Already have an account? <a href="sign-in.html" >Sign In</a></p>
+            </form>
+
+            <form class="flex-column form-payment">
+                <h4 class="form-payment__title">Payment Method</h4>
+                    <div class="form-payment__radio-buttons flex-column">
+                        <div class="flex-column bank-card-container form-payment__method">
+                            <div class="form-payment__rb flex-row">
+                                <input type="radio" id="bank-card" class="radio" name="option" value="card" checked="checked" aria-checked="true" data-target="card-dropdown">
+                                <label for="bank-card">Credit or Debit Card</label>
+                            </div>
+                            <div class="flex-column form-payment__card-info rb-dropdown" id="card-dropdown">
+                                <div class="form-group">
+                                    <input type="text" id="card-number" placeholder="Card Number" inputmode="numeric" pattern="[0-9]*" maxlength="19" data-target="card-dropdown" required>
+                                    <label for="card-number"></label>
+                                </div>
+                                <div class="flex-row">
+                                    <input type="text" id="expiry-date" class="form-payment__expiry-date"
+                                    placeholder="MM/YY"
+                                    pattern="(0[1-9]|1[0-2])\/?([0-9]{2})"
+                                    inputmode="numeric"
+                                    maxlength="5"
+                                    required>
+                                    <label for="expiry-date" hidden>Expiry date</label>
+
+                                    <input type="text" id="cvv" class="form-payment__cvv" placeholder="CVV"
+                                    pattern="[0-9]{3,4}"
+                                    maxlength="3"
+                                    inputmode="numeric"
+                                    required>
+                                    <label for="cvv" hidden>CVV</label>
+                                </div>
                             </div>
                         </div>
 
-                        <hr>
-
-                        <div class="flex-column display-totals">
-                            <p class="flex-row">Subtotal <span class="subtotal"></span></p>
-                            <p class="flex-row">Taxes <span class="taxes"></span></p>
-                            <p class="flex-row">Total <span class="total"></span></p>
+                        <div class="flex-column paypal-container form-payment__method">
+                            <div class="form-payment__rb flex-row">
+                                <input type="radio" id="paypal" class="radio" name="option" value="paypal" data-target="paypal-dropdown">
+                                <label for="paypal">Paypal</label>
+                            </div>
+                            <div id="paypal-dropdown" class="rb-dropdown hidden">
+                                <p>By clicking "Pay with PayPal," you understand we will disclose personal information relating to your order and redirect you to PayPal, subject to PayPal's privacy policy and terms of use.</p>
+                            </div>
+                        </div>
+                        <div id="apple" class="flex-column form-payment__method">
+                            <div class="form-payment__rb flex-row">
+                                <input type="radio" id="apple-pay" class="radio" name="option" value="apple" data-target="apple-dropdown">
+                                <label for="apple-pay">Apple Pay</label>
+                            </div>
+                            <div id="apple-dropdown" class="rb-dropdown hidden">
+                            </div>
+                        </div>
+                        <div id="google" class="flex-column form-payment__method">
+                            <div class="form-payment__rb flex-row">
+                                <input type="radio" id="google-pay" class="radio" name="option" value="google" data-target="google-dropdown">
+                                <label for="google-pay">Google Pay</label>
+                            </div>
+                            <div class="rb-dropdown hidden" id="google-dropdown">
+                            </div>
                         </div>
                     </div>
-                </div>
-            </section>
+            </form>
         </main>
+        <nav class="flex-column checkout__nav">
+            <a href="confirmation.html" class="checkout__pay-button">Pay <span class="order-summary__total">$0.00</span></a>
+        </nav>
     </div>
-    
 </body>
 </html>

@@ -1,0 +1,294 @@
+@use 'base/colors' as *;
+@use 'base/spacing' as *;
+@use 'base/typography' as *;
+
+
+.checkout-header {
+  align-items: center;
+  height: 44px;
+  justify-content: space-between;
+
+  &__title {
+    @include secondary-font($title-3, 600);
+  }
+}
+
+.checkout {
+  gap: $sp-300;
+
+  &__movie-details {
+    padding: $sp-200 $sp-200;
+    position: relative;
+    overflow: hidden;
+
+    p {
+      z-index: 1;
+    }
+  }
+
+  &__movie-poster {
+    position: absolute;
+    width: 100%;
+    height: 10rem;
+    top: 0;
+    left: 0;
+    opacity: 0.312;
+    filter: blur(2px);
+    z-index: 0;
+
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+  }
+
+  &__movie-title {
+    @include secondary-font($body, 600);
+    position: relative;
+    z-index: 1;
+  }
+
+  &__info-item {
+    gap: $sp-100;
+    @include secondary-font($subhead);
+    color: $neutral-100;
+    gap: $sp-50;
+    align-items: center;
+
+    z-index: 1;
+  }
+
+  &__edit-button {
+    display: flex;
+    align-items: center;
+    z-index: 2;
+  }
+
+  &__add-btn {
+    display: flex;
+    align-items: center;
+  }
+
+  &__pay-button {
+    @include secondary-font($body);
+    background-color: $accent-700;
+    width: 100%;
+    padding: $sp-100 $sp-200;
+    text-align: center;
+    border-radius: 12px;
+    height: 38px;
+  }
+}
+
+.order-summary {
+  background-color: $primary-700;
+
+  &__header {
+    align-items: center;
+    padding: $sp-150 $sp-200;
+    gap: $sp-150;
+    border-bottom: 1px solid $neutral-50;
+    justify-content: space-between;
+    @include secondary-font($body);
+  }
+
+  &__title {
+    @include secondary-font($body, 600);
+    align-items: center;
+  }
+
+  &__total {
+    @include secondary-font($body);
+  }
+
+  &__dropdown {
+    @include secondary-font($body);
+    padding: $sp-100 $sp-200;
+    gap: $sp-200;
+
+    &.hidden {
+      display: none;
+    }
+  }
+
+  &__tickets {
+    gap: $sp-100;
+  }
+
+  &__selected-ticket {
+    justify-content: space-between;
+  }
+
+  &__add-ons-buttons {
+    gap: $sp-100;
+    @include secondary-font($subhead);
+
+    .inline {
+      align-items: center;
+      gap: $sp-100;
+    }
+  }
+
+  &__promo-code {
+    align-items: center;
+    gap: $sp-100;
+  }
+
+  &__divider {
+    border: 0.08px solid hsla(209deg, 25%, 81%, 0.12);
+    width: 100%;
+  }
+
+  &__prices {
+    gap: $sp-100;
+
+    .inline {
+      justify-content: space-between;
+      width: 100%;
+      @include secondary-font($subhead);
+      color: $neutral-100;
+    }
+
+    .inline.total {
+      color: $neutral-50;
+      font-weight: 600;
+    }
+  }
+}
+
+input[type="text"],
+input[type="email"] {
+  height: 3rem;
+  width: 100%;
+  background-color: hsla(0deg, 0%, 100%, 12%);
+  outline: 0.08rem solid $neutral-50;
+  border-radius: 12px;
+  padding: $sp-150;
+  color: $neutral-50;
+
+  &::placeholder {
+    @include primary-font($subhead);
+    color: $neutral-50;
+  }
+}
+
+.invalid {
+  background-color: hsla(0, 100%, 50%, 0.1);
+  border: 0.08rem solid var(--red);
+  box-shadow: none;
+}
+
+#error-message {
+  color: var(--red);
+  font-size: 0.813rem;
+}
+
+.form-contact {
+  padding: $sp-100 $sp-200;
+  gap: $sp-100;
+  width: 100%;
+
+  &__title {
+    @include secondary-font($body, 600);
+  }
+
+  &__sign-in {
+    @include secondary-font($subhead);
+    a {
+      text-decoration: underline;
+      text-decoration-color: yellow;
+      text-underline-offset: 2px;
+    }
+  }
+}
+
+.form-payment {
+  padding: $sp-100 $sp-200;
+  gap: $sp-200;
+  width: 100%;
+
+  &__title {
+    @include secondary-font($body, 600);
+  }
+
+  &__radio-buttons {
+    gap: 2rem;
+    @include secondary-font($body);
+  }
+
+  &__method {
+    gap: 1rem;
+    width: 100%;
+    align-items: flex-start;
+  }
+
+  &__rb {
+    gap: 0.5rem;
+    height: 1.5rem;
+    align-items: center;
+  }
+
+  &__card-info {
+    padding-inline: $sp-150;
+    height: 100%;
+    width: 100%;
+    align-items: normal;
+    gap: $sp-200;
+
+    .flex-row {
+      gap: $sp-200;
+    }
+  }
+
+  &__expiry-date {
+    flex: 1;
+  }
+
+  &__cvv {
+    flex: 1;
+  }
+}
+
+.rb-dropdown {
+  min-height: 4rem;
+}
+
+.rb-dropdown.hidden {
+  display: none;
+}
+
+input[type="radio"] {
+  position: relative;
+  background-color: transparent;
+  appearance: none;
+  border: 2px solid white;
+  border-radius: 50%;
+  width: 1.25rem;
+  height: 1.25rem;
+  color: blue;
+}
+
+input[type="radio"]:checked::before {
+  content: "";
+  position: absolute;
+  inset: 3px;
+  width: 10px;
+  height: 10px;
+  background: white;
+  border-radius: 50%;
+}
+
+.hidden {
+  display: none;
+}
+
+.checkout__nav {
+  position: sticky;
+  bottom: 0;
+  width: 23.438rem;
+  background-color: $primary-700;
+  padding: $sp-200 $sp-500;
+  gap: $sp-150;
+  height: 88px;
+}

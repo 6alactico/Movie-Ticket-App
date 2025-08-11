@@ -1,84 +1,288 @@
-.movie-overview {
+@use "abstracts/placeholders" as *;
+@use "base/colors" as *;
+@use "base/spacing" as *;
+@use "base/typography" as *;
+
+.showtimes-details {
+  gap: $sp-300;
+  padding: $sp-0 $sp-200 $sp-500;
+
+  &::before {
+    @extend %dimmed-screen;
+  }
+
+  &.dimmed::before {
+    opacity: 1;
+  }
+
+  &__back-button {
+    position: absolute;
+    margin-top: 2rem;
+    padding: $sp-100;
+    border-radius: 50%;
+    background-color: hsla(0deg, 0%, 19%, 85%);
+    fill: $neutral-50;
+    z-index: 1;
+    height: fit-content;
+  }
+}
+
+// Selected movie
+.selected-movie {
   position: relative;
+
+  .fade-bottom-mask {
+    -webkit-mask-image: linear-gradient(
+      to bottom,
+      $neutral-100 20%,
+      transparent 95%
+    );
+    mask-image: linear-gradient(to bottom, $neutral-100 20%, transparent 95%);
+  }
+
+  section {
+    gap: $sp-200;
+  }
+
+  &__title {
+    @include secondary-font($title-3, 600);
+    color: $neutral-50;
+  }
+
+  &__characteristics {
+    gap: $sp-50;
+    flex: 0 0 auto;
+    height: 100%;
+  }
+
+  &__text-block {
+    align-items: center;
+    @include primary-font($body);
+    color: $neutral-100;
+  }
+
+  &__wrapper {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+  }
+
+  &__favorite-button {
+    position: absolute;
+    right: 0;
+    z-index: 1;
+    margin-top: 2rem;
+    padding: $sp-100;
+    height: 2.5rem;
+
+    svg {
+      border-radius: 50%;
+      background-color: hsla(0deg, 0%, 19%, 85%);
+      outline: 4px solid hsla(0deg, 0%, 19%, 85%);
+    }
+
+    svg path {
+      fill: transparent;
+      stroke: $neutral-50;
+
+      &.active {
+        fill: $neutral-50;
+      }
+    }
+  }
 }
 
-.movie-details {
-  position: absolute;
-  bottom: 10%;
-}
-
-.movie-poster-lg {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 23.438rem;
-  overflow: hidden;
-  max-height: 25rem;
-  margin-left: -1rem;
-  margin-top: -2rem;
-}
-
-.movie-poster-lg img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  object-position: 0rem 5rem;
-}
-
-.back-button {
-  background-color: hsla(0deg, 0%, 19%, 85%);
-  z-index: 1;
-  position: absolute;
-  top: 2rem;
-  border-radius: 50%;
-  height: fit-content;
-  padding: $sp-100;
-  fill: $neutral-50;
-}
-
-.segmented-section.hidden {
-  display: none;
-}
-
+// Date selector
 .date-selector {
   color: $neutral-50;
-  gap: $sp-100;
-  overflow-x: auto;
-}
-
-.date-selector::-webkit-scrollbar {
-  display: none;
-}
-
-.date-tab {
-  color: $neutral-50;
-  width: 3.75rem;
-  flex: 0 0 auto;
-  padding: $sp-100 $sp-150;
   background-color: $primary-700;
-}
-
-.date-tab.active {
-  background-color: $primary-400;
-}
-
-// Showtimes section
-.format {
+  padding: $sp-100 $sp-200;
   gap: $sp-100;
-}
-.showtime-btns {
-  gap: $sp-200;
-}
-.time-btn {
-  color: $neutral-50;
-  background-color: $primary-500;
-}
-
-.time-btn.disabled {
-  opacity: 0.12;
-  cursor: not-allowed;
-}
-
-.members {
+  width: calc(100% + 2rem);
   overflow-x: auto;
+  margin-left: -1rem;
+  margin-right: -1rem;
+
+  &__tab {
+    @include primary-font($body, 600);
+    color: $neutral-50;
+    flex: 0 0 auto;
+    padding: $sp-100;
+    gap: $sp-50;
+    border-radius: 12px;
+    border: 1px solid transparent;
+
+    &.active, &:active, &:hover {
+      background-color: $primary-400;
+      border-color: $neutral-50;
+    }
+  }
+
+
+  &__tab-num {
+    width: 100%;
+    @include secondary-font($body);
+  }
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+// Showtimes
+.showtimes {
+  gap: $sp-300;
+
+  &__list {
+    gap: $sp-150;
+  }
+
+  &__info-btn {
+    padding: $sp-100 $sp-200 $sp-100 $sp-0;
+  }
+
+  &__format {
+    min-height: 4rem;
+    flex: 0 0 auto;
+    gap: $sp-100;
+    overflow-x: auto;
+  }
+
+  &__format-header {
+    align-items: center;
+    gap: $sp-100;
+  }
+
+  &__format-name {
+    @include secondary-font($body, 600);
+  }
+
+  &__buttons {
+    gap: $sp-150;
+    overflow-x: auto;
+  }
+
+  &__time {
+    color: $neutral-50;
+    background-color: $primary-500;
+    padding: $sp-100 $sp-200;
+    @include secondary-font($body);
+    border-radius: 12px;
+
+    &.disabled {
+      opacity: 0.12;
+      cursor: not-allowed;
+    }
+
+    &:active, &:hover {
+      background-color: darken($primary-500, 5%);
+    }
+  }
+
+  &__accessibility-info {
+    @include primary-font($footnote);
+    color: $neutral-50;
+  }
+
+  &__bottom-sheet {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 23.438rem;
+    height: 30%;
+    padding: $sp-300 $sp-200 $sp-0;
+    background-color: $primary-600;
+    border-radius: 12px 12px 0 0;
+    z-index: 999;
+    @include secondary-font($body);
+
+    transform: translateY(100%);
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    transition: transform 0.4s cubic-bezier(0.3, 0, 0.3, 1), opacity 0.3s ease,
+      visibility 0s linear 0.3s;
+
+    &.active {
+      transform: translateY(0);
+      opacity: 1;
+      visibility: visible;
+      pointer-events: auto;
+      transition: transform 0.4s cubic-bezier(0.3, 0, 0.3, 1), opacity 0.3s ease,
+        visibility 0s;
+    }
+  }
+}
+
+// Details
+.details {
+  gap: $sp-300;
+
+  &__movie-overview {
+    @include secondary-font($body);
+  }
+
+  &__movie-members,
+  &__members {
+    gap: $sp-200;
+    height: auto;
+  }
+
+  &__members-title {
+    @include secondary-font($body, 600);
+  }
+
+  &__list-items {
+    gap: $sp-150;
+    height: 100%;
+    overflow-x: auto;
+  }
+
+  &__list-item {
+    gap: $sp-100;
+  }
+
+  &__member-name {
+    @include secondary-font($subhead);
+    color: $neutral-50;
+    text-wrap: wrap;
+  }
+
+  &__release-date {
+    @include secondary-font($subhead, 600);
+  }
+}
+
+// Posters
+.selected-movie__poster,
+.details__member-poster {
+  background-color: #1a1a1a;
+  overflow: hidden;
+  position: relative;
+
+  img {
+    display: block;
+    object-fit: cover;
+  }
+}
+
+.selected-movie__poster {
+  height: 30rem;
+  margin: 0 -1rem;
+  width: calc(100% + 2rem);
+
+  img {
+    aspect-ratio: 2 / 3;
+    height: auto;
+  }
+}
+
+.details__member-poster {
+  width: 5rem;
+  aspect-ratio: 2 / 3;
+
+  img {
+    width: 100%;
+    height: 100%;
+  }
 }

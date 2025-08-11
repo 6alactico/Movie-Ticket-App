@@ -1,37 +1,42 @@
+@use 'abstracts/placeholders' as *;
+@use 'base/colors' as *;
+@use 'base/typography' as *;
+@use 'base/spacing' as *;
+
 * {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
 }
 
 body {
-    height: 100%;
-}
-
-button {
-    border: none;
-    background-color: transparent;
+  height: 100%;
 }
 
 img {
-    display: block;
-    width: 100%;
-    height: auto;
+  display: block;
+  width: 100%;
+  height: auto;
 }
 
 li {
-    list-style-type: none;
+  list-style: none;
 }
 
 a {
-    text-decoration: none;
-    color: white;
+  text-decoration: none;
+  color: white;
+}
+
+button,
+input {
+  border: none;
+  background-color: transparent;
+  cursor: pointer;
 }
 
 input {
-    width: 100%;
-    background-color: transparent;
-    border: none;
+  width: 100%;
 }
 
 input[type="search"]::-webkit-search-cancel-button {
@@ -39,78 +44,122 @@ input[type="search"]::-webkit-search-cancel-button {
 }
 
 span {
-    width: fit-content;
+  width: fit-content;
 }
 
 ::-webkit-scrollbar {
   display: none;
 }
 
+// Flex utilities
 .flex-column {
-    display: flex;
-    flex-direction: column;
+  display: flex;
+  flex-direction: column;
 }
 
 .flex-row {
-    display: flex;
+  display: flex;
 }
 
+// Icon fills
+.back-button,
+.close-button {
+  fill: $neutral-50;
+}
+
+// Layout structure
 .app-container {
-    position: relative;
-    height: 100vh;
-    width: 23.438rem;
-    background-color: $primary-800;
-    color: $neutral-50;
-    overflow: hidden;
+  position: fixed;
+  height: 812px;
+  width: 23.438rem;
+  background-color: $primary-800;
+  color: $neutral-50;
+  overflow-x: hidden;
 }
 
-#status-bar {
-    position: fixed;
-    inset: 0;
-    height: 50px;
-    width: inherit;
-    background-color: $primary-700;
-    z-index: 1000;
+.status-bar {
+  position: sticky;
+  inset: 0;
+  height: 50px;
+  width: inherit;
+  background-color: $primary-700;
+  z-index: 997;
 }
 
-.screens-container {
-    flex: 1;
-    margin-top: 50px;
-    position: relative;
+header {
+  position: sticky;
+  top: 50px;
+  flex-shrink: 0;
+  z-index: 997;
+  height: fit-content;
+  background-color: $primary-700;
+  width: 23.438rem;
+  left: 0;
+  padding: 0rem 1rem;
 }
 
-.screen {
-    position: absolute;
-    inset: 0;
-
-    .movies-screen {
-        padding: $sp-200 $sp-200 $sp-1000;
-    }  
-}
-
-.showtimes-and-details-screen {
-    padding: $sp-400 $sp-200 $sp-1000;
-}
-
-.seats-and-tickets-screen {
-    margin-top: 112px;
-    padding: $sp-400 $sp-200 $sp-1000;
-}
-
-.checkout-screen {
-    margin-top: 94px;
-    height: 100%;
-}
-
-.screen.hidden {
-    display: none;
-}
-
-.scrollable-content {
+main {
   flex: 1;
   overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+nav,
+footer {
+  position: sticky;
+  bottom: 0;
+  width: inherit;
+  z-index: 999;
+}
+
+// Segmented buttons
+.segmented-buttons {
   display: flex;
-  flex-direction: column;
-  gap: 16px;
-  margin-top: 144px;
+  background-color: hsla(100, 100%, 100%, 0.12);
+  color: white;
+  border-radius: 14px;
+  width: 100%;
+  height: fit-content;
+  z-index: 1;
+
+  button {
+    @include primary-font($subhead, 400);
+    @extend %button-shared;
+    padding: $sp-50 $sp-100;
+    margin: 2px;
+    width: 100%;
+    color: white;
+  }
+
+  .active {
+    background-color: $accent-700;
+    box-shadow: 1px 1px 4px hsla(0, 0%, 0%, 0.2);
+    font-weight: 600;
+  }
+}
+
+// Button group
+.button-group {
+  gap: $sp-200;
+  @include secondary-font($body);
+  width: auto;
+
+  .button {
+    @extend %button-shared;
+    padding: $sp-100 $sp-200;
+    width: 100%;
+
+    &,
+    &.default {
+      background-color: $accent-700;
+      color: $neutral-50;
+    }
+
+    &.checkout,
+    &.movies {
+      background-color: $neutral-50;
+      color: $accent-700;
+      border: 1px solid $accent-700;
+    }
+  }
 }

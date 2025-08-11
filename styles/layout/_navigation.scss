@@ -1,48 +1,49 @@
-.navigation-bar {
-    gap: 1rem;
-    background-color: hsla(210, 100%, 12%, 1);
-    position: fixed;
-    bottom: 0;
-    width: inherit;
-}
+@use "base/spacing" as *;
+@use "base/typography" as *;
 
-.nav-list {
-    display: flex;
-    justify-content: center;
+.navigation-bar {
+  gap: $sp-50;
+  background-color: hsla(210, 100%, 12%, 1);
+  position: sticky;
+  bottom: 0;
+  width: inherit;
+  z-index: 900;
+  height: 84px;
 }
 
 .nav-item {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    width: 100%;
-    padding-block: 0.25rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  padding-block-start: $sp-50;
 }
 
 .nav-item a {
-    display: flex;
-    flex-direction: column;
-    color: hsla(209, 25%, 81%, 1);
-    gap: 0.25rem;
-}
+  display: flex;
+  flex-direction: column;
+  color: hsla(209, 25%, 81%, 1);
+  @include secondary-font($body);
 
-a span {
+  span {
     align-self: center;
     height: 1.5rem;
+  }
 }
 
 .nav-item svg {
-    fill: hsla(209, 25%, 81%, 1);
-    width: 1.5rem;
-    height: 1.5rem;
+  fill: hsla(209, 25%, 81%, 1);
+  width: 1.5rem;
+  height: 1.5rem;
 }
 
 .nav-item.active {
-    a {
-        color: white;
-    }
+  a {
+    color: white;
+    font-weight: 600;
+  }
 
-    svg {
-        fill: white;
-    }
+  svg {
+    fill: white;
+  }
 }

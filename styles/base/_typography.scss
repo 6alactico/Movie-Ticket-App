@@ -1,21 +1,24 @@
-$large-title: 2.063rem;
-$title-1: 1.688rem;
-$title-2: 1.313rem;
-$title-3: 1.188rem;
-$headline-semibold: 1rem;
-$body: 1rem;
-$callout: 0.938rem;
-$subhead-semibold: 0.875rem;
-$subhead: 0.875rem;
-$footnote: 0.75rem;
-$caption-1: 0.688rem;
+$large-title: 2rem; // 32px
+$title-1: 1.75rem; // 28px
+$title-2: 1.375rem; // 22px
+$title-3: 1.25rem; // 20px
+$body: 1rem; // 16px
+$callout: 0.938rem; // 15px
+$subhead-semibold: 0.875rem; // 14px
+$subhead: 0.875rem; // 14px
+$footnote: 0.75rem; // 12px
+$caption: 0.688rem; // 11px
 
-@mixin primary-font($font-size) {
+@mixin primary-font($font-size, $font-weight: 400) {
     font-family: "Montserrat", sans-serif;
     font-size: $font-size;
+    font-weight: $font-weight;
+    line-height: 150%;
 }
 
-@mixin secondary-font($font-size) {
+@mixin secondary-font($font-size, $font-weight: 400) {
     font-family: "proxima-nova", sans-serif;
     font-size: $font-size;
+    font-weight: $font-weight;
+    line-height: 150%;
 }

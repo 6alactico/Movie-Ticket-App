@@ -1,0 +1,120 @@
+@use 'abstracts/mixins' as *;
+@use 'base/colors' as *;
+@use 'base/spacing' as *;
+@use 'base/typography' as *;
+
+.confirmation {
+  align-items: center;
+
+  &__title {
+    @include primary-font($title-3, 600);
+  }
+
+  &__message {
+    @include primary-font($body);
+    text-align: center;
+  }
+
+  &__email {
+    @include primary-font($body, 600);
+    color: $accent-400;
+  }
+
+  &__header {
+    align-items: center;
+    padding-block: $sp-400;
+  }
+}
+
+.movie-details {
+  @include ticket(300px, 100%);
+  margin: auto;
+
+  .fade-bottom-mask {
+    -webkit-mask-image: linear-gradient(to bottom, $neutral-100 60%, transparent 100%);
+    mask-image: linear-gradient(to bottom, $neutral-100 60%, transparent 100%);
+  }
+
+  &__poster-container {
+    width: 100%;
+    height: 10rem;
+
+    img {
+      display: block;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: top center;
+    }
+  }
+
+  &__info-container {
+    justify-content: center;
+    align-items: center;
+    padding: $sp-100 $sp-200;
+    gap: $sp-100;
+  }
+
+  &__info div {
+    justify-content: space-evenly;
+    align-items: center;
+  }
+
+  &__showtime {
+    gap: $sp-150;
+  }
+
+  &__seats {
+    width: 50%;
+  }
+
+  &__seating-info {
+    gap: $sp-100;
+    justify-content: space-evenly;
+  }
+
+  &__order-info {
+    width: 100%;
+    align-items: center;
+    gap: $sp-100
+  }
+
+  &__order-num {
+    @include primary-font($footnote, 600);
+  }
+
+  &__qr-container {
+    width: 8rem;
+    height: auto;
+
+    canvas {
+      width: 100%;
+      height: 100%;
+      display: block;
+      image-rendering: -moz-crisp-edges;
+      image-rendering: -webkit-crisp-edges;
+      image-rendering: pixelated;
+      image-rendering: crisp-edges;
+    }
+  }
+
+  &__scan-qr {
+    @include primary-font($footnote);
+  }
+
+  &__screen {
+    width: 100%;
+  }
+}
+
+.confirmation__nav {
+  background-color: $primary-700;
+  padding: $sp-100 0;
+  height: 84px;
+  padding-inline: 50px;
+  align-items: center;
+
+  .footer__button {
+    height: auto;
+  }
+}

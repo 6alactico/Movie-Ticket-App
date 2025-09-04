@@ -40,6 +40,7 @@ function initSeatsAndTickets() {
     initSeats(movieId, format, date, time);
     initSeatSelection(bookingMeta);
     initTicketSelection(bookingMeta);
+    repositionSegmentedButtons();
 
     const screenNumber = getScreenNumber(movieId);
     storeBookingMeta({
@@ -324,6 +325,26 @@ function getScreenNumber(movieId) {
   const screenNumber = (Math.abs(hash) % (maxScreen - minScreen + 1)) + minScreen; // Map the hash to a screen number
   console.log("Screen number", screenNumber);
   return screenNumber;
+}
+
+const bookingFooter = $(".booking__footer");
+const ticketsSection = $(".tickets-section");
+
+function repositionSegmentedButtons() {
+  if (!bookingFooter || !ticketsSection) {
+    console.warn("Missing element in repositionSegmentedButtons");
+    return;
+  }
+  const updatePosition = () => {
+    if (window.innerWidth >= 768) {
+      ticketsSection.appendChild(bookingFooter);
+    } else {
+      document.body.appendChild(bookingFooter);
+    }
+  };
+  updatePosition();
+  window.addEventListener("resize", updatePosition);
+  console.log("Repositioned segmented buttons based on screen size");
 }
 
 initSeatsAndTickets();

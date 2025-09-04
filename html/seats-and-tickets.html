@@ -1,167 +1,188 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="/styles/main.css">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="/styles/main.css" />
     <script type="module" src="/script/seats-and-tickets.js"></script>
     <title>Seats and Tickets</title>
-</head>
-<body>
-    <div class="app-container booking-screen">
-        <div class="status-bar" role="status" aria-live="polite" aria-atomic="true"></div>
-        <header class="booking-header flex-row">
-            <a href="showtimes-and-details.html" class="flex-row back-button">
-                <svg class="flex-row" width="24" height="24" viewBox="-5 -3 24 24" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M0 9.00001C0 9.24483 0.101227 9.46027 0.314929 9.64632L9.23415 17.2357C9.42535 17.4119 9.67281 17.5 9.96523 17.5C10.5501 17.5 11 17.1181 11 16.6089C11 16.3542 10.8763 16.1388 10.6963 15.9724L2.50818 9.00001L10.6963 2.02765C10.8763 1.86118 11 1.63594 11 1.39113C11 0.881913 10.5501 0.5 9.96523 0.5C9.67281 0.5 9.42535 0.588134 9.23415 0.754608L0.314929 8.3537C0.101227 8.52996 0 8.75519 0 9.00001Z"/>
+  </head>
+  <body>
+    <div class="status-bar" role="status" aria-live="polite" aria-atomic="true"></div>
+    <header class="booking-header flex-row">
+      <a href="showtimes-and-details.html" class="flex-row back-button">
+        <svg class="flex-row" width="24" height="24" viewBox="-5 -3 24 24" xmlns="http://www.w3.org/2000/svg">
+          <path
+            d="M0 9.00001C0 9.24483 0.101227 9.46027 0.314929 9.64632L9.23415 17.2357C9.42535 17.4119 9.67281 17.5 9.96523 17.5C10.5501 17.5 11 17.1181 11 16.6089C11 16.3542 10.8763 16.1388 10.6963 15.9724L2.50818 9.00001L10.6963 2.02765C10.8763 1.86118 11 1.63594 11 1.39113C11 0.881913 10.5501 0.5 9.96523 0.5C9.67281 0.5 9.42535 0.588134 9.23415 0.754608L0.314929 8.3537C0.101227 8.52996 0 8.75519 0 9.00001Z"
+          />
+        </svg>
+      </a>
+      <div class="booking-header__movie-info flex-column">
+        <h2 class="booking-header__movie-title"></h2>
+        <p class="booking-header__movie-details">
+          <span class="booking-header__movie-format"></span>
+          <span>&bull;</span>
+          <span class="booking-header__movie-date"></span>
+          at
+          <span class="booking-header__movie-time"></span>
+          </p>
+      </div>
+      <a href="index.html" class="flex-row close-button">
+        <svg class="flex-row" width="24" height="24" viewBox="-5 -4 24 24" xmlns="http://www.w3.org/2000/svg">
+          <path
+            d="M.245 14.997a.868.868 0 0 0 1.201 0L7.5 8.942l6.054 6.055c.322.322.88.331 1.201 0a.857.857 0 0 0 0-1.192L8.701 7.74l6.054-6.055a.848.848 0 0 0 0-1.192.85.85 0 0 0-1.201 0L7.5 6.548 1.446.494a.842.842 0 0 0-1.201 0 .857.857 0 0 0 0 1.192L6.299 7.74.245 13.805a.848.848 0 0 0 0 1.192Z"
+          />
+        </svg>
+      </a>
+    </header>
+
+    <main class="booking-screen">
+      <section class="flex-column seating">
+        <div class="flex-column seating__controls">
+          <div class="flex-row">
+            <span class="seating__selection-qty">0</span>
+            <div class="flex-row seating__zoom-buttons">
+              <button class="flex-row seating__zoom-button minify">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="-5 -4 32 32">
+                  <g fill="none" fill-rule="evenodd" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M18.5 7.5v-5h-5M18.5 2.5l-6 5.929M7.5 18.5l-5 .023V13.5M8.5 12.5l-6 6" />
+                  </g>
                 </svg>
-            </a>
-            <div class="booking-header__movie-info flex-column">
-                <h2 class="booking-header__movie-title"></h2>
-                <p class="booking-header__movie-details">
-                    <span class="booking-header__movie-format"></span>
-                    <span>&bull;</span>
-                    <span class="booking-header__movie-date"></span>
-                    at
-                    <span class="booking-header__movie-time"></span>
-                    <!-- Selected movie time will be inserted dynamically -->
-                </p>
-            </div>
-            <a href="movies.html" class="flex-row close-button">
-               <svg class="flex-row" width="24" height="24" viewBox="-5 -4 24 24" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M.245 14.997a.868.868 0 0 0 1.201 0L7.5 8.942l6.054 6.055c.322.322.88.331 1.201 0a.857.857 0 0 0 0-1.192L8.701 7.74l6.054-6.055a.848.848 0 0 0 0-1.192.85.85 0 0 0-1.201 0L7.5 6.548 1.446.494a.842.842 0 0 0-1.201 0 .857.857 0 0 0 0 1.192L6.299 7.74.245 13.805a.848.848 0 0 0 0 1.192Z"/>
+              </button>
+              <button class="seating__zoom-button magnify hidden">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="-5 -4 32 32">
+                  <g fill="none" fill-rule="evenodd" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M9.5 16.5v-4.978l-5-.022M18.5 2.5l-7 7M16.5 9.5l-5 .023V4.5M9.5 11.5l-7 7" />
+                  </g>
                 </svg>
-            </a>
-        </header>
-        
-        <main>
-           <section class="flex-column seating">
-                <div class="flex-column seating__controls">
-                    <div class="flex-row">
-                        <span class="seating__selection-qty">0</span>
-                        <div class="flex-row seating__zoom-buttons">
-                            <button class="flex-row seating__zoom-button minify">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="-5 -4 32 32">
-                                    <g fill="none" fill-rule="evenodd" stroke-linecap="round" stroke-linejoin="round">
-                                    <path d="M18.5 7.5v-5h-5M18.5 2.5l-6 5.929M7.5 18.5l-5 .023V13.5M8.5 12.5l-6 6"/></g>
-                                </svg>
-                            </button>
-                            <button class="seating__zoom-button magnify hidden">
-                               <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="-5 -4 32 32">
-                                <g fill="none" fill-rule="evenodd" stroke-linecap="round" stroke-linejoin="round"><path d="M9.5 16.5v-4.978l-5-.022M18.5 2.5l-7 7M16.5 9.5l-5 .023V4.5M9.5 11.5l-7 7"/></g>
-                            </svg>
-                            </button>
-                        </div>
-                    </div>
-                    <span class="flex-column seating__screen-svg">
-                        <svg width="315" height="10" viewBox="0 0 315 10" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M313.5 9C313.5 9 243.656 1 157.5 1C71.3436 1 1.5 9 1.5 9" stroke="white" stroke-width="2" stroke-linecap="round"/>
-                        </svg>
-                        Screen
-                    </span>
-                </div>
-
-                <div class="seating__map">
-                    <div class="seating__seats">
-                        <!-- JS will insert seat buttons here -->
-                    </div>
-                </div>
-
-                <div class="flex-row seating__legend">
-                    <p class="flex-row">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="seating__svg legend-item" viewBox="0 0 32 32" width="24" height="24">
-                            <path d="M8.958 18.991c.474-1.911-.693-5.184-3.006-5.184V7.8C6 5.7 7.7 4 9.8 4h12.3C24.3 4 26 5.7 26 7.8V14c-1.565.169-2.915.742-2.996 4.994l-14.046-.003ZM9 29H5c-1.1 0-2-.9-2-2V17c0-1.7 1.3-3 3-3s3 1.3 3 3v12zm18 0h-4V17c0-1.7 1.3-3 3-3s3 1.3 3 3v10c0 1.1-.9 2-2 2zM9 19h14v10H9z"/>
-                        </svg>
-                        Available
-                    </p>
-                    <p class="flex-row">
-                         <svg xmlns="http://www.w3.org/2000/svg" class="seating__svg legend-item" viewBox="0 0 32 32" width="24" height="24">
-                            <path d="M8.958 18.991c.474-1.911-.693-5.184-3.006-5.184V7.8C6 5.7 7.7 4 9.8 4h12.3C24.3 4 26 5.7 26 7.8V14c-1.565.169-2.915.742-2.996 4.994l-14.046-.003ZM9 29H5c-1.1 0-2-.9-2-2V17c0-1.7 1.3-3 3-3s3 1.3 3 3v12zm18 0h-4V17c0-1.7 1.3-3 3-3s3 1.3 3 3v10c0 1.1-.9 2-2 2zM9 19h14v10H9z"/>
-                        </svg>
-                        <span>Selected</span>
-                    </p>
-                    <p class="flex-row">
-                         <svg xmlns="http://www.w3.org/2000/svg" class="seating__svg legend-item" viewBox="0 0 32 32" width="24" height="24">
-                            <path d="M8.958 18.991c.474-1.911-.693-5.184-3.006-5.184V7.8C6 5.7 7.7 4 9.8 4h12.3C24.3 4 26 5.7 26 7.8V14c-1.565.169-2.915.742-2.996 4.994l-14.046-.003ZM9 29H5c-1.1 0-2-.9-2-2V17c0-1.7 1.3-3 3-3s3 1.3 3 3v12zm18 0h-4V17c0-1.7 1.3-3 3-3s3 1.3 3 3v10c0 1.1-.9 2-2 2zM9 19h14v10H9z"/>
-                        </svg>
-                        Occupied
-                    </p>
-                    <p class="flex-row wheelchair">
-                        <svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 16 16" width="16" height="16" fill="none"><path fill="#FBFBFA" d="M5.25 2.625A1.313 1.313 0 1 0 5.25 0a1.313 1.313 0 0 0 0 2.625ZM3.295 6.759a.655.655 0 1 0-.462-1.227 4.376 4.376 0 1 0 5.404 6.152.656.656 0 1 0-1.16-.618 3.061 3.061 0 1 1-3.782-4.307Zm3.81-1.947-.053-.265a1.304 1.304 0 0 0-2.56.511l.633 3.159c.164.817.88 1.405 1.717 1.405H9.59c.183 0 .345.112.41.285l.993 2.65c.164.44.65.672 1.097.521l1.312-.437a.874.874 0 0 0 .553-1.107.874.874 0 0 0-1.108-.553l-.511.17-.698-1.86A2.19 2.19 0 0 0 9.59 7.872H7.717L7.454 6.56h1.734a.874.874 0 1 0 0-1.75H7.104v.003Z"/></svg>
-                        Wheelchair
-                    </p>
-                </div>
-            </section>
-
-            <div class="flex-column tickets">
-                <span class="tickets__quantity">Select Tickets</span>
-                <div class="flex-row tickets__type" data-type="Adult">
-                    <p>Adult</p>
-                    <span class="tickets__price" data-price="13.50">$13.50</span>
-                    <div class="counter flex-row">
-                        <button class="decrement count-button type="button" data-change="0" aria-label="Quantity decrement">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16"><path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16"/><path d="M4 8a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7A.5.5 0 0 1 4 8"/></svg>
-                        </button>
-                        <span class="counter-value" data-quantity="0" aria-live="polite">0</span>
-                        <button class="increment count-button" type="button" aria-label="Quantity increment">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="plus-circle" viewBox="0 0 16 16">
-                            <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16"/>
-                            <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4"/>
-                            </svg>
-                        </button>
-                    </div>
-                </div>
-
-                <hr class="tickets__divider">
-
-                <div class="tickets__type flex-row" data-type="Child">
-                    <p>Child</p>
-                    <span class="tickets__price" data-price="9.50">$9.50</span>
-                    <div class="counter flex-row">
-                        <button class="decrement count-button" type="button" data-change="0" aria-label="Quantity decrement">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-dash-circle" viewBox="0 0 16 16"><path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16"/><path d="M4 8a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7A.5.5 0 0 1 4 8"/></svg>
-                        </button>
-                        <span class="counter-value" data-quantity="0" aria-live="polite">0</span>
-                        <button class="increment count-button" type="button" aria-label="Quantity increment">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="plus-circle" viewBox="0 0 16 16">
-                            <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16"/>
-                            <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4"/>
-                            </svg>
-                        </button>
-                    </div>
-                </div>
-
-                <hr class="tickets__divider">
-
-                <div class="tickets__type flex-row" data-type="Senior">
-                    <p>Senior</p>
-                    <span class="tickets__price" data-price="9.50">$9.50</span>
-                    <div class="counter flex-row">
-                        <button class="decrement count-button type="button" data-change="0" aria-label="Quantity decrement">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-dash-circle" viewBox="0 0 16 16"><path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16"/><path d="M4 8a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7A.5.5 0 0 1 4 8"/></svg>
-                        </button>
-                        <span class="counter-value" data-quantity="0" aria-live="polite">0</span>
-                        <button class="increment count-button" type="button" aria-label="Quantity increment">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="plus-circle" viewBox="0 0 16 16">
-                            <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16"/>
-                            <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4"/>
-                            </svg>
-                        </button>
-                    </div>
-                </div>
+              </button>
             </div>
-        </main>
+          </div>
+          <span class="flex-column seating__screen-svg">
+            <svg width="315" height="10" viewBox="0 0 315 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M313.5 9C313.5 9 243.656 1 157.5 1C71.3436 1 1.5 9 1.5 9" stroke="white" stroke-width="2" stroke-linecap="round" />
+            </svg>
+            Screen
+          </span>
+        </div>
 
-        <footer class="booking__footer flex-column">
-            <div class="ticket-summary flex-row" role="contentinfo" aria-label="Ticket summary">
-                <p class="ticket-summary__quantity">0</p>
-                <span class="ticket-summary__subtotal" aria-live="polite" aria-atomic="true">0.00</span>
+        <div class="seating__map">
+          <div class="seating__seats">
             </div>
-            <nav class="button-group flex-row" role="group" aria-label="Footer navigation buttons">
-                <a href="concessions.html?from=seats" class="button concessions">Food & Drinks</a>
-                <a href="checkout.html" class="button checkout">Checkout</a>
-            </nav>
-        </footer>
-    </div>
-</body>
+        </div>
+
+        <div class="flex-row seating__legend">
+          <p class="flex-row">
+            <svg xmlns="http://www.w3.org/2000/svg" class="seating__svg legend-item" viewBox="0 0 32 32" width="24" height="24">
+              <path
+                d="M8.958 18.991c.474-1.911-.693-5.184-3.006-5.184V7.8C6 5.7 7.7 4 9.8 4h12.3C24.3 4 26 5.7 26 7.8V14c-1.565.169-2.915.742-2.996 4.994l-14.046-.003ZM9 29H5c-1.1 0-2-.9-2-2V17c0-1.7 1.3-3 3-3s3 1.3 3 3v12zm18 0h-4V17c0-1.7 1.3-3 3-3s3 1.3 3 3v10c0 1.1-.9 2-2 2zM9 19h14v10H9z"
+              />
+            </svg>
+            Available
+          </p>
+          <p class="flex-row">
+            <svg xmlns="http://www.w3.org/2000/svg" class="seating__svg legend-item" viewBox="0 0 32 32" width="24" height="24">
+              <path
+                d="M8.958 18.991c.474-1.911-.693-5.184-3.006-5.184V7.8C6 5.7 7.7 4 9.8 4h12.3C24.3 4 26 5.7 26 7.8V14c-1.565.169-2.915.742-2.996 4.994l-14.046-.003ZM9 29H5c-1.1 0-2-.9-2-2V17c0-1.7 1.3-3 3-3s3 1.3 3 3v12zm18 0h-4V17c0-1.7 1.3-3 3-3s3 1.3 3 3v10c0 1.1-.9 2-2 2zM9 19h14v10H9z"
+              />
+            </svg>
+            <span>Selected</span>
+          </p>
+          <p class="flex-row">
+            <svg xmlns="http://www.w3.org/2000/svg" class="seating__svg legend-item" viewBox="0 0 32 32" width="24" height="24">
+              <path
+                d="M8.958 18.991c.474-1.911-.693-5.184-3.006-5.184V7.8C6 5.7 7.7 4 9.8 4h12.3C24.3 4 26 5.7 26 7.8V14c-1.565.169-2.915.742-2.996 4.994l-14.046-.003ZM9 29H5c-1.1 0-2-.9-2-2V17c0-1.7 1.3-3 3-3s3 1.3 3 3v12zm18 0h-4V17c0-1.7 1.3-3 3-3s3 1.3 3 3v10c0 1.1-.9 2-2 2zM9 19h14v10H9z"
+              />
+            </svg>
+            Occupied
+          </p>
+          <p class="flex-row wheelchair">
+            <svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 16 16" width="16" height="16" fill="none">
+              <path
+                fill="#FBFBFA"
+                d="M5.25 2.625A1.313 1.313 0 1 0 5.25 0a1.313 1.313 0 0 0 0 2.625ZM3.295 6.759a.655.655 0 1 0-.462-1.227 4.376 4.376 0 1 0 5.404 6.152.656.656 0 1 0-1.16-.618 3.061 3.061 0 1 1-3.782-4.307Zm3.81-1.947-.053-.265a1.304 1.304 0 0 0-2.56.511l.633 3.159c.164.817.88 1.405 1.717 1.405H9.59c.183 0 .345.112.41.285l.993 2.65c.164.44.65.672 1.097.521l1.312-.437a.874.874 0 0 0 .553-1.107.874.874 0 0 0-1.108-.553l-.511.17-.698-1.86A2.19 2.19 0 0 0 9.59 7.872H7.717L7.454 6.56h1.734a.874.874 0 1 0 0-1.75H7.104v.003Z"
+              />
+            </svg>
+            Wheelchair
+          </p>
+        </div>
+      </section>
+
+      <section class="flex-column tickets-section">
+        <div class="flex-column tickets">
+          <span class="tickets__quantity">Select Tickets</span>
+          <div class="flex-row tickets__type" data-type="Adult">
+            <p>Adult</p>
+            <span class="tickets__price" data-price="13.50">$13.50</span>
+            <div class="counter flex-row">
+              <button class="decrement count-button type="button" data-change="0" aria-label="Quantity decrement">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+                  <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16" />
+                  <path d="M4 8a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7A.5.5 0 0 1 4 8" />
+                </svg>
+              </button>
+              <span class="counter-value" data-quantity="0" aria-live="polite">0</span>
+              <button class="increment count-button" type="button" aria-label="Quantity increment">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="plus-circle" viewBox="0 0 16 16">
+                  <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16" />
+                  <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4" />
+                </svg>
+              </button>
+            </div>
+          </div>
+          <hr class="tickets__divider" />
+          <div class="tickets__type flex-row" data-type="Child">
+            <p>Child</p>
+            <span class="tickets__price" data-price="9.50">$9.50</span>
+            <div class="counter flex-row">
+              <button class="decrement count-button" type="button" data-change="0" aria-label="Quantity decrement">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-dash-circle" viewBox="0 0 16 16">
+                  <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16" />
+                  <path d="M4 8a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7A.5.5 0 0 1 4 8" />
+                </svg>
+              </button>
+              <span class="counter-value" data-quantity="0" aria-live="polite">0</span>
+              <button class="increment count-button" type="button" aria-label="Quantity increment">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="plus-circle" viewBox="0 0 16 16">
+                  <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16" />
+                  <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4" />
+                </svg>
+              </button>
+            </div>
+          </div>
+          <hr class="tickets__divider" />
+          <div class="tickets__type flex-row" data-type="Senior">
+            <p>Senior</p>
+            <span class="tickets__price" data-price="9.50">$9.50</span>
+            <div class="counter flex-row">
+              <button class="decrement count-button type="button" data-change="0" aria-label="Quantity decrement">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-dash-circle" viewBox="0 0 16 16">
+                  <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16" />
+                  <path d="M4 8a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7A.5.5 0 0 1 4 8" />
+                </svg>
+              </button>
+              <span class="counter-value" data-quantity="0" aria-live="polite">0</span>
+              <button class="increment count-button" type="button" aria-label="Quantity increment">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="plus-circle" viewBox="0 0 16 16">
+                  <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16" />
+                  <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4" />
+                </svg>
+              </button>
+            </div>
+          </div>
+        </div>
+        </section>
+    </main>
+
+    <footer class="booking__footer flex-column">
+      <div class="ticket-summary flex-row" role="contentinfo" aria-label="Ticket summary">
+        <p class="ticket-summary__quantity">0</p>
+        <span class="ticket-summary__subtotal" aria-live="polite" aria-atomic="true">0.00</span>
+      </div>
+      <nav class="button-group flex-row" role="group" aria-label="Footer navigation buttons">
+        <a href="concessions.html?from=seats" class="button concessions">Food & Drinks</a>
+        <a href="checkout.html" class="button checkout">Checkout</a>
+      </nav>
+    </footer>
+  </body>
 </html>

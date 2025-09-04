@@ -15,11 +15,45 @@
   text-align: center;
 }
 
-// Add a mixin for bottom sheet state transitions
 @mixin bottom-sheet-states($y, $opacity, $visibility, $pointer-events, $delay) {
   transform: translateY($y);
   opacity: $opacity;
   visibility: $visibility;
   pointer-events: $pointer-events;
   transition: transform 0.4s cubic-bezier(0.3, 0, 0.3, 1), opacity 0.3s ease, visibility 0s linear $delay;
+}
+
+// Respond to media queries
+$breakpoints: (
+  "desktop": 64rem,
+  "tablet": 48rem,
+  "mobile": 23.438rem
+);
+
+@mixin respond-up($breakpoint) {
+  $value: map-get($breakpoints, $breakpoint);
+
+  @if $value {
+    @media (min-width: $value) {
+      @content;
+    }
+  }
+
+ @else {
+    @warn "Breakpoint '#{$breakpoint}' not found.";
+  }
+}
+
+@mixin respond-down($breakpoint) {
+  $value: map-get($breakpoints, $breakpoint);
+
+  @if $value {
+    @media (max-width: $value) {
+      @content;
+    }
+  }
+
+ @else {
+    @warn "Breakpoint '#{$breakpoint}' not found.";
+  }
 }

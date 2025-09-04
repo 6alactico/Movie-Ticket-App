@@ -1,13 +1,13 @@
-@use 'abstracts/mixins' as *;
-@use 'base/colors' as *;
-@use 'base/spacing' as *;
-@use 'base/typography' as *;
+@use "abstracts/mixins" as *;
+@use "base/colors" as *;
+@use "base/spacing" as *;
+@use "base/typography" as *;
 
 .confirmation {
   align-items: center;
 
   &__title {
-    @include primary-font($title-3, 600);
+    @include primary-font($heading-3, 600);
   }
 
   &__message {
@@ -24,14 +24,26 @@
     align-items: center;
     padding-block: $sp-400;
   }
+
+  @include respond-up("tablet") {
+    display: flex;
+    justify-content: center;
+  }
 }
 
 .movie-details {
   @include ticket(300px, 100%);
-  margin: auto;
+
+  @include respond-down("tablet") {
+    margin: auto;
+  }
 
   .fade-bottom-mask {
-    -webkit-mask-image: linear-gradient(to bottom, $neutral-100 60%, transparent 100%);
+    -webkit-mask-image: linear-gradient(
+      to bottom,
+      $neutral-100 60%,
+      transparent 100%
+    );
     mask-image: linear-gradient(to bottom, $neutral-100 60%, transparent 100%);
   }
 
@@ -76,7 +88,7 @@
   &__order-info {
     width: 100%;
     align-items: center;
-    gap: $sp-100
+    gap: $sp-100;
   }
 
   &__order-num {

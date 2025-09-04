@@ -1,20 +1,43 @@
-@use 'base/colors' as *;
-@use 'base/spacing' as *;
-@use 'base/typography' as *;
-
+@use "abstracts/mixins" as *;
+@use "base/colors" as *;
+@use "base/spacing" as *;
+@use "base/typography" as *;
 
 .checkout-header {
   align-items: center;
-  height: 44px;
+  height: clamp(44px, 8vw, 80px);
   justify-content: space-between;
+  padding: $sp-150 $sp-200;
 
   &__title {
-    @include secondary-font($title-3, 600);
+    @include secondary-font($heading-3, 600);
+    color: $neutral-50;
   }
 }
 
 .checkout {
   gap: $sp-300;
+  color: $neutral-50;
+
+  @include respond-up("tablet") {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-areas: 
+      "form order-summary"
+    ;
+    padding: $sp-300 $sp-200;
+
+    .form-contact-payment {
+      grid-area: form;
+      width: 70%;
+      justify-self: center;
+    }
+
+    .checkout div:first-of-type {
+      grid-area: order-summary;
+    }
+  }
+  
 
   &__movie-details {
     padding: $sp-200 $sp-200;
@@ -69,20 +92,21 @@
     display: flex;
     align-items: center;
   }
+}
 
-  &__pay-button {
-    @include secondary-font($body);
-    background-color: $accent-700;
-    width: 100%;
-    padding: $sp-100 $sp-200;
-    text-align: center;
-    border-radius: 12px;
-    height: 38px;
+.checkout__movie-info {
+  @include respond-up("tablet") {
+    width: 80%;
+    justify-content: center;
+    background-color: $primary-700;
+    height: 100%;
+    padding-inline: $sp-300;
   }
 }
 
 .order-summary {
   background-color: $primary-700;
+  color: $neutral-50;
 
   &__header {
     align-items: center;
@@ -91,6 +115,10 @@
     border-bottom: 1px solid $neutral-50;
     justify-content: space-between;
     @include secondary-font($body);
+
+    @include respond-up("tablet") {
+      display: none;
+    }
   }
 
   &__title {
@@ -103,12 +131,17 @@
   }
 
   &__dropdown {
+    display: none;
     @include secondary-font($body);
     padding: $sp-100 $sp-200;
     gap: $sp-200;
 
-    &.hidden {
-      display: none;
+    &.active {
+      display: flex;
+    }
+
+    @include respond-up("tablet") {
+      display: flex;
     }
   }
 
@@ -155,6 +188,12 @@
       font-weight: 600;
     }
   }
+
+  @include respond-down("tablet") {
+    &__title:first-of-type {
+      display: none;
+    }
+  }
 }
 
 input[type="text"],
@@ -179,27 +218,92 @@ input[type="email"] {
   box-shadow: none;
 }
 
-#error-message {
-  color: var(--red);
-  font-size: 0.813rem;
-}
+.form-contact-payment {
+  gap: $sp-400;
+  padding-inline: $sp-200;
 
-.form-contact {
-  padding: $sp-100 $sp-200;
-  gap: $sp-100;
-  width: 100%;
-
-  &__title {
+  .form-title {
     @include secondary-font($body, 600);
+    padding-block-end: $sp-200;
   }
 
-  &__sign-in {
-    @include secondary-font($subhead);
-    a {
-      text-decoration: underline;
-      text-decoration-color: yellow;
-      text-underline-offset: 2px;
+  #error-message {
+    color: var(--red);
+    font-size: 0.813rem;
+  }
+
+  .form-group {
+    label {
+      @include secondary-font($callout);
+      margin-block-end: $sp-100;
     }
+    .visually-hidden {
+      visibility: hidden;
+      height: 1px;
+    }
+  }
+}
+
+.sign-in {
+  @include secondary-font($subhead);
+  margin-block-start: $sp-150;
+  a {
+    text-decoration: underline;
+    text-decoration-color: yellow;
+    text-underline-offset: 2px;
+  }
+}
+
+.radio-button {
+  gap: $sp-200;
+  span {
+    gap: $sp-100;
+  }
+  &__dropdown:nth-child(2) {
+    display: grid;
+    grid-template-areas: 
+      "card-number card-number"
+      "expiry cvv";
+      gap: $sp-200;
+  }
+  
+    .form-group {
+      width: 100%;
+    }
+  
+    .card-number {
+      grid-area: card-number;
+    }
+
+    .expiry {
+      grid-area: expiry;
+    }
+
+    .cvv {
+      grid-area: cvv;
+    }
+  
+  &__dropdown {
+    min-height: 4rem;
+    width: 90%;
+    align-self: center;
+
+    &.hidden {
+      display: none;
+    }
+  }
+}
+
+.payment {
+  &__methods {
+    gap: 2rem;
+    @include secondary-font($body);
+  }
+
+  .radio-buttons {
+    gap: 0.5rem;
+    height: 1.5rem;
+    align-items: center;
   }
 }
 
@@ -212,21 +316,10 @@ input[type="email"] {
     @include secondary-font($body, 600);
   }
 
-  &__radio-buttons {
-    gap: 2rem;
-    @include secondary-font($body);
-  }
-
   &__method {
     gap: 1rem;
     width: 100%;
     align-items: flex-start;
-  }
-
-  &__rb {
-    gap: 0.5rem;
-    height: 1.5rem;
-    align-items: center;
   }
 
   &__card-info {
@@ -250,14 +343,6 @@ input[type="email"] {
   }
 }
 
-.rb-dropdown {
-  min-height: 4rem;
-}
-
-.rb-dropdown.hidden {
-  display: none;
-}
-
 input[type="radio"] {
   position: relative;
   background-color: transparent;
@@ -279,16 +364,28 @@ input[type="radio"]:checked::before {
   border-radius: 50%;
 }
 
-.hidden {
-  display: none;
-}
-
-.checkout__nav {
+.checkout-nav {
   position: sticky;
   bottom: 0;
-  width: 23.438rem;
+  width: 100%;
   background-color: $primary-700;
   padding: $sp-200 $sp-500;
   gap: $sp-150;
   height: 88px;
+  margin: 0 -1rem;
+  width: calc(100% + 2rem);
+
+  .checkout-nav__pay-button {
+    @include secondary-font($body);
+    background-color: $accent-700;
+    width: 100%;
+    padding: $sp-100 $sp-200;
+    text-align: center;
+    border-radius: 12px;
+    height: 38px;  
+  }
+
+  @include respond-up("tablet") {
+    background-color: transparent;
+  }
 }

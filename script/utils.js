@@ -1,4 +1,5 @@
 import { IMAGE_BASE_URL } from "./api.js";
+
 /**
  * Get a localStorage item and safely parse it as JSON.
  * @param {string} key
@@ -159,4 +160,143 @@ export function convertRuntime(minutes) {
   const hours = Math.floor(minutes / 60);
   const mins = minutes % 60;
   return `${hours}h ${mins}m`;
+}
+
+const $ = (s) => document.querySelector(s);
+const $$ = (s) => document.querySelectorAll(s);
+
+export const ascendingChip = $("#ascending");
+export const descendingChip = $("#descending");
+export const oldestChip = $("#oldest");
+export const filterGenre = $("#genre");
+export const ratingChips = $("#rating");
+
+export function setupSortHandlers(
+  allMovieDetails,
+  currentList,
+  initMovieContainers,
+  selectors
+) {
+  const sortItems = $$(selectors.sortGroup);
+
+  sortItems.forEach((item) => {
+    item.addEventListener("click", () => {
+      sortItems.forEach((i) => i.classList.remove("active"));
+      item.classList.add("active");
+
+      const sortType = item.textContent.trim().toLowerCase();
+      let sortedList = [...currentList];
+
+      switch (sortType) {
+        case "featured":
+          sortedList = currentList;
+          break;
+        case "a-z":
+          sortedList.sort((a, b) =>
+            allMovieDetails[a].title.localeCompare(allMovieDetails[b].title)
+          );
+          break;
+        case "z-a":
+          sortedList.sort((a, b) =>
+            allMovieDetails[b].title.localeCompare(allMovieDetails[a].title)
+          );
+          break;
+        case "oldest":
+          sortedList.sort(
+            (a, b) =>
+              new Date(allMovieDetails[a].release_date) -
+              new Date(allMovieDetails[b].release_date)
+          );
+          break;
+        default:
+          // If no valid sort type, return to default list
+          sortedList = currentList;
+      }
+
+      initMovieContainers(sortedList);
+    });
+  });
+}
+
+export function setupFilterHandlers(allMovieDetails, currentList, initMovieContainers, selectors, selectedGenres) {
+  const genres = Array.from(
+    new Set(
+      Object.values(allMovieDetails)
+        .flatMap((m) => m.genres || [])
+        .map((g) => (g.name === "Science Fiction" ? "Sci-Fi" : g.name))
+    )
+  );
+
+  genres.forEach((genre) => {
+    const chipItem = document.createElement("li");
+    const chip = document.createElement("button");
+    chip.textContent = genre;
+    chip.classList.add(selectors.chipGroup, "genre");
+
+    chip.addEventListener("click", () => {
+      chip.classList.toggle("active");
+
+      // Update the active genres
+      const activeGenres = Array.from($$(`.${selectors.chipGroup}.active`)).map(
+        (c) => c.textContent.trim()
+      );
+
+      console.log("Active Genres:", activeGenres);
+
+      // If no active genres, show all movies
+      if (activeGenres.length === 0) {
+        initMovieContainers(currentList);
+      } else {
+        const filtered = currentList.filter((id) => {
+          const movie = allMovieDetails[id];
+
+          // Map 'Sci-Fi' back to 'Science Fiction' for filtering
+          return movie.genres?.some((g) => {
+            if (activeGenres.includes("Sci-Fi")) {
+              return (
+                g.name === "Science Fiction" || activeGenres.includes(g.name)
+              );
+            }
+            return activeGenres.includes(g.name);
+            selectedGenres = activeGenres;
+          });
+        });
+        initMovieContainers(filtered);
+      }
+    });
+
+    chipItem.appendChild(chip);
+    filterGenre.appendChild(chipItem);
+  });
+
+  // Create certification chips
+  const certValues = Array.from(
+    new Set(
+      Object.values(allMovieDetails).flatMap((m) => m.certification || [])
+    )
+  );
+  certValues.forEach((cert) => {
+    const chip = document.createElement("li");
+    const button = document.createElement("button");
+    button.textContent = cert;
+    button.classList.add(selectors.chipGroup, "rating");
+    button.addEventListener("click", () => {
+      button.classList.toggle("active");
+      const activeRatings = Array.from(
+        $$(`.${selectors.chipGroup}.active`)
+      ).map((c) => c.textContent.trim());
+
+      if (activeRatings.length === 0) {
+        initMovieContainers(currentList);
+      } else {
+        const filtered = currentList.filter((id) => {
+          const movie = allMovieDetails[id];
+          return activeRatings.includes(movie.certification);
+        });
+        initMovieContainers(filtered);
+      }
+    });
+    chip.appendChild(button);
+    ratingChips.appendChild(chip);
+  });
 }

@@ -1,5 +1,5 @@
 import { getMovieDetails, getCertification, IMAGE_BASE_URL } from "./api.js";
-import { setupSegmentedButtons, convertRuntime } from "./utils.js";
+import { setupSegmentedButtons, convertRuntime, setupSortHandlers, setupFilterHandlers } from "./utils.js";
 
 const $ = (s) => document.querySelector(s);
 const $$ = (s) => document.querySelectorAll(s);
@@ -24,7 +24,9 @@ async function initHomepage() {
   initCarousel();
   initFilterMenu();
   initSegmentedButtons(allMovieDetails);
+  repositionSegmentedButtons();
   initSearch();
+  initSections();
 }
 
 async function preloadAllMovies() {
@@ -205,157 +207,15 @@ function initCarousel() {
 }
 
 function initFilterMenu() {
-  const filterBtn = $(".movies-header__filter-button");
+  const filterBtn = $(".index-header__filter-button");
   const filterMenu = $(".filter");
   const closeBtn = $(".filter .close-button");
-  const ascendingChip = $("#ascending");
-  const descendingChip = $("#descending");
-  const oldestChip = $("#oldest");
-  const filterGenre = $("#genre");
-  const ratingChips = $("#rating");
 
-  function toggleChipActive(chip, groupSelector) {
-    const isActive = chip.classList.contains("active");
-    $$(groupSelector).forEach((c) => c.classList.remove("active"));
-    if (!isActive) chip.classList.add("active");
-    return !isActive;
-  }
+  setupSortHandlers(allMovieDetails, currentList, initMovieContainers, {sortGroup: "#sort-by .filter__chip"});
 
-  // Sort chips alphabetically
-  if (ascendingChip) {
-    ascendingChip.addEventListener("click", () => {
-      const shouldApply = toggleChipActive(
-        ascendingChip,
-        "#sort-by .filter__chip"
-      );
-      initMovieContainers(
-        shouldApply
-          ? [...currentList].sort((a, b) =>
-              allMovieDetails[a].title.localeCompare(allMovieDetails[b].title)
-            )
-          : currentList
-      );
-    });
-  }
+  setupFilterHandlers(allMovieDetails, initMovieContainers, currentList, { chipGroup: "filter__chip" });
 
-  // Sort chips in reverse alphabetical order
-  if (descendingChip) {
-    descendingChip.addEventListener("click", () => {
-      const shouldApply = toggleChipActive(
-        descendingChip,
-        "#sort-by .filter__chip"
-      );
-      initMovieContainers(
-        shouldApply
-          ? [...currentList].sort((a, b) =>
-              allMovieDetails[b].title.localeCompare(allMovieDetails[a].title)
-            )
-          : currentList
-      );
-    });
-  }
-
-  // Sort by oldest release date
-  if (oldestChip) {
-    oldestChip.addEventListener("click", () => {
-      const shouldApply = toggleChipActive(
-        oldestChip,
-        "#sort-by .filter__chip"
-      );
-      initMovieContainers(
-        shouldApply
-          ? [...currentList].sort(
-              (a, b) =>
-                new Date(allMovieDetails[a].release_date) -
-                new Date(allMovieDetails[b].release_date)
-            )
-          : currentList
-      );
-    });
-  }
-
-  // Map 'Science Fiction' to 'Sci-Fi' for display
-  const genres = Array.from(
-    new Set(
-      Object.values(allMovieDetails)
-        .flatMap((m) => m.genres || [])
-        .map((g) => (g.name === "Science Fiction" ? "Sci-Fi" : g.name))
-    )
-  );
-  console.log(genres);
-
-  // Create certification chips
-  const certValues = Array.from(
-    new Set(
-      Object.values(allMovieDetails).flatMap((m) => m.certification || [])
-    )
-  );
-  certValues.forEach((cert) => {
-    const chip = document.createElement("li");
-    const button = document.createElement("button");
-    button.textContent = cert;
-    button.classList.add("filter__chip", "rating");
-    button.addEventListener("click", () => {
-      button.classList.toggle("active");
-      const activeRatings = Array.from($$(".filter__chip.rating.active")).map(
-        (c) => c.textContent.trim()
-      );
-
-      if (activeRatings.length === 0) {
-        initMovieContainers(currentList);
-      } else {
-        const filtered = currentList.filter((id) => {
-          const movie = allMovieDetails[id];
-          return activeRatings.includes(movie.certification);
-        });
-        initMovieContainers(filtered);
-      }
-    });
-    chip.appendChild(button);
-    ratingChips.appendChild(chip);
-  });
-
-  // Create genre chips
-  genres.forEach((genre) => {
-    const chipItem = document.createElement("li");
-    const chip = document.createElement("button");
-    chip.textContent = genre;
-    chip.classList.add("filter__chip", "genre");
-
-    chip.addEventListener("click", () => {
-      chip.classList.toggle("active");
-
-      // Update the active genres
-      const activeGenres = Array.from($$(".filter__chip.genre.active")).map(
-        (c) => c.textContent.trim()
-      );
-
-      // If no active genres, show all movies
-      if (activeGenres.length === 0) {
-        initMovieContainers(currentList);
-      } else {
-        const filtered = currentList.filter((id) => {
-          const movie = allMovieDetails[id];
-
-          // Map 'Sci-Fi' back to 'Science Fiction' for filtering
-          return movie.genres?.some((g) => {
-            if (activeGenres.includes("Sci-Fi")) {
-              return (
-                g.name === "Science Fiction" || activeGenres.includes(g.name)
-              );
-            }
-            return activeGenres.includes(g.name);
-          });
-        });
-        initMovieContainers(filtered);
-      }
-    });
-
-    chipItem.appendChild(chip);
-    filterGenre.appendChild(chipItem);
-  });
-
-  const screenContainer = $(".movies");
+  const screenContainer = $(".dimmed-screen");
   filterBtn?.addEventListener("click", () => {
     filterMenu.classList.toggle("active");
     screenContainer.classList.toggle(
@@ -363,6 +223,7 @@ function initFilterMenu() {
       filterMenu.classList.contains("active")
     );
   });
+
   closeBtn?.addEventListener("click", () => {
     filterMenu?.classList.remove("active");
     screenContainer?.classList.remove("dimmed");
@@ -370,8 +231,8 @@ function initFilterMenu() {
 }
 
 function initSegmentedButtons(allMovieDetails) {
-  const nowPlayingButton = $("#movies__now-playing-btn");
-  const comingSoonButton = $("#movies__coming-soon-btn");
+  const nowPlayingButtons = $$(".movies__now-playing-btn");  // Multiple Now Playing buttons
+  const comingSoonButtons = $$(".movies__coming-soon-btn");  // Multiple Coming Soon buttons
   const buttons = $$(".segmented-buttons button[data-index]");
 
   // Sort nowPlaying by release_date (newest first)
@@ -381,26 +242,53 @@ function initSegmentedButtons(allMovieDetails) {
       new Date(allMovieDetails[a].release_date)
   );
 
-  const handlers = new Map([
-    [
-      nowPlayingButton,
-      () => {
-        currentList = sortedNowPlaying;
-        initMovieContainers(currentList);
-        console.log(currentList);
-      },
-    ],
-    [
-      comingSoonButton,
-      () => {
-        currentList = comingSoon;
-        initMovieContainers(currentList, true);
-        console.log(currentList);
-      },
-    ],
-  ]);
+  const sortedComingSoon = [...comingSoon].sort(
+    (a, b) =>
+      new Date(allMovieDetails[b].release_date) -
+      new Date(allMovieDetails[a].release_date)
+  );
+
+  // Create handler for each button dynamically
+  const handlers = new Map();
+
+  nowPlayingButtons.forEach((button) => {
+    handlers.set(button, () => {
+      const currentList = sortedNowPlaying;
+      initMovieContainers(currentList);
+      console.log(currentList);
+    });
+  });
+
+  comingSoonButtons.forEach((button) => {
+    handlers.set(button, () => {
+      const currentList = sortedComingSoon;
+      initMovieContainers(currentList, true);
+      console.log(currentList);
+    });
+  });
 
   setupSegmentedButtons(buttons, handlers);
+}
+const segBtns = $(".segmented-buttons");
+const header = $(".index-header");
+const inline = $(".browse-movies-container");
+const moviesLink = $(".browse-movies-link");
+
+function repositionSegmentedButtons() {
+  if (!segBtns || !inline || !moviesLink || !header) {
+  console.warn("Missing element in repositionSegmentedButtons");
+  return;
+}
+  const updatePosition = () => {
+    if (window.innerWidth >= 768) {
+      inline.insertBefore(segBtns, moviesLink);
+    } else {
+      header.appendChild(segBtns);
+    }
+  };
+  updatePosition();
+  window.addEventListener("resize", updatePosition);
+  console.log("Repositioned segmented buttons based on screen size");
 }
 
 function initSearch() {
@@ -469,6 +357,70 @@ function initSearch() {
       searchMovie(e.target.value.trim());
     }
   });
+}
+
+function initSections() {
+  fetch("/script/json/categories.json")
+    .then((response) => response.json())
+    .then(({ categories }) => {
+      // Process the categories data
+      const allItems = categories.flatMap((cat) =>
+        cat.items.map((item) => ({
+          ...item,
+          price: parseFloat(item.price).toFixed(2),
+        }))
+      );
+  
+      const firstFive = allItems.slice(0, 5);
+  
+      const container = document.querySelector(
+        ".homepage.concessions-list__items"
+      );
+      firstFive.forEach(({ name, price, image }) => {
+        const li = document.createElement("li");
+        li.className = "list-item";
+        li.innerHTML = `
+              <div class="image-container"><img src="${image}" alt="${name}"></div>
+              <div class="flex-row list-item__details">
+                  <div class="flex-column">
+                  <span class="list-item__name">${name}</span>
+                  <span class="list-item__price">$${price}</span>
+                  </div>
+                  <button class="list-item__add-btn" aria-label="Add item to Cart">
+                      <svg width="24" height="24" class="plus-circle" viewBox="0 0 16 16">
+                      <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4"/>
+                      </svg>
+                  </button>
+              </div>`;
+        container.appendChild(li);
+      });
+    })
+    .catch((error) => {
+      console.error("Error fetching categories:", error);
+    });
+  
+  fetch("/script/json/news.json")
+    .then((response) => response.json())
+    .then((data) => {
+      console.log(data);
+      data.categories.forEach((category) => {
+        console.log(category);
+      });
+  
+      const container = document.querySelector(".news-list__items");
+      data.categories.forEach(({ headline, image }) => {
+        const li = document.createElement("li");
+        li.className = "flex-column list-item";
+        li.innerHTML = `
+              <div class="image-container"><img src="${image}" alt="${headline}"></div>
+              <h3 class="list-item__headline">${headline}</h3>
+              `;
+        container.appendChild(li);
+      });
+    })
+    .catch((error) => {
+      console.error("Error fetching categories:", error);
+    });
 }
 
 initHomepage();

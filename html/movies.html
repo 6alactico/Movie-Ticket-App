@@ -1,170 +1,84 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
+  <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="/styles/main.css" />
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet"/>
-    <link rel="stylesheet" href="https://use.typekit.net/mwt6iue.css" />
-    <script type="module" src="/script/homepage.js"></script>
+    <script type="module" src="/script/movies.js"></script>
+    <script defer src="/script/load-nav.js"></script>
     <title>Movies</title>
-</head>
-<body>
-  <div class="flex-column app-container movies">
-    <div class="status-bar" role="status" aria-live="polite" aria-atomic="true"></div>
+  </head>
+  <body>
+    <nav id="nav-placeholder" class="flex-column navigation-bar"></nav>
+    <main class="flex-column movies">
+      <div class="flex-row hero">Movies</div> <!-- Hero section -->
 
-    <header class="flex-column movies-header">
-      <div class="flex-row" aria-label="Movies header">
-        <button type="button" class="flex-row movies-header__bell-button" aria-label="Notifications">
-          <svg width="24" height="24" viewBox="-2 -2 24 24" xmlns="http://www.w3.org/2000/svg" aria-label="bell icon" role="img"><path class="flex-row" d="M0 15.68c0 .58.47.96 1.25.96H6.34c.06 1.8 1.56 3.32 3.66 3.32s3.6-1.51 3.66-3.36h5.09c.77 0 1.25-.38 1.25-.96 0-.99-1.05-1.85-1.94-2.73-.88-.87-.97-2.63-1.15-4.18-.18-3.37-1.26-5.67-4-6.48C12.6.97 11.5 0 9.99 0c-1.5 0-2.61.97-2.91 2.29-2.73.81-3.82 3.11-4 6.48-.18 1.55-.27 3.32-1.15 4.18C1.04 13.83 0 14.69 0 15.68zm1.59-.19v-.11c.13-.39.85-1.09 1.47-1.7.98-.96 1.15-2.72 1.36-4.78.2-3.65 1.44-5.07 3.31-5.53.31-.07.49-.19.52-.47.08-1.01.73-1.75 1.76-1.75 1.04 0 1.69.75 1.77 1.75.03.28.2.4.51.48 1.88.47 3.11 1.88 3.31 5.54.2 2.06.38 3.82 1.35 4.78.62.61 1.33 1.31 1.47 1.7v.11H1.59zm6.05 1.16h4.73c-.09 1.4-1.04 2.28-2.37 2.28-1.32 0-2.28-.89-2.36-2.28z"/>
-          </svg>
-        </button>
-        <h1 class="movies-header__title">Movies</h1>
-        
-        <button type="button" class="movies-header__filter-button" aria-label="Filter movies">
-          <svg width="24" height="24" viewBox="-2 -2 24 24" xmlns="http://www.w3.org/2000/svg" aria-label="filter icon" role="img"><path d="M13.256 20c1.433 0 2.605-1.123 2.605-2.495s-1.172-2.503-2.605-2.503c-1.432 0-2.605 1.13-2.605 2.503S11.824 20 13.256 20Zm0-1.131c-.8 0-1.424-.608-1.424-1.375 0-.771.623-1.365 1.424-1.365.801 0 1.42.594 1.42 1.364 0 .768-.619 1.376-1.42 1.376ZM0 17.494c0 .382.32.689.72.689h10.672v-1.375H.72c-.4 0-.72.303-.72.685Zm20 0a.692.692 0 0 0-.691-.685h-4.09v1.374h4.09c.37 0 .691-.307.691-.69ZM6.325 12.508c1.432 0 2.605-1.13 2.605-2.503 0-1.372-1.173-2.495-2.605-2.495S3.72 8.633 3.72 10.005s1.172 2.503 2.605 2.503Zm0-1.139c-.793 0-1.42-.608-1.42-1.367 0-.767.627-1.364 1.42-1.364.8 0 1.424.597 1.424 1.364 0 .76-.623 1.367-1.424 1.367ZM0 10.002c0 .382.32.681.691.681h3.695v-1.37H.69a.696.696 0 0 0-.691.689Zm20 0c0-.383-.32-.69-.72-.69H8.182v1.371H19.28c.4 0 .72-.299.72-.681ZM13.256 4.99c1.433 0 2.605-1.127 2.605-2.496C15.861 1.123 14.69 0 13.256 0c-1.432 0-2.605 1.123-2.605 2.495 0 1.37 1.173 2.496 2.605 2.496Zm0-1.135c-.8 0-1.424-.608-1.424-1.367 0-.775.623-1.361 1.424-1.361.801 0 1.42.586 1.42 1.36 0 .76-.619 1.368-1.42 1.368ZM0 2.502c0 .383.32.693.72.693h10.673V1.82H.719C.32 1.82 0 2.12 0 2.502Zm20 0a.69.69 0 0 0-.691-.681h-4.166v1.374h4.166c.37 0 .691-.31.691-.693Z"/>
-          </svg>
-        </button>
-      </div>
-
-      <form class="flex-row search" role="search">
-        <label for="search" class="search__label hidden">Search for movies</label>
-        <span class="search__icon flex-row" aria-hidden="true">
-          <svg width="24" height="24" viewBox="-4 -4 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M0 5.5866C0 8.66377 2.53292 11.1732 5.63896 11.1732C6.91413 11.1732 8.08037 10.7501 9.02294 10.0402L12.8039 13.7977C12.9349 13.9276 13.1146 14 13.3065 14C13.7239 14 14 13.6888 14 13.2981C14 13.1125 13.9286 12.9416 13.7986 12.815L10.0348 9.06694C10.8123 8.11381 11.2779 6.90304 11.2779 5.5866C11.2779 2.5094 8.74497 0 5.63896 0C2.53292 0 0 2.5094 0 5.5866ZM0.947139 5.5866C0.947139 3.02525 3.0536 0.936119 5.63896 0.936119C8.2243 0.936119 10.3308 3.02525 10.3308 5.5866C10.3308 8.14793 8.2243 10.2349 5.63896 10.2349C3.0536 10.2349 0.947139 8.14793 0.947139 5.5866Z" fill="currentColor" />
-          </svg>
-        </span>
-        <input type="search" id="search" class="search__input name="search" placeholder="Search" aria-label="Search movies" aria-controls="search-results" aria-autocomplete="list" aria-haspopup="true" aria-expanded="false" autocomplete="off"/>
-        <div id="search-results" class="search__results hidden" role="listbox" aria-label="Search results"></div>
-      </form>
-
+      <!-- Segmented buttons -->
       <nav class="segmented-buttons" role="tablist" aria-label="Movie category selector">
-        <button type="button" id="movies__now-playing-btn" class="active" role="tab" data-index="0" aria-selected="true">Now Playing</button>
-        <button type="button" id="movies__coming-soon-btn" class="inactive" role="tab" data-index="1" aria-selected="false">Coming Soon</button>
+        <button type="button" class="movies__now-playing-btn active" role="tab" data-index="0" aria-selected="true">
+          Now Playing
+        </button>
+        <button type="button" class="movies__coming-soon-btn inactive" role="tab" data-index="1" aria-selected="false">
+          Coming Soon
+        </button>
       </nav>
-    </header>
-    <article class="flex-column filter" aria-label="Filter options">
-          <button type="button" class="close-button">
-            <svg width="24" height="24" viewBox="-5 -4 24 24" xmlns="http://www.w3.org/2000/svg" class="flex-row">
-              <path d="M.245 14.997a.868.868 0 0 0 1.201 0L7.5 8.942l6.054 6.055c.322.322.88.331 1.201 0a.857.857 0 0 0 0-1.192L8.701 7.74l6.054-6.055a.848.848 0 0 0 0-1.192.85.85 0 0 0-1.201 0L7.5 6.548 1.446.494a.842.842 0 0 0-1.201 0 .857.857 0 0 0 0 1.192L6.299 7.74.245 13.805a.848.848 0 0 0 0 1.192Z" />
+
+      <!-- Filter options -->
+      <ul class="flex-row filters">
+        <li class="dropdown">
+          <button type="button" class="flex-row chip" data-index="sort" aria-haspopup="menu" aria-controls="menu">
+            Sort By:
+            <span class="item-selected"></span>
+            <svg xmlns="http://www.w3.org/2000/svg" viewbox="-4 -8 24 24" width="24" height="24" fill="none">
+              <path
+                fill="#fff"
+                fill-opacity=".85"
+                d="M8.005 9.85a.83.83 0 00.617-.267l7.13-7.298A.82.82 0 0016 1.696.826.826 0 0015.162.85a.875.875 0 00-.599.239L7.507 8.294h.986L1.437 1.09A.842.842 0 00.838.85.826.826 0 000 1.697c0 .23.092.433.249.598l7.13 7.289a.865.865 0 00.626.267Z"
+              />
             </svg>
           </button>
-
-          <section>
-            <h3 class="filter__title">Sort by</h3>
-            <ul id="sort-by" class="filter__chips">
-              <li><button id="ascending" type="button" class="filter__chip">A-Z</button></li>
-              <li><button id="descending" type="button" class="filter__chip">Z-A</button></li>
-              <li><button id="oldest" type="button" class="filter__chip">Oldest</button></li>
-            </ul>
-          </section>
-          <hr>
-          <section>
-            <h3 class="filter__title">Genre</h3>
-              <ul id="genre" class="filter__chips">
-                <!-- Genre chips inserted dynamically -->
-              </ul>
-          </section>
-          <hr>
-          <section>
-            <h3 class="filter__title">Rating</h3>
-            <ul id="rating" class="flex-column filter__chips rating">
-                <!-- Rating chips inserted dynamically -->
-            </ul>
-          </section>
-        </article>
-    
-
-    <main class="flex-column">
-      <div id="hero" class="carousel flex-row">
-        <ul class="carousel__slides" role="group" aria-label="Movie carousel">
-          <li class="carousel__slide" aria-label="Slide 1">
-            <img src="https://s.yimg.com/ny/api/res/1.2/jW48I1KI0atehZJ3csuS5A--/YXBwaWQ9aGlnaGxhbmRlcjt3PTEyNDI7aD02OTk7Y2Y9d2VicA--/https://media.zenfs.com/en/superherohype_979/7aca0f55ab8afc88e4e11a8f0cbe8c4d" alt="Image holder" />
-          </li>
-
-          <li class="carousel__slide" aria-label="Slide 2">
-            <img src="https://cdn.theatertoolkit.com/media/fridleys/images/fooddrink-menuitems-thumbnail.jpg" alt="Image holder" />
-          </li>
-
-          <li class="carousel__slide" aria-label="Slide 3">
-            <img src="https://pbs.twimg.com/media/Gq630HiWYAAhJQZ?format=jpg&name=4096x4096" alt="Image holder" />
-          </li>
-
-          <li class="carousel__slide" aria-label="Slide 4">
-            <img src="https://i.ytimg.com/vi/XZT24cj4hyI/maxresdefault.jpg" alt="Image holder" />
-          </li>
-        </ul>
-
-        <ol class="carousel__pagination flex-row">
-          <li data-slide="1">
-            <button type="button" class="carousel__pagination-dot active" data-slide="1" aria-label="Go to slide 1"></button>
-          </li>
-          <li data-slide="2">
-            <button type="button" class="carousel__pagination-dot" data-slide="2" aria-label="Go to slide 2"></button>
-          </li>
-          <li data-slide="3">
-            <button type="button" class="carousel__pagination-dot" data-slide="3" aria-label="Go to slide 3"></button>
-          </li>
-          <li data-slide="4">
-            <button type="button" class="carousel__pagination-dot" data-slide="4" aria-label="Go to slide 4"></button>
-          </li>
-        </ol>
-
-         <button class="flex-column carousel__buttons prev" type="button" aria-label="Previous button" data-direction="-1">
-            <svg xmlns="http://www.w3.org/2000/svg" width="10" height="17" fill="none"><path fill="#fff" fill-opacity=".85" d="M0 8.5c0 .245.092.46.286.646l8.109 7.59a.9.9 0 0 0 .664.264c.532 0 .941-.382.941-.891a.9.9 0 0 0-.276-.637L2.28 8.5l7.444-6.972A.92.92 0 0 0 10 .89C10 .381 9.591 0 9.06 0a.931.931 0 0 0-.665.255L.286 7.854A.85.85 0 0 0 0 8.5Z"/></svg>
-          </button>
-          <button class="flex-column carousel__buttons next" type="button" aria-label="Next button" data-direction="1">
-           <svg xmlns="http://www.w3.org/2000/svg" width="10" height="17" fill="none"><path fill="#fff" fill-opacity=".85" d="M10 8.5a.86.86 0 0 0-.297-.646L1.605.254A.974.974 0 0 0 .93 0C.41 0 0 .382 0 .891c0 .245.102.47.266.637L7.71 8.5.266 15.472A.892.892 0 0 0 0 16.11c0 .51.409.891.93.891a.94.94 0 0 0 .675-.264l8.098-7.59C9.898 8.96 10 8.745 10 8.5Z"/></svg>
-          </button>
-      </div>
-
-      <div id="movies-wrapper" class="grid" aria-label="Movie cards">
-        <!-- Movie cards will be dynamically inserted here -->
-      </div>
-    </main>
-
-    <a class="movies-concessions flex-row" href="concessions.html" aria-label="Concessions">
-      <svg width="24" height="24" viewBox="0 0 16 24" xmlns="http://www.w3.org/2000/svg">
-        <path d="M3.978 23.046c-.644 0-1.137-.187-1.48-.56-.336-.374-.565-.892-.687-1.554L.096 11.5c-.11-.573-.079-1.051.095-1.437.18-.385.439-.674.775-.867.337-.199.69-.298 1.062-.298.476 0 .914.156 1.315.47.406.313.635.792.687 1.436l1.08 12.24H3.978Zm2.325 0L5.248 10.93c-.046-.536.04-.97.261-1.3.227-.338.514-.585.862-.741a2.456 2.456 0 0 1 1.01-.235c.325 0 .662.078 1.01.235.348.156.632.403.853.74.22.332.307.765.261 1.301l-.6 7.02c-.54.313-.964.743-1.272 1.292a3.56 3.56 0 0 0-.461 1.788c0 .368.052.72.157 1.057.104.337.258.644.461.922v.036H6.302Zm5.963-7.462c-.39 0-.76.07-1.115.208-.348.132-.65.319-.905.56l.479-5.547c.058-.644.287-1.123.687-1.436.407-.314.845-.47 1.315-.47.377 0 .734.1 1.07.298.337.193.592.482.767.867.18.386.217.864.113 1.437l-.827 4.498a3.121 3.121 0 0 0-1.585-.415Z"/>
-        <path d="M12.265 23.5c-.423 0-.818-.111-1.183-.334a2.154 2.154 0 0 1-.827-.895c-.592-.12-1.05-.394-1.376-.822a2.291 2.291 0 0 1-.479-1.418c0-.512.157-.985.47-1.418.32-.428.764-.693 1.332-.795.053-.572.27-1.04.653-1.4.383-.368.853-.551 1.41-.551.575 0 1.054.19 1.437.569.389.373.598.852.627 1.436.54.12.951.388 1.236.804.29.422.435.876.435 1.364 0 .494-.148.952-.444 1.373-.29.428-.72.708-1.288.84-.18.374-.453.675-.819.904-.36.229-.754.343-1.184.343ZM.34 7.113a2.917 2.917 0 0 1-.262-.633A2.694 2.694 0 0 1 0 5.83c0-.476.113-.906.34-1.292.226-.391.525-.702.896-.93.372-.23.786-.34 1.245-.335.006-.198.064-.391.174-.578.11-.186.255-.334.435-.442a.996.996 0 0 1 .592-.154c.087-.41.334-.777.74-1.102C4.828.666 5.34.5 5.954.5c.47 0 .9.13 1.289.388.394.26.693.609.896 1.048.11-.024.23-.033.357-.027.134.006.25.024.348.054a2.21 2.21 0 0 1 .732-.451c.278-.109.566-.163.861-.163.476 0 .886.136 1.228.407.348.265.618.62.81 1.066.47.018.882.147 1.236.388.36.241.64.566.844.976.203.403.305.87.305 1.4a2.735 2.735 0 0 1-.444 1.527 3.198 3.198 0 0 0-1.715-.48c-.476 0-.938.097-1.384.29a2.845 2.845 0 0 0-1.123.885 2.996 2.996 0 0 0-1.236-1.066 3.617 3.617 0 0 0-1.576-.361c-.546 0-1.074.12-1.584.361A3.07 3.07 0 0 0 4.56 7.808a2.845 2.845 0 0 0-1.122-.885 3.32 3.32 0 0 0-1.358-.29c-.627 0-1.208.16-1.742.48Z" />
-      </svg>
-    </a>
-
-    <nav class="navigation-bar flex-column">
-      <ul class="flex-row nav-list mobile">
-        <li class="nav-item mobile active">
-          <a href="movies.html" class="flex-column" data-index="screen1">
-            <span>
-              <svg id="movie-clapper" viewBox="0 0 25 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M20.3562 4.73506L20.5654 5.59221C20.7511 6.35732 20.4276 6.97795 19.6717 7.18912L10.9693 9.6342H20.2504C21.0297 9.63673 21.5 10.1302 21.5 10.9367V18.7257C21.5 20.2175 20.7645 21 19.3087 21H6.37351C4.92068 21 4.17686 20.2307 4.17686 18.7257V11.6112L3.61338 9.44236C3.24415 7.99743 3.78005 7.03754 5.17258 6.64391L17.6654 3.12202C19.0609 2.73401 20.0067 3.27131 20.3562 4.73506ZM9.10472 10.6155L7.18997 10.8397L5.96806 13.1727H8.51956L9.8633 10.6155H9.10472ZM12.2331 10.6155L10.8948 13.1727H13.64L14.9813 10.6155H12.2331ZM17.3535 10.6155L16.0152 13.1727H18.5661L19.9051 10.6155H17.3535ZM6.33201 7.33816L5.65292 10.1647L8.1243 9.46861L8.78491 6.63951L6.33201 7.33816ZM11.0848 5.99792L10.4194 8.8245L13.0714 8.08817L13.7344 5.25092L11.0848 5.99792ZM17.8557 4.08386L16.0265 4.60934L15.3581 7.43844L17.829 6.74541L18.4722 3.96295C18.2784 3.99108 18.0722 4.02174 17.8557 4.08386Z" />
-              </svg>
-            </span>
-            Movies
-          </a>
+          <ul id="sort-by" class="flex-column dropdown__menu hidden">
+            <li><button type="button" id="featured" class="dropdown__item">Fe</button></li>
+            <li><button type="button" id="ascending" class="dropdown__item">A-Z</button></li>
+            <li><button type="button" id="descending" class="dropdown__item">Z-A</button></li>
+            <li><button type="button" id="oldest" class="dropdown__item">Oldest</button></li>
+          </ul>
         </li>
-        <li class="nav-item mobile">
-          <a href="/html/tickets.html" class="flex-column" data-index="screen2">
-            <span class="flex-column">
-              <svg viewBox="0 0 25 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M15.8789 20.9999C16.1456 20.9999 16.3159 20.8886 16.4242 20.6453C16.8161 19.7975 17.2361 19.3389 18.1735 18.8581C18.3895 18.7336 18.5 18.5437 18.5 18.2906L18.5 5.70933C18.5 5.46137 18.3895 5.27377 18.1735 5.147C17.2361 4.66622 16.8161 4.20763 16.4242 3.35456C16.3158 3.11126 16.1456 2.99994 15.8789 2.99994L9.12597 2.99994C8.85224 2.99994 8.68409 3.11126 8.5807 3.35456C8.18878 4.20763 7.76384 4.66622 6.83139 5.147C6.61045 5.27377 6.49998 5.46137 6.49998 5.70933L6.49998 18.2906C6.49998 18.5437 6.61045 18.7336 6.8314 18.8581C7.76384 19.3389 8.18878 19.7975 8.58071 20.6453C8.68409 20.8886 8.85224 20.9999 9.12597 20.9999L15.8789 20.9999ZM15.6106 18.17L9.40742 18.17C9.03357 18.17 8.78017 17.9028 8.78017 17.5086L8.78017 6.49645C8.78017 6.09937 9.03357 5.83733 9.40742 5.83733L15.6106 5.83733C15.9872 5.83733 16.2357 6.09937 16.2357 6.49645L16.2357 17.5086C16.2357 17.9028 15.9872 18.17 15.6106 18.17ZM11.0343 17.4134L11.0343 16.2663L9.48799 16.2663L9.48799 17.2096C9.48799 17.3402 9.56714 17.4134 9.68612 17.4134L11.0343 17.4134ZM13.2786 17.4134L13.2786 16.2663L11.7421 16.2663L11.7421 17.4134L13.2786 17.4134ZM15.3297 17.4134C15.4536 17.4134 15.5278 17.3402 15.5278 17.2096L15.5278 16.2663L13.9865 16.2663L13.9865 17.4134L15.3297 17.4134ZM11.0343 7.7336L11.0343 6.58888L9.68612 6.58888C9.56714 6.58888 9.48799 6.66202 9.48799 6.79025L9.48799 7.7336L11.0343 7.7336ZM13.2786 7.7336L13.2786 6.58888L11.7421 6.58888L11.7421 7.7336L13.2786 7.7336ZM15.5278 7.7336L15.5278 6.79025C15.5278 6.66202 15.4536 6.58888 15.3297 6.58888L13.9865 6.58888L13.9865 7.7336L15.5278 7.7336ZM15.5278 15.5148L15.5278 8.48514L9.48799 8.48514L9.48799 15.5148L15.5278 15.5148Z" />
-              </svg>
-            </span>
-            Tickets
-          </a>
+        <li class="dropdown">
+          <button type="button" class="flex-row chip" data-index="genre" aria-haspopup="menu" aria-controls="menu">
+            Genre
+            <span class="item-selected"></span>
+            <svg xmlns="http://www.w3.org/2000/svg" viewbox="-4 -8 24 24" width="24" height="24" fill="none">
+              <path
+                fill="#fff"
+                fill-opacity=".85"
+                d="M8.005 9.85a.83.83 0 00.617-.267l7.13-7.298A.82.82 0 0016 1.696.826.826 0 0015.162.85a.875.875 0 00-.599.239L7.507 8.294h.986L1.437 1.09A.842.842 0 00.838.85.826.826 0 000 1.697c0 .23.092.433.249.598l7.13 7.289a.865.865 0 00.626.267Z"
+              />
+            </svg>
+          </button>
+          <ul id="genre" class="flex-column dropdown__menu hidden">
+            </ul>
         </li>
-        <li class="nav-item mobile">
-          <a href="profile.html" class="flex-column">
-            <span>
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 25 24" fill="none">
-                <path
-                  d="M5.21202 21H19.788C20.8451 21 21.5 20.5077 21.5 19.7229C21.5 17.1305 18.0468 13.555 12.4963 13.555C6.95309 13.555 3.5 17.1305 3.5 19.7229C3.5 20.5077 4.15483 21 5.21202 21ZM12.5137 11.7446C14.8347 11.7446 16.7648 9.81861 16.7648 7.31641C16.7648 4.88832 14.8214 3 12.5137 3C10.206 3 8.25931 4.91306 8.25931 7.33035C8.25931 9.81861 10.1852 11.7446 12.5137 11.7446Z"/>
-              </svg>
-            </span>
-            Profile
-          </a>
+        <li class="dropdown">
+          <button type="button" class="flex-row chip" data-index="rating" aria-haspopup="menu" aria-controls="menu">
+            Rating
+            <span class="item-selected"></span>
+            <svg xmlns="http://www.w3.org/2000/svg" viewbox="-4 -8 24 24" width="24" height="24" fill="none">
+              <path
+                fill="#fff"
+                fill-opacity=".85"
+                d="M8.005 9.85a.83.83 0 00.617-.267l7.13-7.298A.82.82 0 0016 1.696.826.826 0 0015.162.85a.875.875 0 00-.599.239L7.507 8.294h.986L1.437 1.09A.842.842 0 00.838.85.826.826 0 000 1.697c0 .23.092.433.249.598l7.13 7.289a.865.865 0 00.626.267Z"
+              />
+            </svg>
+          </button>
+          <ul id="rating" class="flex-column dropdown__menu hidden">
+            </ul>
         </li>
       </ul>
-    </nav>
-  </div>
-</body>
+
+      <!-- Movie cards -->
+      <div id="movies-wrapper" class="grid" aria-label="Movie cards">
+        </div>
+    </main>
+  </body>
 </html>

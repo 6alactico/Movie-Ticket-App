@@ -6,7 +6,7 @@ const $$ = (selector) => document.querySelectorAll(selector);
 const backBtn = $(".checkout-header .back-button");
 const editTimeBtn = $("#checkout__edit-time");
 const editSeatsBtn = $("#checkout__edit-seats");
-const payButton = $(".checkout__pay-button");
+const payButton = $(".checkout-nav__pay-button");
 
 function initCheckout() {
   const movieMeta = getStoredItem("movieMeta");
@@ -93,7 +93,7 @@ function displayTotals(amount) {
 
 // Dropdown toggle
 $("#order-summary__dropdown-button")?.addEventListener("click", () => {
-  $(".order-summary__dropdown")?.classList.toggle("hidden");
+  $(".order-summary__dropdown")?.classList.toggle("active");
 });
 
 function initCheckoutMeta() {
@@ -102,7 +102,6 @@ function initCheckoutMeta() {
   const cardInput = $("#card-number");
   const expiryInput = $("#expiry-date");
   const cvvInput = $("#cvv");
-  const emailForm = $(".form-contact");
 
   // Email validation
   if (emailInput) {
@@ -120,7 +119,7 @@ function initCheckoutMeta() {
   }
 
   // Only allow digits in text inputs
-  $$('.form-group input[type="text"]').forEach((input) =>
+  $$('input[type="text"]').forEach((input) =>
     input.addEventListener("input", () => {
       input.value = input.value.replace(/\D/g, "");
     })
@@ -170,7 +169,7 @@ function initCheckoutMeta() {
     // Radio-based dropdown logic
   $$(".radio").forEach((radio) =>
     radio.addEventListener("click", () => {
-      $$(".rb-dropdown").forEach((drop) => drop.classList.add("hidden"));
+      $$(".radio-button__dropdown").forEach((drop) => drop.classList.add("hidden"));
       const target = document.getElementById(radio.dataset.target);
       if (target) target.classList.remove("hidden");
       localStorage.removeItem("checkoutMeta");

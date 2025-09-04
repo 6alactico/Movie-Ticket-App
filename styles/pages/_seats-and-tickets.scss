@@ -1,20 +1,25 @@
 @use 'base/colors' as *;
 @use 'base/spacing' as *;
 @use 'base/typography' as *;
+@use 'abstracts/mixins' as *;
 
 .booking-screen {
-    flex: 1;
+    color: $neutral-50;
+    padding: $sp-300 $sp-200;
+    height: 85vh;
+    align-items: center;
 
-    main {
-        flex: 1;
-        padding: $sp-300 $sp-200;
-        overflow-y: auto;
-        -webkit-overflow-scrolling: touch;
+    @include respond-up("tablet") {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
     }
 }
 
 .seating {
-    gap: $sp-300;
+    gap: clamp($sp-300, 4vw, $sp-500);
+    align-items: center;
+    height: fit-content;
+    width: 100%;
 
     &__zoom-buttons {
         justify-self: center;
@@ -34,7 +39,8 @@
     }
 
     &__map {
-        width: 21rem;
+        max-width: 24rem;
+        max-width: 100%;
         overflow: auto;
     }
 
@@ -54,7 +60,7 @@
 
     &__legend {
         pointer-events: none;
-        gap: $sp-100;
+        gap: clamp($sp-100, 4vw, $sp-200);
         padding: $sp-200 $sp-200;
         font-size: 12px;
         margin-left: -1rem;
@@ -66,14 +72,13 @@
 
         .legend-item {
             display: flex;
-            width: 1rem;
-            height: 1rem;
+            width: clamp(1rem, 4vw, 1.5rem);
             cursor: pointer;
             border-radius: 4px;
             justify-content: center;
             line-height: 1.875rem;
             position: relative;
-            @include secondary-font($caption);
+            @include secondary-font(clamp($caption, 4vw, $footnote));
         }
 
         p {
@@ -98,8 +103,8 @@
     &__seat {
         display: flex;
         color: hsl(210.36, 46.37%, 35.1%);
-        width: 1.5rem;
-        height: 1.5rem;
+        width: clamp(1.5rem, 4vw, 2rem);
+
         cursor: pointer;
         border-radius: 4px;
         justify-content: center;
@@ -140,25 +145,29 @@
         position: absolute;
         color: white;
         font-weight: bold;
-        @include secondary-font($caption);
+        @include secondary-font(clamp($caption, 4vw, $footnote));
     }
     
     &__controls {
         align-items: center;
         padding: $sp-200 $sp-200 $sp-0;
         gap: $sp-100;
-    
         div:first-child {
             justify-content: space-between;
             width: 100%;
             align-items: center;
         }
+
+        @include respond-up("tablet") {
+            width: 90%;
+        }
     }
 
     &__screen-svg {
         align-items: center;
-        @include primary-font($footnote);
-        gap: $sp-50
+        @include primary-font(clamp($footnote, 4vw, $subhead));
+        gap: $sp-50;
+        width: 100%;
     }
 
     &__selection-qty {
@@ -167,10 +176,20 @@
     }
 }
 
+.tickets-section {
+    justify-content: center;
+}
+
 .booking-screen .tickets {
     width: 100%;
     margin-block: $sp-300 $sp-0;
     gap: $sp-200;
+    justify-self: center;
+    align-self: center;
+
+    @include respond-up("tablet") {
+       width: 80%;
+    }
 
     &__type {
         width: 100%;
@@ -200,10 +219,8 @@
 
 .booking-header {
     align-items: center;
-    height: fit-content;
+    height: clamp(67px, 8vw, 80px);
     padding: $sp-150 $sp-200;
-    position: sticky;
-    top: 50px;
     flex-shrink: 0;
 
     &__movie-info {
@@ -212,8 +229,7 @@
     }
 
     &__movie-title {
-        @include primary-font($body);
-        font-weight: bold;
+        @include primary-font(clamp($body, 4vw, $heading-3), 600);
     }
 
     &__movie-details {

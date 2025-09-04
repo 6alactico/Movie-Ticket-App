@@ -1,10 +1,11 @@
-@use 'abstracts/mixins' as *;
-@use 'base/colors' as *;
-@use 'base/spacing' as *;
-@use 'base/typography' as *;
+@use "abstracts/mixins" as *;
+@use "base/colors" as *;
+@use "base/spacing" as *;
+@use "base/typography" as *;
 
-.tickets {
+.tickets-screen {
   padding: $sp-300 $sp-200;
+  height: 100vh;
 }
 
 .tickets-header {
@@ -14,7 +15,7 @@
   gap: $sp-100;
 
   &__title {
-    @include primary-font($title-2, 600);
+    @include primary-font($heading-2, 600);
     text-align: center;
     padding-block: 0.35rem;
   }
@@ -30,7 +31,7 @@
 
   &__poster {
     height: 6rem;
-  
+
     img {
       height: 100%;
       width: auto;
@@ -106,7 +107,7 @@
   &__order-info {
     width: 100%;
     align-items: center;
-    gap: $sp-100
+    gap: $sp-100;
   }
 
   &__order-num {

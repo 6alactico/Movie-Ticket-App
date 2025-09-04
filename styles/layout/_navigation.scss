@@ -1,49 +1,111 @@
+@use "abstracts/mixins" as *;
 @use "base/spacing" as *;
 @use "base/typography" as *;
+@use "base/colors" as *;
 
 .navigation-bar {
-  gap: $sp-50;
   background-color: hsla(210, 100%, 12%, 1);
   position: sticky;
-  bottom: 0;
-  width: inherit;
   z-index: 900;
-  height: 84px;
+  min-height: 5.25rem;
+  gap: $sp-200;
+  justify-content: center;
+  max-width: 100rem;
+  bottom: 0;
+
+  @include respond-up("tablet") {
+    grid-row: 1 / 2;
+    flex-direction: row;
+    align-items: center;
+    top: 0;
+    left: 0;
+    right: 0;
+    width: 100vw;
+
+    nav {
+      max-width: 90rem;
+      margin: 0 auto;
+      padding: 0 clamp($sp-200, 4vw, $sp-800);
+    }
+  }
+}
+
+.nav-list {
+  gap: clamp($sp-50, 4vw, $sp-600);
+  flex: 1 1 auto;
+  min-width: 0;
+  align-items: center;
+  justify-content: space-around;
+
+  @include respond-up("tablet") {
+    justify-content: space-between;
+    max-width: none;
+  }
+
+  div {
+    display: none;
+    justify-content: flex-end;
+
+    @include respond-up("tablet") {
+      display: flex;
+    }
+  }
+}
+
+li.tickets,
+li.profile {
+  @include respond-up("tablet") {
+    display: none;
+  }
+}
+
+li.offers,
+li.concessions,
+li.news {
+  display: none;
+
+  @include respond-up("tablet") {
+    display: flex;
+  }
 }
 
 .nav-item {
-  display: flex;
-  flex-direction: column;
   align-items: center;
-  width: 100%;
-  padding-block-start: $sp-50;
-}
-
-.nav-item a {
-  display: flex;
-  flex-direction: column;
+  fill: hsla(209, 25%, 81%, 1);
   color: hsla(209, 25%, 81%, 1);
   @include secondary-font($body);
 
-  span {
-    align-self: center;
-    height: 1.5rem;
+  &.active {
+    color: $neutral-50;
+    fill: $neutral-50;
+  }
+
+  @include respond-up("tablet") {
+    padding-block: 0;
+    height: 100%;
+    justify-content: center;
+
+    &.hidden {
+      display: flex;
+    }
+
+    &.tickets,
+    &.profile {
+      display: none;
+    }
+
+    svg {
+      display: none;
+    }
   }
 }
 
-.nav-item svg {
-  fill: hsla(209, 25%, 81%, 1);
-  width: 1.5rem;
-  height: 1.5rem;
-}
+.logo {
+  display: none;
 
-.nav-item.active {
-  a {
-    color: white;
-    font-weight: 600;
-  }
-
-  svg {
-    fill: white;
+  @include respond-up("tablet") {
+    @include primary-font($heading-2, 600);
+    display: flex;
+    margin-inline-end: $sp-200;
   }
 }

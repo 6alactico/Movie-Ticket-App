@@ -1,4 +1,5 @@
 @use "abstracts/placeholders" as *;
+@use "abstracts/mixins" as *;
 @use "base/colors" as *;
 @use "base/spacing" as *;
 @use "base/typography" as *;
@@ -45,8 +46,12 @@
   }
 
   &__title {
-    @include secondary-font($title-3, 600);
+    @include secondary-font($heading-3, 600);
     color: $neutral-50;
+
+    @include respond-up("tablet") {
+      @include primary-font($heading-1, 600);
+    }
   }
 
   &__characteristics {
@@ -96,7 +101,7 @@
 .date-selector {
   color: $neutral-50;
   background-color: $primary-700;
-  padding: $sp-100 $sp-200;
+  padding: clamp($sp-100, 4vw, $sp-200) clamp($sp-200, 4vw, $sp-300);
   gap: $sp-100;
   width: calc(100% + 2rem);
   overflow-x: auto;
@@ -112,12 +117,13 @@
     border-radius: 12px;
     border: 1px solid transparent;
 
-    &.active, &:active, &:hover {
+    &.active,
+    &:active,
+    &:hover {
       background-color: $primary-400;
       border-color: $neutral-50;
     }
   }
-
 
   &__tab-num {
     width: 100%;
@@ -135,6 +141,7 @@
 
   &__list {
     gap: $sp-150;
+    color: $neutral-50;
   }
 
   &__info-btn {
@@ -174,7 +181,8 @@
       cursor: not-allowed;
     }
 
-    &:active, &:hover {
+    &:active,
+    &:hover {
       background-color: darken($primary-500, 5%);
     }
   }

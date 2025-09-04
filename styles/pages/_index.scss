@@ -1,0 +1,211 @@
+@use "abstracts/mixins" as *;
+@use "base/spacing" as *;
+@use "base/typography" as *;
+@use "base/colors" as *;
+
+.index {
+  padding: $sp-400 clamp($sp-200, 1vw, $sp-800);
+  gap: $sp-400;
+
+  @include respond-up("tablet") {
+    padding-block-start: $sp-0;
+  }
+
+  section:nth-child(3),
+  section:nth-child(4) {
+    display: none;
+
+    @include respond-up("tablet") {
+      display: flex;
+      gap: $sp-200;
+      color: $neutral-50;
+    }
+  }
+}
+
+.index-header {
+  padding-block-end: $sp-200;
+  color: $neutral-50;
+
+  @include respond-up("tablet") {
+    background-color: transparent;
+    display: none;
+  }
+
+  div {
+    width: 100%;
+    min-height: 44px;
+    justify-content: space-between;
+    align-items: center;
+
+    @include respond-up("tablet") {
+      display: none;
+    }
+  }
+
+  &__title {
+    @include primary-font($heading-2, 600);
+    text-align: center;
+  }
+
+  &__bell-button,
+  &__filter-button {
+    fill: $neutral-50;
+    height: 1.5rem;
+  }
+}
+
+.carousel {
+  position: relative;
+  width: 100%;
+  overflow: clip;
+  z-index: 0;
+  height: clamp(300px, 50vw, 450px);
+
+  &__slides {
+    display: flex;
+    height: 100%;
+    transition: transform 0.5s ease-in-out;
+    width: calc(100% * numberOfSlides);
+  }
+
+  &__slide {
+    flex: 0 0 100%;
+    height: 100%;
+
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+  }
+
+  &__pagination {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    justify-content: center;
+    gap: 1rem;
+    z-index: 1;
+
+    &-dot {
+      width: 0.5rem;
+      height: 0.5rem;
+      border-radius: 50%;
+      background-color: #bbb;
+      transition: background-color 0.5s ease;
+      cursor: pointer;
+
+      &.active,
+      &:hover {
+        background-color: #717171;
+      }
+    }
+  }
+
+  &__buttons {
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: clamp(2.5rem, 5vw, 3.5rem);
+    height: clamp(2.5rem, 5vw, 3.5rem);
+    background-color: hsla(0deg, 0%, 19%, 0.85);
+    border-radius: 50%;
+    margin-inline: $sp-100;
+    padding: $sp-100;
+
+    &.next {
+      right: 0;
+    }
+
+    &.prev {
+      left: 0;
+    }
+
+    &:hover,
+    &:active {
+      background-color: hsla(0, 0%, 43%, 0.85);
+    }
+  }
+}
+
+.news-list__items {
+  gap: $sp-200;
+  height: 280px;
+  flex-wrap: wrap;
+
+  .list-item {
+    gap: $sp-200;
+    flex: 1 1 23%;
+
+    &__headline {
+      width: 100%;
+      @include primary-font($subheading);
+      white-space: wrap;
+    }
+  }
+
+  .image-container img {
+    width: 100%;
+    height: 164px;
+    object-fit: cover;
+  }
+}
+
+.browse-movies-container {
+  display: none;
+  margin-block-end: $sp-400;
+
+  @include respond-up("tablet") {
+    display: flex;
+  }
+
+  &,
+  + .section-title {
+    justify-content: space-between;
+    align-items: center;
+    @include primary-font($heading-3, 600);
+  }
+}
+
+.homepage-link {
+  @include primary-font($body);
+  color: $accent-700;
+  padding: $sp-100 $sp-0 $sp-100 $sp-200;
+}
+
+.homepage.concessions-list__items {
+  display: flex;
+  gap: $sp-400;
+
+}
+
+.concessions-button {
+  position: absolute;
+  bottom: 6rem;
+  right: 1rem;
+  width: 3rem;
+  height: 3rem;
+  padding: $sp-100;
+  background-color: $accent-700;
+  border-radius: 50%;
+  justify-content: center;
+  align-items: center;
+  z-index: 1;
+
+  path {
+    fill: $neutral-50;
+  }
+
+  &:hover,
+  &:active {
+    background-color: $accent-600;
+    cursor: pointer;
+  }
+
+  @include respond-up("tablet") {
+    display: none;
+  }
+}

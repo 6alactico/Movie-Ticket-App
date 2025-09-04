@@ -1,15 +1,17 @@
-@use 'base/colors' as *;
-@use 'base/spacing' as *;
-@use 'base/typography' as *;
+@use 'abstracts/mixins' as *;
+@use "base/colors" as *;
+@use "base/spacing" as *;
+@use "base/typography" as *;
 
 .concessions-header {
   position: sticky;
   display: flex;
-  width: 100%;
   padding: $sp-150 $sp-200;
   align-items: center;
   gap: $sp-150;
   height: fit-content;
+  min-width: 23.438rem;
+  max-width: 90rem;
 
   &__main {
     display: flex;
@@ -19,31 +21,11 @@
   }
 
   &__page-title {
-    @include primary-font($title-2);
+    @include primary-font($heading-2);
     text-align: center;
     width: 100%;
-  }
-
-  &__tabs {
-    @include secondary-font($body);
+    padding-inline-start: $sp-300;
     color: $neutral-50;
-    border-bottom: 2px solid transparent;
-    overflow-x: auto;
-    text-wrap: nowrap;
-    width: 100%;
-  }
-
-  &__tab {
-    color: $neutral-50;
-    border-bottom: 2px solid transparent;
-    padding: $sp-100 $sp-200;
-    width: 100%;
-
-    &.active {
-      background-color: hsla(100, 100, 100, 0.2);
-      border-color: $accent-700;
-      font-weight: 600;
-    }
   }
 
   &__back-button {
@@ -53,78 +35,159 @@
       display: block;
     }
   }
+
+  @include respond-up("tablet") {
+    display: none;
+  }
 }
 
-.concessions-nav {
-  background-color: $primary-700;
-  padding-top: $sp-150;
-  padding-inline: $sp-300;
-  align-content: center;
-  @include secondary-font($body);
+.concessions-tabs {
+  overflow-y: auto;
+  width: 100%;
+  
+  &__tab {
+    color: $neutral-50;
+    border-bottom: 2px solid transparent;
+    padding: $sp-100 $sp-200;
+    width: 100%;
+    @include secondary-font($body);
+    text-wrap: nowrap;
+
+    &.active {
+      background-color: hsla(100, 100, 100, 0.2);
+      border-color: $accent-700;
+      font-weight: 600;
+    }
+  }
+
+  @include respond-up("tablet") {
+    margin-block-end: $sp-200;
+    position: sticky;
+  }
 }
 
-.cart-summary {
+.concessions {
+  display: flex;
+  flex-direction: column;
   padding: $sp-0 $sp-200;
+  overflow-y: auto;
+
+  @include respond-up("tablet") {
+    display: grid;
+    row-gap: $sp-400;
+    column-gap: $sp-600;
+    grid-template-columns: 50% auto;
+    padding-block: $sp-400;
+
+
+    .concessions-list-container {
+      width: 100%;
+      height: 100%;
+      overflow-y: auto;
+    } 
+  }
+}
+
+.concessions-wrapper {
+  height: 100%;
+  overflow: hidden;
+}
+
+.concessions-actions {
+  align-items: center;
+  justify-content: center;
+  margin-block-end: $sp-300;
+  gap: $sp-200;
+
+  .cart-button,
+  .checkout-button {
+    padding: $sp-100 $sp-200;
+    background-color: $accent-700;
+    border-radius: 12px;
+  }
+
+  .cart-button {
+    display: flex;
+    align-items: center;
+    color: $neutral-50;
+    gap: $sp-100;
+
+    @include respond-up("tablet") {
+      display: none;
+    }
+  }
+
+  .checkout-button {
+    display: flex;
+    width: clamp(50%, 50vw, 100%);
+    justify-content: center;
+  }
+}
+
+.cart {
+  padding: $sp-150 $sp-200;
+  color: $neutral-50;
+  gap: clamp($sp-50, 12vw, $sp-200);
+  overflow-y: auto;
+  scroll-behavior: smooth;
+  
+  @include respond-down("tablet") {
+    max-height: 300px;
+  }
+
+  &__list {
+    gap: clamp($sp-200, 4vw, $sp-400);
+  }
+
+  &__item {
+    gap: $sp-200;
+  }
 
   &__empty-message {
     @include secondary-font($body);
   }
 
   &__title {
-    @include secondary-font($title-3);
+    @include secondary-font($heading-3);
     margin-inline-start: -$sp-200;
-    margin-bottom: $sp-100;
-  }
 
-  &__items {
-    display: flex;
-    gap: $sp-100;
-  }
-
-  &__item {
-    display: flex;
-    gap: $sp-150;
   }
 
   &__image-container {
-    width: 5rem;
+    max-width: 100%;
+    width: clamp(6.25rem, 50vw, 8rem);
 
     img {
       width: 100%;
-      height: 100%;
+      height: auto;
       object-fit: cover;
     }
   }
 
-  &__item-name {
+  &__content {
     @include secondary-font($subhead);
     width: 100%;
     justify-content: space-between;
     align-items: center;
-    display: flex;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: auto auto;
+    height: auto;
   }
 
   &__item-price {
-    @include secondary-font($footnote);
+    @include secondary-font(clamp($subhead, 2vw, $body));
     color: $neutral-50;
     width: 100%;
-    justify-content: space-between;
   }
 
-  &__counter {
-    display: flex;
-    gap: $sp-100;
-    align-items: center;
-
-    button {
-      display: flex;
-      fill: $neutral-50;
-      align-items: center;
-    }
+  &__item-name {
+    @include secondary-font(clamp($body, 2vw, $heading-3));
   }
 
-  &__counter-value {
-    @include secondary-font($subhead);
+  &__remove-item {
+    justify-self: flex-end;
+    fill: $neutral-50;
   }
 
   &__text-block {
@@ -136,33 +199,107 @@
   }
 
   &__prices {
-    @include secondary-font($subhead);
-    gap: $sp-50;
-    padding-bottom: $sp-100;
+    @include secondary-font(clamp($callout, 2vw, $body));
+
+    p {
+      justify-content: space-between;
+      
+      &:nth-child(3) {
+        @include secondary-font($body);
+      }
+    }
+  }
+
+  @include respond-up("tablet") {
+    display: flex;
+    flex-direction: column;
   }
 }
 
-.concessions-lists {
-  padding: $sp-0 $sp-200;
+.cart__counter {
+  max-width: 100%;
+  justify-self: flex-end;
+
+  button {
+    width: clamp(1.5rem, 4vw, 2rem);
+    fill: $neutral-50;
+    align-items: center;
+
+    svg {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+  }
+
+  .cart__counter-value {
+    @include secondary-font(clamp($subhead, 2vw, $body));
+    width: 1rem;
+    align-self: center;
+    text-align: center;
+  }
+}
+
+.concessions-nav {
+  background-color: $primary-700;
+  padding: $sp-200 $sp-300 $sp-0;
+  align-content: center;
+  @include secondary-font($body);
+  width: 100%;
+
+  div:nth-child(2) {
+    width: 100%;
+    height: 40px;
+    align-self: center;
+    margin-bottom: 34px;
+    gap: $sp-150;
+  }
+
+  @include respond-up("tablet") {
+    max-width: 30rem;
+    justify-self: center;
+    justify-content: space-between;
+    max-height: 100%;
+  }
 }
 
 .concessions-list {
-  width: 100%;
   gap: $sp-200;
   padding: $sp-200 0;
 
   &__title {
-    @include secondary-font($title-3);
+    @include secondary-font($heading-3);
     width: 100%;
+    color: $neutral-50;
   }
 
   &__items {
     display: flex;
     overflow-x: auto;
     gap: $sp-150;
+    -webkit-overflow-scrolling: touch; // smooth scrolling on iOS
+    scroll-snap-type: x proximity; // help keep cards aligned while scrolling
+    padding-inline-start: $sp-100; // give a little inset so first card isn't flush to the edge
+  }
+}
 
-    .image-container {
-      width: 164px;
+// Concessions List Items
+// Concessions List Items
+.concessions-list__items .list-item {
+  /* Keep each card its own scroll item and make width responsive. */
+  flex: 0 0 auto; // don't stretch or shrink to fill the row
+  width: clamp(160px, 34vw, 260px); // responsive between 160px and 260px, scales with viewport
+  min-width: 140px;
+  background-color: $neutral-50;
+  overflow: clip;
+  border-radius: 4px;
+  color: $neutral-400;
+  scroll-snap-align: start; // align each card to the start when scrolling
+  -webkit-overflow-scrolling: touch;
+
+  .image-container {
+      width: 100%;
+      aspect-ratio: 3 / 2;
       overflow: hidden;
 
       img {
@@ -171,18 +308,10 @@
         object-fit: cover;
       }
     }
-  }
-}
-
-// Concessions List Items
-.concessions-list__items .list-item {
-  border-radius: 4px;
-  overflow: clip;
-  color: $neutral-400;
 
   &__details {
     align-items: center;
-    flex: 1;
+    flex-grow: 1;
     gap: $sp-50;
     width: 100%;
     padding: $sp-100 $sp-150;
@@ -217,31 +346,8 @@
   }
 }
 
-.concessions-nav div:nth-child(2) {
-  width: 100%;
-  height: 40px;
-  align-self: center;
-  margin-bottom: 34px;
-  gap: $sp-150;
-}
-
-.cart-button,
-.checkout-button {
-  padding: $sp-100 $sp-200;
-  background-color: $accent-700;
-  border-radius: 12px;
-}
-
-.cart-button {
-  display: flex;
-  align-items: center;
-  color: $neutral-50;
-  gap: $sp-100;
-}
-
-.checkout-button {
-  display: flex;
-  width: 100%;
-  text-align: center;
-  align-content: center;
+.conc.navigation-bar {
+  @include respond-down("tablet") {
+    display: none;
+  }
 }

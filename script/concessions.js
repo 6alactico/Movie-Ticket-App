@@ -47,7 +47,7 @@ function setupNavigation(movieId, format, date, time) {
 }
 
 function fetchAndRenderCategories() {
-  fetch("/script/json/categories.json")
+  fetch("script/json/categories.json")
     .then((res) => res.json())
     .then(({ categories }) => {
       categories.forEach((cat, i) => {

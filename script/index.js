@@ -360,7 +360,7 @@ function initSearch() {
 }
 
 function initSections() {
-  fetch("/script/json/categories.json")
+  fetch("script/json/categories.json")
     .then((response) => response.json())
     .then(({ categories }) => {
       // Process the categories data
@@ -399,7 +399,7 @@ function initSections() {
       console.error("Error fetching categories:", error);
     });
   
-  fetch("/script/json/news.json")
+  fetch("script/json/news.json")
     .then((response) => response.json())
     .then((data) => {
       console.log(data);

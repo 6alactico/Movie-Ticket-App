@@ -24,4 +24,11 @@ jobs:
           mkdir out
           cp -r html/* out/
           cp -r media out/
-          cp
+          cp -r script out/
+          cp -r styles out/
+
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./out

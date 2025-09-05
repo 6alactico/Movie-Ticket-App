@@ -13,10 +13,11 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v3
 
-      - name: Install and compile Dart Sass
-        run: |
-          curl -L https://github.com/sass/dart-sass/releases/latest/download/dart-sass-linux-x64.tar.gz | tar xz
-          ./dart-sass/sass styles:styles
+      - name: Compile Sass to CSS
+        uses: gha-utilities/sass-build@v0.6.0
+        with: 
+          source: styles
+          destination: styles
 
       - name: Copy site content to deploy folder
         run: |

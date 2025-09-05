@@ -22,7 +22,7 @@ jobs:
         run: npm install -g sass
 
       - name: Compile Sass to CSS
-        run: sass styles/main.scss styles/main.css
+        run: sass --load-path=styles styles/main.scss styles/main.css
 
       - name: Copy site content to deploy folder
         run: |

@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="/styles/main.css" />
+    <script src="https://cdn.jsdelivr.net/npm/qrious@4.0.2/dist/qrious.min.js"></script>
+    <script type="module" src="/script/confirmation.js"></script>
+    <title>Booking confirmation</title>
+  </head>
+  <body>
+    <div class="status-bar" role="status" aria-live="polite" aria-atomic="true"></div>
+
+    <main class="confirmation">
+      <section class="flex-column confirmation__header" role="banner" aria-label="Booking Confirmation">
+        <div class="confirmation__status" role="status" aria-live="polite">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="35"
+            height="34"
+            fill="none"
+            aria-hidden="true"
+            focusable="false"
+          >
+            <title>Success checkmark</title>
+            <path
+              fill="#32D74B"
+              d="M17.497 33.667c9.205 0 16.67-7.466 16.67-16.667 0-9.206-7.465-16.667-16.67-16.667C8.297.333.833 7.793.833 17c0 9.201 7.465 16.667 16.665 16.667Zm0-2.156c-8.02 0-14.509-6.49-14.509-14.511 0-8.027 6.49-14.517 14.51-14.517 8.025 0 14.514 6.49 14.514 14.517 0 8.021-6.49 14.511-14.515 14.511Z"
+            />
+            <path
+              fill="#32D74B"
+              d="M14.906 25.333c.414 0 .76-.204 1.017-.591L23.875 12.1c.135-.25.292-.534.292-.808 0-.569-.508-.959-1.034-.959-.317 0-.636.215-.88.574l-7.397 11.914-3.78-4.733c-.296-.398-.575-.506-.933-.506-.536 0-.976.444-.976 1.011 0 .29.117.562.3.811l4.377 5.337c.313.416.639.592 1.062.592Z"
+            />
+          </svg>
+        </div>
+        <h1 class="confirmation__title">Booking Confirmed!</h1>
+        <p class="confirmation__message">
+          An order confirmation has been sent to
+          <span class="confirmation__email"></span>
+        </p>
+      </section>
+
+      <article class="flex-column movie-details" aria-label="Ticket Details">
+        <div class="movie-details__poster-container fade-bottom-mask">
+          <img
+            class="movie-details__poster"
+            src=""
+            alt=""
+            aria-hidden="true"
+          />
+        </div>
+        <div class="flex-column movie-details__info-container">
+          <section class="flex-column movie-details__info" aria-labelledby="movie-title">
+            <h2 id="movie-title" class="movie-details__title"></h2>
+            <div class="flex-row" role="group" aria-label="Movie Information">
+              <p class="movie-details__certification" aria-label="Movie Rating"></p>
+              <p class="movie-details__runtime" aria-label="Movie Duration"></p>
+            </div>
+          </section>
+
+          <div class="flex-row movie-details__showtime" role="group" aria-label="Show Time">
+            <p class="movie-details__date" aria-label="Show Date"></p>
+            <p class="movie-details__time" aria-label="Show Time"></p>
+          </div>
+
+          <div class="flex-row movie-details__seating-info" role="group" aria-label="Seating Information">
+            <span class="movie-details__format"></span>
+            <span class="movie-details__screen-num" aria-label="Screen Number"></span>
+            <span class="movie-details__selected-seats" aria-label="Selected Seats"></span>
+          </div>
+
+          <div class="flex-column movie-details__order-info" role="group" aria-label="Check-in Information">
+            <div class="movie-details__qr-container">
+              <canvas
+                id="qr"
+                class="movie-details__qr"
+                aria-label="Scan this QR code at the theater to check in"
+                role="img"
+              ></canvas>
+            </div>
+            <p class="movie-details__order-num" aria-label="Order Number"></p>
+            <span class="movie-details__scan-qr" role="note">Scan QR code at the theater to check in.</span>
+          </div>
+        </div>
+      </article>
+    </main>
+
+    <nav class="flex-row button-group confirmation__nav" role="navigation" aria-label="Page Navigation">
+      <a href="index.html" class="button movies">Movies</a>
+      <a href="tickets.html" class="button">View Tickets</a>
+    </nav>
+  </body>
+</html>

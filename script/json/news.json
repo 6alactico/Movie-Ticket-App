@@ -1,0 +1,24 @@
+{
+    "categories": [
+        {
+            "category": "news",
+            "headline": "Box Office: ‘Minecraft’ Is Already the Second-Biggest Movie of the Year With $301 Million in Global Debut",
+            "image": "https://placehold.co/400x300?text=News"
+        },
+        {
+            "category": "news",
+            "headline": "Academy President Janet Yang Urges Preservation of ‘Human Authorship’ in the AI Era",
+            "image": "https://placehold.co/400x300?text=News"
+        },
+        {
+            "category": "news",
+            "headline": "News-3",
+            "image": "https://placehold.co/400x300?text=News"
+        },
+        {
+            "category": "news",
+            "headline": "News-4",
+            "image": "https://placehold.co/400x300?text=News"
+        }
+    ]
+}

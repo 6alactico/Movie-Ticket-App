@@ -1,0 +1,331 @@
+@use "abstracts/mixins" as *;
+@use "abstracts/placeholders" as *;
+@use "base/colors" as *;
+@use "base/spacing" as *;
+@use "base/typography" as *;
+
+// .movies {
+//   position: relative;
+//   &::before {
+//     @extend %dimmed-screen;
+//     z-index: 999;
+//   }
+
+//   &.dimmed::before {
+//     opacity: 1;
+//   }
+
+// }
+
+.search {
+  display: flex;
+  position: relative;
+  min-height: 40px;
+  background-color: $neutral-50;
+  padding: $sp-100 $sp-150;
+  align-items: center;
+  border-radius: 12px;
+  color: $neutral-400;
+  outline: 2px solid transparent;
+
+  &:focus-within {
+    outline: 2px solid $primary-200;
+  }
+
+  &__input {
+    outline: none;
+    cursor: pointer;
+    height: 100%;
+    color: $neutral-400;
+    @include primary-font($subhead);
+
+    &::placeholder {
+      color: $neutral-400;
+      opacity: 0.8;
+      @include primary-font($subhead);
+    }
+  }
+
+  &__icon {
+    width: 24px;
+    height: 24px;
+    justify-content: center;
+    align-items: center;
+    fill: $neutral-400;
+    opacity: 0.8;
+  }
+
+  &__results {
+    position: absolute;
+    top: 100%;
+    margin-top: 0.5rem;
+    left: 0;
+    right: 0;
+    max-height: 8rem;
+    overflow-y: auto;
+    background-color: white;
+    color: $neutral-400;
+    pointer-events: auto;
+    z-index: 3;
+    padding: $sp-200;
+    border-radius: 12px;
+    box-shadow: 0px 2px 8px 4px hsl(0deg, 0%, 19%, 0.8);
+    @include secondary-font($subhead);
+
+    &.hidden {
+      display: none;
+    }
+  }
+
+  &__no-results {
+    text-align: center;
+    padding: $sp-100;
+  }
+
+  &__result {
+    border-bottom: 1px solid $neutral-100;
+  }
+
+  &__result:hover {
+    background-color: $neutral-100;
+    cursor: pointer;
+  }
+}
+
+.search.mobile {
+  margin-block: $sp-100 $sp-150;
+  @include respond-up("tablet") {
+    display: none;
+  }
+}
+
+.search.desktop {
+  display: none;
+
+  @include respond-up("tablet") {
+    display: flex;
+    flex: clamp(160px, 4vw, 300px); // fluid size based on viewport
+    max-width: 100%;
+  }
+}
+
+.filter {
+  position: absolute;
+  inset: 0 0 auto auto;
+  height: 100vh;
+  width: 70%;
+  padding: $sp-300;
+  background-color: hsl(210, 100%, 12%, 0.8);
+  z-index: 1000;
+  @include secondary-font($subhead);
+  transform: translateX(100%);
+  transition: transform 0.5s ease;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  border-radius: 12px 0 0 12px;
+  backdrop-filter: blur(40px);
+
+  &.active {
+    transform: translateX(0);
+  }
+
+  .close-button {
+    width: fit-content;
+    padding: $sp-100 $sp-100 $sp-100 0;
+    margin-block: $sp-300 $sp-100;
+  }
+
+  &__content {
+    gap: $sp-200;
+
+    div {
+      gap: $sp-100;
+    }
+  }
+
+  &__title {
+    @include secondary-font($heading-3, 600);
+    margin-block-end: $sp-150;
+  }
+
+  &__chips {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: $sp-150;
+
+    &#sort-by {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+
+  &__chip {
+    width: 100%;
+    padding: $sp-50 $sp-200;
+    border: 1.5px solid $neutral-100;
+    color: $neutral-50;
+
+    border-radius: 24px;
+    @include secondary-font($subhead);
+
+    &.active {
+      background-color: $accent-700;
+      color: $neutral-50;
+    }
+  }
+
+  hr {
+    border: 0.5px solid $neutral-100;
+    margin-block: $sp-300;
+  }
+}
+
+// Movies Grid
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(164px, 1fr));
+  gap: clamp($sp-200, 4vw, $sp-400);
+  justify-items: center;
+  align-items: stretch;
+}
+
+// Movie Card
+.movie-card {
+  width: 100%;
+  text-wrap: balance;
+  text-align: center;
+
+  &__poster {
+    position: relative;
+    overflow: hidden;
+
+    img {
+      width: 100%;
+      height: 100%;
+      aspect-ratio: 2 / 3;
+    }
+
+    &:hover {
+      cursor: pointer;
+      transform: scale(1.03);
+      transition: transform 0.3s ease-in-out;
+    }
+  }
+
+  &__release-date {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    padding: $sp-50 $sp-100;
+    background-color: hsla(0, 0, 0, 0.8);
+    font-weight: 600;
+    @include secondary-font($subhead);
+  }
+
+  &__title {
+    @include primary-font($body, 600);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    margin-block: $sp-100 $sp-0;
+    margin-inline: $sp-100;
+    flex-shrink: 0;
+
+    &:hover {
+      cursor: pointer;
+      color: $accent-400;
+    }
+  }
+
+  &__text-inline {
+    gap: $sp-50;
+    width: auto;
+    color: $neutral-100;
+    @include secondary-font($callout);
+    justify-content: center;
+    line-height: 1.5rem;
+    margin-top: auto; // Push to bottom of flex container
+  }
+
+  &__separator {
+    font-size: 0.875rem;
+    color: $neutral-100;
+  }
+
+  @include respond-down("tablet") {
+    &__poster {
+      aspect-ratio: 2 / 3;
+      height: auto;
+    }
+  }
+}
+
+.homepage .movie-card {
+  @include respond-up("tablet") {
+    &:nth-child(n + 5) {
+      display: none;
+    }
+  }
+}
+
+.hero {
+  justify-content: center;
+  align-items: center;
+  padding-block: $sp-800;
+  @include primary-font($heading-2, 600);
+  color: $neutral-50;
+  background-image: linear-gradient(to left, $primary-600, $primary-700);
+}
+
+.movies {
+  gap: $sp-300;
+
+  .grid {
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  }
+}
+
+.filters {
+  gap: $sp-200;
+
+  .chip {
+    justify-content: center;
+    color: $neutral-50;
+    @include primary-font($body, 600);
+    padding: $sp-100 $sp-200;
+    background-color: $primary-700;
+    border-radius: 12px;
+    gap: $sp-100;
+    align-items: center;
+    width: 164px;
+  }
+}
+
+.dropdown {
+  position: relative;
+
+  &__menu {
+    align-items: center;
+    position: absolute;
+    z-index: 500;
+    height: 110px;
+    overflow-y: auto;
+    background-color: $neutral-50;
+    width: 100%;
+    top: 110%;
+    border-radius: 12px;
+  }
+
+  li {
+    width: 100%;
+  }
+
+  &__item {
+    width: inherit;
+    @include secondary-font($body);
+    padding-block: $sp-50;
+
+    &.active {
+      background-color: hsl(30, 100%, 30%);
+      color: hsl(0, 0%, 100%);
+    }
+  }
+}

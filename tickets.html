@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/styles/main.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet"/>
+    <link rel="stylesheet" href="https://use.typekit.net/mwt6iue.css" />
+    <script src="https://cdn.jsdelivr.net/npm/qrious@4.0.2/dist/qrious.min.js"></script>
+    <script type="module" src="/script/tickets.js"></script>
+    <script defer src="/script/load-nav.js"></script>
+    <title>Tickets</title>
+</head>
+<body>
+    <div class="status-bar"></div>
+    <header class="tickets-header flex-column">
+        <h1 class="tickets-header__title">Tickets</h1>
+        <nav class="segmented-buttons">
+            <button type="button" id="tickets-header__upcoming-btn" class="active" data-index="0" aria-pressed="true">Upcoming</button>
+            <button type="button" id="tickets-header__past-btn" class="inactive" data-index="1" aria-pressed="false">Past</button>
+        </nav>
+    </header>
+    <main class="flex-column tickets-screen">
+        <ul id="upcoming" class="flex-column segmented-section tickets__upcoming-list tickets-list">
+            </ul>
+        <ul id="past" class="flex-column tickets__past-list tickets-list segmented-section hidden">
+            </ul>
+    </main>
+    <nav id="nav-placeholder" class="flex-column navigation-bar"></nav>
+</body>
+</html>

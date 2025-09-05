@@ -1,0 +1,16 @@
+// Shared button styles
+%button-shared {
+  border-radius: 12px;
+  text-align: center;
+}
+
+%dimmed-screen {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.3);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  pointer-events: none;
+  z-index: 998;
+}

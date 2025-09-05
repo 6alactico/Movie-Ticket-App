@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="/styles/main.css" />
+    <script type="module" src="/script/movies.js"></script>
+    <script defer src="/script/load-nav.js"></script>
+    <title>Movies</title>
+  </head>
+  <body>
+    <nav id="nav-placeholder" class="flex-column navigation-bar"></nav>
+    <main class="flex-column movies">
+      <div class="flex-row hero">Movies</div> <!-- Hero section -->
+
+      <!-- Segmented buttons -->
+      <nav class="segmented-buttons" role="tablist" aria-label="Movie category selector">
+        <button type="button" class="movies__now-playing-btn active" role="tab" data-index="0" aria-selected="true">
+          Now Playing
+        </button>
+        <button type="button" class="movies__coming-soon-btn inactive" role="tab" data-index="1" aria-selected="false">
+          Coming Soon
+        </button>
+      </nav>
+
+      <!-- Filter options -->
+      <ul class="flex-row filters">
+        <li class="dropdown">
+          <button type="button" class="flex-row chip" data-index="sort" aria-haspopup="menu" aria-controls="menu">
+            Sort By:
+            <span class="item-selected"></span>
+            <svg xmlns="http://www.w3.org/2000/svg" viewbox="-4 -8 24 24" width="24" height="24" fill="none">
+              <path
+                fill="#fff"
+                fill-opacity=".85"
+                d="M8.005 9.85a.83.83 0 00.617-.267l7.13-7.298A.82.82 0 0016 1.696.826.826 0 0015.162.85a.875.875 0 00-.599.239L7.507 8.294h.986L1.437 1.09A.842.842 0 00.838.85.826.826 0 000 1.697c0 .23.092.433.249.598l7.13 7.289a.865.865 0 00.626.267Z"
+              />
+            </svg>
+          </button>
+          <ul id="sort-by" class="flex-column dropdown__menu hidden">
+            <li><button type="button" id="featured" class="dropdown__item">Fe</button></li>
+            <li><button type="button" id="ascending" class="dropdown__item">A-Z</button></li>
+            <li><button type="button" id="descending" class="dropdown__item">Z-A</button></li>
+            <li><button type="button" id="oldest" class="dropdown__item">Oldest</button></li>
+          </ul>
+        </li>
+        <li class="dropdown">
+          <button type="button" class="flex-row chip" data-index="genre" aria-haspopup="menu" aria-controls="menu">
+            Genre
+            <span class="item-selected"></span>
+            <svg xmlns="http://www.w3.org/2000/svg" viewbox="-4 -8 24 24" width="24" height="24" fill="none">
+              <path
+                fill="#fff"
+                fill-opacity=".85"
+                d="M8.005 9.85a.83.83 0 00.617-.267l7.13-7.298A.82.82 0 0016 1.696.826.826 0 0015.162.85a.875.875 0 00-.599.239L7.507 8.294h.986L1.437 1.09A.842.842 0 00.838.85.826.826 0 000 1.697c0 .23.092.433.249.598l7.13 7.289a.865.865 0 00.626.267Z"
+              />
+            </svg>
+          </button>
+          <ul id="genre" class="flex-column dropdown__menu hidden">
+            </ul>
+        </li>
+        <li class="dropdown">
+          <button type="button" class="flex-row chip" data-index="rating" aria-haspopup="menu" aria-controls="menu">
+            Rating
+            <span class="item-selected"></span>
+            <svg xmlns="http://www.w3.org/2000/svg" viewbox="-4 -8 24 24" width="24" height="24" fill="none">
+              <path
+                fill="#fff"
+                fill-opacity=".85"
+                d="M8.005 9.85a.83.83 0 00.617-.267l7.13-7.298A.82.82 0 0016 1.696.826.826 0 0015.162.85a.875.875 0 00-.599.239L7.507 8.294h.986L1.437 1.09A.842.842 0 00.838.85.826.826 0 000 1.697c0 .23.092.433.249.598l7.13 7.289a.865.865 0 00.626.267Z"
+              />
+            </svg>
+          </button>
+          <ul id="rating" class="flex-column dropdown__menu hidden">
+            </ul>
+        </li>
+      </ul>
+
+      <!-- Movie cards -->
+      <div id="movies-wrapper" class="grid" aria-label="Movie cards">
+        </div>
+    </main>
+  </body>
+</html>

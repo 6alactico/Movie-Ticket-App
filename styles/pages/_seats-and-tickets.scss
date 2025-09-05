@@ -1,0 +1,289 @@
+@use 'base/colors' as *;
+@use 'base/spacing' as *;
+@use 'base/typography' as *;
+@use 'abstracts/mixins' as *;
+
+.booking-screen {
+    color: $neutral-50;
+    padding: $sp-300 $sp-200;
+    height: 85vh;
+    align-items: center;
+
+    @include respond-up("tablet") {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+    }
+}
+
+.seating {
+    gap: clamp($sp-300, 4vw, $sp-500);
+    align-items: center;
+    height: fit-content;
+    width: 100%;
+
+    &__zoom-buttons {
+        justify-self: center;
+        padding: $sp-150 $sp-0 $sp-150 $sp-100;
+    }
+
+    &__zoom-button {
+        width: 1.5rem;
+        height: 1.5rem;
+        border: 1.25px solid rgb(255, 255, 255);
+        border-radius: 50%;
+        fill: $neutral-50;
+
+        svg {
+            stroke: $neutral-50;
+        }
+    }
+
+    &__map {
+        max-width: 24rem;
+        max-width: 100%;
+        overflow: auto;
+    }
+
+    &__seats {
+        display: grid;
+        grid-template-columns: repeat(10, auto);
+        row-gap: 0.25rem;
+        column-gap: 0.5rem;
+        justify-content: center;
+        width: 100%;
+
+        &.zoom {
+            transform: scale(1.25);
+            transform-origin: top left;
+        }
+    }
+
+    &__legend {
+        pointer-events: none;
+        gap: clamp($sp-100, 4vw, $sp-200);
+        padding: $sp-200 $sp-200;
+        font-size: 12px;
+        margin-left: -1rem;
+        width: 23.438rem;
+        border-top: 1px solid hsla(209, 25%, 81%, 0.12);
+        border-bottom: 1px solid hsla(209, 25%, 81%, 0.12);
+        justify-content: space-between;
+        align-items: center;
+
+        .legend-item {
+            display: flex;
+            width: clamp(1rem, 4vw, 1.5rem);
+            cursor: pointer;
+            border-radius: 4px;
+            justify-content: center;
+            line-height: 1.875rem;
+            position: relative;
+            @include secondary-font(clamp($caption, 4vw, $footnote));
+        }
+
+        p {
+            @include primary-font($caption);
+            gap: $sp-50;
+        }
+
+        p:nth-child(1) svg {
+            color: hsl(210.36, 46.37%, 35.1%);
+        }
+
+        p:nth-child(2) svg {
+            color: hsl(30, 100%, 40%);
+        }
+
+        p:nth-child(3) svg {
+            color: hsl(209, 25%, 81%);
+            opacity: 0.6;
+        }
+    }
+
+    &__seat {
+        display: flex;
+        color: hsl(210.36, 46.37%, 35.1%);
+        width: clamp(1.5rem, 4vw, 2rem);
+
+        cursor: pointer;
+        border-radius: 4px;
+        justify-content: center;
+        line-height: 1.875rem;
+        position: relative;
+        align-items: center;
+    }
+
+    &__seat.wheelchair {
+        fill: $neutral-50;
+    }
+
+    &__seat.selected, &__seat.wheelchair.selected {
+        color: hsl(30, 100%, 40%);
+        fill: hsl(30, 100%, 40%);
+    }
+
+    &__seat.reserved, &__seat.wheelchair.reserved {
+        color: hsl(209, 25%, 81%);
+        fill: hsl(209, 25%, 81%);
+        pointer-events: none;
+        opacity: 0.6;
+    }
+
+    &__seat.invisible {
+        visibility: hidden;
+    }
+
+    &__svg {
+        fill: currentColor;
+        stroke: #000;
+        stroke-width: 2;
+        stroke-linecap: round;
+        stroke-linejoin: round;
+    }
+
+    &__seat-id {
+        position: absolute;
+        color: white;
+        font-weight: bold;
+        @include secondary-font(clamp($caption, 4vw, $footnote));
+    }
+    
+    &__controls {
+        align-items: center;
+        padding: $sp-200 $sp-200 $sp-0;
+        gap: $sp-100;
+        div:first-child {
+            justify-content: space-between;
+            width: 100%;
+            align-items: center;
+        }
+
+        @include respond-up("tablet") {
+            width: 90%;
+        }
+    }
+
+    &__screen-svg {
+        align-items: center;
+        @include primary-font(clamp($footnote, 4vw, $subhead));
+        gap: $sp-50;
+        width: 100%;
+    }
+
+    &__selection-qty {
+        @include primary-font($subhead);
+        color: $neutral-100;
+    }
+}
+
+.tickets-section {
+    justify-content: center;
+}
+
+.booking-screen .tickets {
+    width: 100%;
+    margin-block: $sp-300 $sp-0;
+    gap: $sp-200;
+    justify-self: center;
+    align-self: center;
+
+    @include respond-up("tablet") {
+       width: 80%;
+    }
+
+    &__type {
+        width: 100%;
+        justify-content: space-between;
+        padding: $sp-50 $sp-100;
+        height: 48px;
+        align-items: center;
+        @include primary-font($body);
+    }
+
+    &__divider {
+        opacity: 0.2;
+        border-color: hsla(209, 25%, 81%, 0.12);
+    }
+
+    &__price {
+        width: 100%;
+        text-align: center;
+    }
+
+    &__quantity {
+        width: 100%;
+        @include primary-font($body);
+        text-align: center;
+    }
+}
+
+.booking-header {
+    align-items: center;
+    height: clamp(67px, 8vw, 80px);
+    padding: $sp-150 $sp-200;
+    flex-shrink: 0;
+
+    &__movie-info {
+        width: 100%;
+        align-items: center;
+    }
+
+    &__movie-title {
+        @include primary-font(clamp($body, 4vw, $heading-3), 600);
+    }
+
+    &__movie-details {
+        @include primary-font($subhead);
+        color: $neutral-100;
+    }
+}
+
+.hidden {
+    display: none;
+}
+
+.counter {
+    width: auto;
+    gap: 1rem;
+    height: 100%;
+    align-items: center;
+}
+
+.counter-value {
+    max-width: auto;
+    width: 1rem;
+    display: inline-block;
+    text-align: center;
+}
+
+.count-button {
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    justify-items: center;
+}
+
+.decrement {
+    background-color: transparent;
+    opacity: 0.5;
+}
+
+.decrement.active {
+    opacity: 1;
+}
+
+.booking__footer {
+    @include secondary-font($body);
+    position: sticky;
+    bottom: 0;
+    width: inherit;
+    background-color: $primary-700;
+    padding: $sp-200 $sp-300 $sp-0 $sp-300;
+    gap: $sp-150;
+    height: 120px;
+}
+
+.ticket-summary {
+    justify-content: space-between;
+    width: 100%;
+}

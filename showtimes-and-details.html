@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="/styles/main.css"/>
+    <script type="module" src="/script/showtimes-details.js"></script>
+    <script defer src="/script/load-nav.js"></script>
+    <title>Movie Showtimes and Details</title>
+  </head>
+  <body>
+    <div class="status-bar" role="status" aria-live="polite" aria-atomic="true"></div>
+    <main class="flex-column showtimes-details">
+      <div class="selected-movie">
+        <a href="index.html" class="flex-row showtimes-details__back-button">
+          <svg class="flex-row" viewBox="-3 -3 20 24" width="24" height="24" xmlns="http://www.w3.org/2000/svg">
+            <path
+              d="M0 9c0 .245.101.46.315.646l8.92 7.59c.19.176.438.264.73.264.585 0 1.035-.382 1.035-.891 0-.255-.124-.47-.304-.637L2.508 9l8.188-6.972A.882.882 0 0 0 11 1.39C11 .881 10.55.5 9.965.5c-.292 0-.54.088-.73.255L.314 8.354A.817.817 0 0 0 0 9Z"
+            />
+          </svg>
+        </a>
+        <button type="button" class="selected-movie__favorite-button">
+          <svg xmlns="http://www.w3.org/2000/svg" viewbox="-3 -4.5 24 24" width="24" height="24">
+            <path
+              d="M12.952 1.096c2.557 0 4.548 1.942 4.548 4.763 0 1.706-.743 3.438-2.143 5.15-1.399 1.71-3.433 3.372-5.953 4.922a2.02 2.02 0 0 1-.256.123.912.912 0 0 1-.108.035c-.03.007-.043.007-.04.007.003 0-.009 0-.04-.007a1.545 1.545 0 0 1-.236-.092l-.12-.066c-2.524-1.55-4.56-3.211-5.96-4.922C1.243 9.297.5 7.565.5 5.859c0-2.82 1.991-4.763 4.549-4.763 1.564 0 2.786.832 3.515 2.125l.432.764.438-.761c.748-1.306 1.955-2.128 3.518-2.128Z"
+            />
+          </svg>
+        </button>
+        <div class="selected-movie__poster fade-bottom-mask">
+          <img src="" alt="Movie Poster" />
+        </div>
+        <section class="flex-column selected-movie__wrapper">
+          <div class="flex-column selected-movie__text-block">
+            <h2 class="selected-movie__title">Title</h2>
+            <ul class="flex-row selected-movie__characteristics">
+              <li class="selected-movie__genre"></li>
+              <span>&bull;</span>
+              <li class="selected-movie__year"></li>
+              <span>&bull;</span>
+              <li class="selected-movie__rating"></li>
+              <span>&bull;</span>
+              <li class="selected-movie__runtime"></li>
+            </ul>
+          </div>
+          <nav class="segmented-buttons">
+            <button type="button" id="showtimes__showtimes-button" class="active" data-index="0" data-target="showtimes" aria-pressed="true">
+              Showtimes
+            </button>
+            <button type="button" id="showtimes__details-button" class="inactive" data-index="1" data-target="details" aria-pressed="false">
+              Details
+            </button>
+          </nav>
+        </section>
+      </div>
+
+      <section id="showtimes" class="flex-column showtimes segmented-section">
+        <div class="flex-row date-selector" aria-label="Select a date">
+          </div>
+        <ul class="flex-column showtimes__list" aria-label="Showtimes for selected date">
+          <li class="flex-column showtimes__format standard">
+            <h4 class="showtimes__format-name">Standard</h4>
+            <div class="flex-row showtimes__buttons">
+              </div>
+          </li>
+          <li class="flex-column showtimes__format imax">
+            <div class="flex-row showtimes__format-header">
+              <h4 class="showtimes__format-name">IMAX</h4>
+              <button type="button" class="showtimes__info-btn">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="-4 -4 20 20" width="24" height="24" fill="none">
+                  <path
+                    fill="#FBFBFA"
+                    d="M7 14a6.773 6.773 0 01-2.718-.549 7.024 7.024 0 01-2.23-1.503 7.118 7.118 0 01-1.51-2.23A6.847 6.847 0 010 7c0-.965.18-1.871.542-2.718a7.12 7.12 0 011.51-2.23 6.968 6.968 0 012.23-1.51A6.847 6.847 0 017 0c.965 0 1.871.18 2.718.542.846.362 1.59.865 2.23 1.51a7.024 7.024 0 011.503 2.23C13.817 5.13 14 6.035 14 7s-.183 1.871-.549 2.718a7.023 7.023 0 01-3.733 3.733A6.773 6.773 0 017 14Zm0-1.167c.805 0 1.56-.15 2.265-.453a5.881 5.881 0 003.115-3.115c.302-.705.453-1.46.453-2.265 0-.805-.15-1.56-.453-2.265a5.78 5.78 0 00-1.256-1.86A5.88 5.88 0 009.264 1.62 5.688 5.688 0 007 1.167c-.805 0-1.56.15-2.265.453a5.88 5.88 0 00-1.86 1.255A5.78 5.78 0 001.167 7c0 .805.15 1.56.453 2.265a5.88 5.88 0 003.115 3.115c.705.302 1.46.453 2.265.453Zm-1.201-1.997a.498.498 0 01-.357-.137.454.454 0 01-.144-.343c0-.137.048-.252.144-.343a.498.498 0 01.357-.138h.851v-3.15h-.734a.498.498 0 01-.357-.137.454.454 0 01-.144-.343c0-.137.048-.252.144-.343a.498.498 0 01.357-.137h1.29c.174 0 .306.057.398.171.091.11.137.259.137.446v3.493h.851c.142 0 .26.046.357.138a.454.454 0 01.144.343.454.454 0 01-.144.343.498.498 0 01-.357.137H5.8Zm1.14-6.217a.86.86 0 01-.632-.261.86.86 0 01-.26-.632c0-.251.086-.464.26-.638a.86.86 0 01.631-.26c.252 0 .462.086.632.26.173.174.26.387.26.638a.86.86 0 01-.26.632.846.846 0 01-.632.26Z"
+                  />
+                </svg>
+              </button>
+              <div class="backdrop-overlay"></div>
+              <div class="flex-row showtimes__bottom-sheet slider-element" data-index="0">
+                <p>
+                  IMAX: A premium movie format featuring massive, floor-to-ceiling screens, specialized camera systems, and proprietary Digital Media Remastering (DMR) for stunning clarity and detail. Enjoy a truly immersive audiovisual experience with perfectly tuned sound and optimal seating for a grand cinematic event.
+                </p>
+              </div>
+            </div>
+            <div class="flex-row showtimes__buttons"></div>
+          </li>
+          <li class="flex-column showtimes__format d-box">
+            <div class="flex-row showtimes__format-header">
+              <h4 class="flex-row showtimes__format-name">D-BOX</h4>
+              <button type="button" class="showtimes__info-btn">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="-4 -4 20 20" width="24" height="24" fill="none">
+                  <path
+                    fill="#FBFBFA"
+                    d="M7 14a6.773 6.773 0 01-2.718-.549 7.024 7.024 0 01-2.23-1.503 7.118 7.118 0 01-1.51-2.23A6.847 6.847 0 010 7c0-.965.18-1.871.542-2.718a7.12 7.12 0 011.51-2.23 6.968 6.968 0 012.23-1.51A6.847 6.847 0 017 0c.965 0 1.871.18 2.718.542.846.362 1.59.865 2.23 1.51a7.024 7.024 0 011.503 2.23C13.817 5.13 14 6.035 14 7s-.183 1.871-.549 2.718a7.023 7.023 0 01-3.733 3.733A6.773 6.773 0 017 14Zm0-1.167c.805 0 1.56-.15 2.265-.453a5.881 5.881 0 003.115-3.115c.302-.705.453-1.46.453-2.265 0-.805-.15-1.56-.453-2.265a5.78 5.78 0 00-1.256-1.86A5.88 5.88 0 009.264 1.62 5.688 5.688 0 007 1.167c-.805 0-1.56.15-2.265.453a5.88 5.88 0 00-1.86 1.255A5.78 5.78 0 001.167 7c0 .805.15 1.56.453 2.265a5.88 5.88 0 003.115 3.115c.705.302 1.46.453 2.265.453Zm-1.201-1.997a.498.498 0 01-.357-.137.454.454 0 01-.144-.343c0-.137.048-.252.144-.343a.498.498 0 01.357-.138h.851v-3.15h-.734a.498.498 0 01-.357-.137.454.454 0 01-.144-.343c0-.137.048-.252.144-.343a.498.498 0 01.357-.137h1.29c.174 0 .306.057.398.171.091.11.137.259.137.446v3.493h.851c.142 0 .26.046.357.138a.454.454 0 01.144.343.454.454 0 01-.144.343.498.498 0 01-.357.137H5.8Zm1.14-6.217a.86.86 0 01-.632-.261.86.86 0 01-.26-.632c0-.251.086-.464.26-.638a.86.86 0 01.631-.26c.252 0 .462.086.632.26.173.174.26.387.26.638a.86.86 0 01-.26.632.846.846 0 01-.632.26Z"
+                  />
+                </svg>
+              </button>
+              <div class="flex-row showtimes__bottom-sheet slider-element" data-index="1">
+                <p>
+                  D-Box: A premium movie format featuring massive, floor-to-ceiling screens, specialized camera systems, and proprietary Digital Media Remastering (DMR) for stunning clarity and detail. Enjoy a truly immersive audiovisual experience with perfectly tuned sound and optimal seating for a grand cinematic event.
+                </p>
+              </div>
+            </div>
+            <div class="flex-row showtimes__buttons"></div>
+          </li>
+        </ul>
+        <span class="showtimes__accessibility-info">
+          All showtimes include Assisted Listening Devices, Audio Descriptions, and Closed Captions.
+        </span>
+      </section>
+      <section id="details" class="flex-column details-section details segmented-section hidden">
+        <p class="details__movie-overview"></p>
+        <span class="details__release-date"></span>
+        <div class="flex-column">
+          <section class="flex-column details__members">
+            <h4 class="details__members-title">Cast</h4>
+            <ul class="flex-row details__list-items cast"></ul>
+          </section>
+          <section class="flex-column details__members">
+            <h4 class="details__members-title">Crew</h4>
+            <ul class="flex-row details__list-items crew"></ul>
+          </section>
+        </div>
+      </section>
+    </main>
+    <nav id="nav-placeholder" class="flex-column navigation-bar"></nav>
+  </body>
+</html>

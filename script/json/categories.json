@@ -1,0 +1,130 @@
+{
+    "categories": [
+        {
+            "id": "combos",
+            "title": "Combos",
+            "items": [
+                {
+                    "id": "combo-small",
+                    "name": "Small Combo",
+                    "price": 10.00,
+                    "image": "https://placehold.co/400x300?text=Small+Combo"
+                },
+                {
+                    "id": "combo-medium",
+                    "name": "Medium Combo",
+                    "price": 12.00,
+                    "image": "https://placehold.co/400x300?text=Medium+Combo"
+                },
+                {
+                    "id": "combo-large",
+                    "name": "Large Combo",
+                    "price": 15.00,
+                    "image": "https://placehold.co/400x300?text=Large+Combo"
+                }
+            ]
+        },
+        {
+            "id": "popcorn",
+            "title": "Popcorn",
+            "items": [
+                {
+                    "id": "popcorn-small",
+                    "name": "Small Popcorn",
+                    "price": 5.00,
+                    "image": "https://placehold.co/400x300?text=Small+Popcorn"
+                },
+                {
+                    "id": "popcorn-medium",
+                    "name": "Medium Popcorn",
+                    "price": 7.00,
+                    "image": "https://placehold.co/400x300?text=Medium+Popcorn"
+                },
+                {
+                    "id": "popcorn-large",
+                    "name": "Large Popcorn",
+                    "price": 9.00,
+                    "image": "https://placehold.co/400x300?text=Large+Popcorn"
+                }
+            ]
+        },
+        {
+            "id": "drinks",
+            "title": "Drinks",
+            "items": [
+                {
+                    "id": "drink-small",
+                    "name": "Small Drink",
+                    "price": 3.00,
+                    "image": "https://placehold.co/400x300?text=Small+Drink"
+                },
+                {
+                    "id": "drink-medium",
+                    "name": "Medium Drink",
+                    "price": 4.00,
+                    "image": "https://placehold.co/400x300?text=Medium+Drink"
+                },
+                {
+                    "id": "drink-large",
+                    "name": "Large Drink",
+                    "price": 5.00,
+                    "image": "https://placehold.co/400x300?text=Large+Drink"
+                },
+                 {
+                    "id": "drink-large",
+                    "name": "Large Drink",
+                    "price": 5.00,
+                    "image": "https://placehold.co/400x300?text=Large+Drink"
+                }
+            ]
+        },
+        {
+            "id": "snacks-sweets",
+            "title": "Snacks & Sweets",
+            "items": [
+                {
+                    "id": "snack-small",
+                    "name": "Small Snack",
+                    "price": 2.00,
+                    "image": "https://placehold.co/400x300?text=Medium+Combo"
+                },
+                {
+                    "id": "snack-medium",
+                    "name": "Medium Snack",
+                    "price": 3.00,
+                    "image": "https://placehold.co/400x300?text=Medium+Combo"
+                },
+                {
+                    "id": "snack-large",
+                    "name": "Large Snack",
+                    "price": 4.00,
+                    "image": "https://placehold.co/400x300?text=Medium+Combo"
+                }
+            ]
+        },
+        {
+            "id": "hot-foods",
+            "title": "Hot Foods",
+            "items": [
+                {
+                    "id": "hot-food-small",
+                    "name": "Small Hot Food",
+                    "price": 6.00,
+                    "image": "https://placehold.co/400x300?text=Medium+Combo"
+                },
+                {
+                    "id": "hot-food-medium",
+                    "name": "Medium Hot Food",
+                    "price": 8.00,
+                    "image": "https://placehold.co/400x300?text=Medium+Combo"
+                },
+                {
+                    "id": "hot-food-large",
+                    "name": "Large Hot Food",
+                    "price": 10.00,
+                    "image": "https://placehold.co/400x300?text=Medium+Combo"
+                }
+            ]
+        }
+    ]
+}

@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="https://use.typekit.net/mwt6iue.css" />
+    <link rel="stylesheet" href="/styles/main.css" />
+    <script type="module" src="/script/concessions.js"></script>
+    <script defer src="/script/load-nav.js"></script>
+    <title>Concessions</title>
+  </head>
+  <body>
+    <div class="status-bar" role="status" aria-live="polite" aria-atomic="true"></div>
+
+    <nav id="nav-placeholder" class="flex-column conc navigation-bar"></nav>
+
+    <header class="flex-column concessions-header">
+      <div class="flex-row concessions-header__main" role="navigation" aria-label="Concessions navigation">
+        <a href="seats-and-tickets.html" class="flex-row concessions-header__back-button back-button" aria-label="Back to Movies">
+          <svg class="flex-row" width="24" height="24" viewBox="-5 -3 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path
+              d="M0 9.00001C0 9.24483 0.101227 9.46027 0.314929 9.64632L9.23415 17.2357C9.42535 17.4119 9.67281 17.5 9.96523 17.5C10.5501 17.5 11 17.1181 11 16.6089C11 16.3542 10.8763 16.1388 10.6963 15.9724L2.50818 9.00001L10.6963 2.02765C10.8763 1.86118 11 1.63594 11 1.39113C11 0.881913 10.5501 0.5 9.96523 0.5C9.67281 0.5 9.42535 0.588134 9.23415 0.754608L0.314929 8.3537C0.101227 8.52996 0 8.75519 0 9.00001Z"
+            />
+          </svg>
+        </a>
+        <h1 class="concessions-header__page-title">Food & Drinks</h1>
+        <a href="index.html" class="flex-row close-button" aria-label="Close Concessions">
+          <svg class="flex-row" width="24" height="24" viewBox="-5 -4 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path
+              d="M.245 14.997a.868.868 0 0 0 1.201 0L7.5 8.942l6.054 6.055c.322.322.88.331 1.201 0a.857.857 0 0 0 0-1.192L8.701 7.74l6.054-6.055a.848.848 0 0 0 0-1.192.85.85 0 0 0-1.201 0L7.5 6.548 1.446.494a.842.842 0 0 0-1.201 0 .857.857 0 0 0 0 1.192L6.299 7.74.245 13.805a.848.848 0 0 0 0 1.192Z"
+            />
+          </svg>
+        </a>
+      </div>
+
+      <nav class="flex-row concessions-tabs" role="tablist" aria-label="Concessions Categories">
+        <a href="#combos" class="concessions-tabs__tab active" role="tab" data-section="combos">Combos</a>
+        <a href="#popcorn" class="concessions-tabs__tab" role="tab" data-section="popcorn">Popcorn</a>
+        <a href="#drinks" class="concessions-tabs__tab" role="tab" data-section="drinks">Drinks</a>
+        <a href="#snacks-sweets" class="concessions-tabs__tab" role="tab" data-section="snacks-sweets">Snacks & Sweets</a>
+        <a href="#hot-foods" class="concessions-tabs__tab" role="tab" data-section="hot-foods">Hot Foods</a>
+      </nav>
+    </header>
+
+    <main class="concessions">
+      <div class="concessions-list-container">
+        <section id="combos" class="flex-column concessions-list active" data-category="combos">
+          <h2 class="concessions-list__title">
+            Combos <span class="concessions-list__counter"></span>
+          </h2>
+          <ul class="flex-row concessions-list__items">
+            </ul>
+        </section>
+
+        <section id="popcorn" class="flex-column concessions-list" data-category="popcorn">
+          <h2 class="concessions-list__title">
+            Popcorn <span class="concessions-list__counter"></span>
+          </h2>
+          <ul class="flex-row concessions-list__items"></ul>
+        </section>
+
+        <section id="drinks" class="flex-column concessions-list" data-category="drinks">
+          <h2 class="concessions-list__title">
+            Drinks <span class="concessions-list__counter"></span>
+          </h2>
+          <ul class="flex-row concessions-list__items"></ul>
+        </section>
+
+        <section id="snacks-sweets" class="flex-column concessions-list" data-category="snacks-sweets">
+          <h2 class="concessions-list__title">
+            Snacks & Sweets <span class="concessions-list__counter"></span>
+          </h2>
+          <ul class="flex-row concessions-list__items"></ul>
+        </section>
+
+        <section id="hot-foods" class="flex-column concessions-list" data-category="hot-foods">
+          <h2 class="concessions-list__title">
+            Hot Foods <span class="concessions-list__counter"></span>
+          </h2>
+          <ul class="flex-row concessions-list__items"></ul>
+        </section>
+      </div>
+    </main>
+
+    <div class="flex-column concessions-nav">
+      <aside class="cart hidden">
+        <h3 class="cart__title">Cart</h3>
+        <ul class="flex-column cart__list">
+          <li class="cart__empty-message">Cart is empty</li>
+          <!-- Cart items inserted dynamically -->
+          </ul>
+        <hr/>
+        <section class="cart__prices" aria-label="Cart prices">
+          <p class="flex-row"><strong>Subtotal:</strong> <span class="cart__subtotal"> $0.00</span></p>
+          <p class="flex-row"><strong>Taxes:</strong> <span class="cart__taxes"> $0.00</span></p>
+          <p class="flex-row"><strong>Total:</strong> <span class="cart__total"> $0.00</span></p>
+        </section>
+      </aside>
+
+      <nav class="flex-row concessions-actions" role="region" aria-label="Checkout Bar">
+        <button type="button" class="flex-row cart-button" aria-label="View cart details">
+          <svg xmlns="http://www.w3.org/2000/svg" viewbox="-2 -2 24 24" width="24" height="24" fill="none">
+            <path
+              fill="#FBFBFA"
+              d="M.5.534c0 .293.225.543.497.543h3.14l1.466 10.56c.163 1.175.75 1.905 1.892 1.905h10.38c.266 0 .494-.228.494-.534 0-.31-.228-.537-.494-.537H7.638c-.552 0-.886-.373-.978-.999l-.176-1.208h11.324c1.189 0 1.755-.738 1.928-1.954l.729-5.04c.015-.104.035-.252.035-.324 0-.395-.261-.655-.692-.655H5.368L5.156.83C5.087.283 4.893 0 4.191 0H.997C.725 0 .5.25.5.534Zm6.527 16.02c0 .811.607 1.446 1.373 1.446.762 0 1.37-.635 1.37-1.446 0-.802-.608-1.443-1.37-1.443-.766 0-1.373.641-1.373 1.443Zm8.051 0c0 .811.619 1.446 1.379 1.446.768 0 1.375-.635 1.375-1.446 0-.802-.607-1.443-1.375-1.443-.76 0-1.379.641-1.379 1.443Z"
+            />
+          </svg>
+          <span class="cart__total" aria-live="polite">$0.00</span>
+        </button>
+        <a href="checkout.html" id="checkout-btn" class="checkout-button">Checkout</a>
+      </nav>
+    </div>
+  </body>
+</html>

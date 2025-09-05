@@ -1,0 +1,391 @@
+@use "abstracts/mixins" as *;
+@use "base/colors" as *;
+@use "base/spacing" as *;
+@use "base/typography" as *;
+
+.checkout-header {
+  align-items: center;
+  height: clamp(44px, 8vw, 80px);
+  justify-content: space-between;
+  padding: $sp-150 $sp-200;
+
+  &__title {
+    @include secondary-font($heading-3, 600);
+    color: $neutral-50;
+  }
+}
+
+.checkout {
+  gap: $sp-300;
+  color: $neutral-50;
+
+  @include respond-up("tablet") {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-areas: 
+      "form order-summary"
+    ;
+    padding: $sp-300 $sp-200;
+
+    .form-contact-payment {
+      grid-area: form;
+      width: 70%;
+      justify-self: center;
+    }
+
+    .checkout div:first-of-type {
+      grid-area: order-summary;
+    }
+  }
+  
+
+  &__movie-details {
+    padding: $sp-200 $sp-200;
+    position: relative;
+    overflow: hidden;
+
+    p {
+      z-index: 1;
+    }
+  }
+
+  &__movie-poster {
+    position: absolute;
+    width: 100%;
+    height: 10rem;
+    top: 0;
+    left: 0;
+    opacity: 0.312;
+    filter: blur(2px);
+    z-index: 0;
+
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+  }
+
+  &__movie-title {
+    @include secondary-font($body, 600);
+    position: relative;
+    z-index: 1;
+  }
+
+  &__info-item {
+    gap: $sp-100;
+    @include secondary-font($subhead);
+    color: $neutral-100;
+    gap: $sp-50;
+    align-items: center;
+
+    z-index: 1;
+  }
+
+  &__edit-button {
+    display: flex;
+    align-items: center;
+    z-index: 2;
+  }
+
+  &__add-btn {
+    display: flex;
+    align-items: center;
+  }
+}
+
+.checkout__movie-info {
+  @include respond-up("tablet") {
+    width: 80%;
+    justify-content: center;
+    background-color: $primary-700;
+    height: 100%;
+    padding-inline: $sp-300;
+  }
+}
+
+.order-summary {
+  background-color: $primary-700;
+  color: $neutral-50;
+
+  &__header {
+    align-items: center;
+    padding: $sp-150 $sp-200;
+    gap: $sp-150;
+    border-bottom: 1px solid $neutral-50;
+    justify-content: space-between;
+    @include secondary-font($body);
+
+    @include respond-up("tablet") {
+      display: none;
+    }
+  }
+
+  &__title {
+    @include secondary-font($body, 600);
+    align-items: center;
+  }
+
+  &__total {
+    @include secondary-font($body);
+  }
+
+  &__dropdown {
+    display: none;
+    @include secondary-font($body);
+    padding: $sp-100 $sp-200;
+    gap: $sp-200;
+
+    &.active {
+      display: flex;
+    }
+
+    @include respond-up("tablet") {
+      display: flex;
+    }
+  }
+
+  &__tickets {
+    gap: $sp-100;
+  }
+
+  &__selected-ticket {
+    justify-content: space-between;
+  }
+
+  &__add-ons-buttons {
+    gap: $sp-100;
+    @include secondary-font($subhead);
+
+    .inline {
+      align-items: center;
+      gap: $sp-100;
+    }
+  }
+
+  &__promo-code {
+    align-items: center;
+    gap: $sp-100;
+  }
+
+  &__divider {
+    border: 0.08px solid hsla(209deg, 25%, 81%, 0.12);
+    width: 100%;
+  }
+
+  &__prices {
+    gap: $sp-100;
+
+    .inline {
+      justify-content: space-between;
+      width: 100%;
+      @include secondary-font($subhead);
+      color: $neutral-100;
+    }
+
+    .inline.total {
+      color: $neutral-50;
+      font-weight: 600;
+    }
+  }
+
+  @include respond-down("tablet") {
+    &__title:first-of-type {
+      display: none;
+    }
+  }
+}
+
+input[type="text"],
+input[type="email"] {
+  height: 3rem;
+  width: 100%;
+  background-color: hsla(0deg, 0%, 100%, 12%);
+  outline: 0.08rem solid $neutral-50;
+  border-radius: 12px;
+  padding: $sp-150;
+  color: $neutral-50;
+
+  &::placeholder {
+    @include primary-font($subhead);
+    color: $neutral-50;
+  }
+}
+
+.invalid {
+  background-color: hsla(0, 100%, 50%, 0.1);
+  border: 0.08rem solid var(--red);
+  box-shadow: none;
+}
+
+.form-contact-payment {
+  gap: $sp-400;
+  padding-inline: $sp-200;
+
+  .form-title {
+    @include secondary-font($body, 600);
+    padding-block-end: $sp-200;
+  }
+
+  #error-message {
+    color: var(--red);
+    font-size: 0.813rem;
+  }
+
+  .form-group {
+    label {
+      @include secondary-font($callout);
+      margin-block-end: $sp-100;
+    }
+    .visually-hidden {
+      visibility: hidden;
+      height: 1px;
+    }
+  }
+}
+
+.sign-in {
+  @include secondary-font($subhead);
+  margin-block-start: $sp-150;
+  a {
+    text-decoration: underline;
+    text-decoration-color: yellow;
+    text-underline-offset: 2px;
+  }
+}
+
+.radio-button {
+  gap: $sp-200;
+  span {
+    gap: $sp-100;
+  }
+  &__dropdown:nth-child(2) {
+    display: grid;
+    grid-template-areas: 
+      "card-number card-number"
+      "expiry cvv";
+      gap: $sp-200;
+  }
+  
+    .form-group {
+      width: 100%;
+    }
+  
+    .card-number {
+      grid-area: card-number;
+    }
+
+    .expiry {
+      grid-area: expiry;
+    }
+
+    .cvv {
+      grid-area: cvv;
+    }
+  
+  &__dropdown {
+    min-height: 4rem;
+    width: 90%;
+    align-self: center;
+
+    &.hidden {
+      display: none;
+    }
+  }
+}
+
+.payment {
+  &__methods {
+    gap: 2rem;
+    @include secondary-font($body);
+  }
+
+  .radio-buttons {
+    gap: 0.5rem;
+    height: 1.5rem;
+    align-items: center;
+  }
+}
+
+.form-payment {
+  padding: $sp-100 $sp-200;
+  gap: $sp-200;
+  width: 100%;
+
+  &__title {
+    @include secondary-font($body, 600);
+  }
+
+  &__method {
+    gap: 1rem;
+    width: 100%;
+    align-items: flex-start;
+  }
+
+  &__card-info {
+    padding-inline: $sp-150;
+    height: 100%;
+    width: 100%;
+    align-items: normal;
+    gap: $sp-200;
+
+    .flex-row {
+      gap: $sp-200;
+    }
+  }
+
+  &__expiry-date {
+    flex: 1;
+  }
+
+  &__cvv {
+    flex: 1;
+  }
+}
+
+input[type="radio"] {
+  position: relative;
+  background-color: transparent;
+  appearance: none;
+  border: 2px solid white;
+  border-radius: 50%;
+  width: 1.25rem;
+  height: 1.25rem;
+  color: blue;
+}
+
+input[type="radio"]:checked::before {
+  content: "";
+  position: absolute;
+  inset: 3px;
+  width: 10px;
+  height: 10px;
+  background: white;
+  border-radius: 50%;
+}
+
+.checkout-nav {
+  position: sticky;
+  bottom: 0;
+  width: 100%;
+  background-color: $primary-700;
+  padding: $sp-200 $sp-500;
+  gap: $sp-150;
+  height: 88px;
+  margin: 0 -1rem;
+  width: calc(100% + 2rem);
+
+  .checkout-nav__pay-button {
+    @include secondary-font($body);
+    background-color: $accent-700;
+    width: 100%;
+    padding: $sp-100 $sp-200;
+    text-align: center;
+    border-radius: 12px;
+    height: 38px;  
+  }
+
+  @include respond-up("tablet") {
+    background-color: transparent;
+  }
+}

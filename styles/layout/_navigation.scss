@@ -1,0 +1,111 @@
+@use "abstracts/mixins" as *;
+@use "base/spacing" as *;
+@use "base/typography" as *;
+@use "base/colors" as *;
+
+.navigation-bar {
+  background-color: hsla(210, 100%, 12%, 1);
+  position: sticky;
+  z-index: 900;
+  min-height: 5.25rem;
+  gap: $sp-200;
+  justify-content: center;
+  max-width: 100rem;
+  bottom: 0;
+
+  @include respond-up("tablet") {
+    grid-row: 1 / 2;
+    flex-direction: row;
+    align-items: center;
+    top: 0;
+    left: 0;
+    right: 0;
+    width: 100vw;
+
+    nav {
+      max-width: 90rem;
+      margin: 0 auto;
+      padding: 0 clamp($sp-200, 4vw, $sp-800);
+    }
+  }
+}
+
+.nav-list {
+  gap: clamp($sp-50, 4vw, $sp-600);
+  flex: 1 1 auto;
+  min-width: 0;
+  align-items: center;
+  justify-content: space-around;
+
+  @include respond-up("tablet") {
+    justify-content: space-between;
+    max-width: none;
+  }
+
+  div {
+    display: none;
+    justify-content: flex-end;
+
+    @include respond-up("tablet") {
+      display: flex;
+    }
+  }
+}
+
+li.tickets,
+li.profile {
+  @include respond-up("tablet") {
+    display: none;
+  }
+}
+
+li.offers,
+li.concessions,
+li.news {
+  display: none;
+
+  @include respond-up("tablet") {
+    display: flex;
+  }
+}
+
+.nav-item {
+  align-items: center;
+  fill: hsla(209, 25%, 81%, 1);
+  color: hsla(209, 25%, 81%, 1);
+  @include secondary-font($body);
+
+  &.active {
+    color: $neutral-50;
+    fill: $neutral-50;
+  }
+
+  @include respond-up("tablet") {
+    padding-block: 0;
+    height: 100%;
+    justify-content: center;
+
+    &.hidden {
+      display: flex;
+    }
+
+    &.tickets,
+    &.profile {
+      display: none;
+    }
+
+    svg {
+      display: none;
+    }
+  }
+}
+
+.logo {
+  display: none;
+
+  @include respond-up("tablet") {
+    @include primary-font($heading-2, 600);
+    display: flex;
+    margin-inline-end: $sp-200;
+  }
+}

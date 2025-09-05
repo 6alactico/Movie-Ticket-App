@@ -1,0 +1,200 @@
+@use 'abstracts/mixins' as *;
+@use 'abstracts/placeholders' as *;
+@use 'base/colors' as *;
+@use 'base/typography' as *;
+@use 'base/spacing' as *;
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html, body {
+  display: grid;
+  grid-template-rows: auto 1fr;
+  height: 100%;
+  overflow: hidden;
+  background-color: $primary-800;
+}
+
+img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+li {
+  list-style: none;
+}
+
+a {
+  text-decoration: none;
+  color: white;
+}
+
+button,
+input {
+  border: none;
+  background-color: transparent;
+  cursor: pointer;
+}
+
+input {
+  width: 100%;
+}
+
+input[type="search"]::-webkit-search-cancel-button {
+  display: none;
+}
+
+span {
+  width: fit-content;
+}
+
+::-webkit-scrollbar {
+  display: none;
+}
+
+// Flex utilities
+.flex-column {
+  display: flex;
+  flex-direction: column;
+}
+
+.flex-row {
+  display: flex;
+}
+
+// Icon fills
+.back-button,
+.close-button {
+  fill: $neutral-50;
+}
+
+// Layout structure
+.app-container {
+  position: static;
+  height: 812px;
+  max-width: 100rem;
+  inset: 0;
+  background-color: $primary-800;
+  color: $neutral-50;
+  overflow-x: hidden;
+  overflow-y: auto;
+  margin: auto;
+
+  @include respond-up("tablet") {
+    display: grid;
+    grid-template-rows: auto 1fr;
+    height: 100vh;
+  }
+}
+
+.status-bar {
+  position: sticky;
+  inset: 0;
+  height: 50px;
+  width: inherit;
+  background-color: $primary-700;
+  z-index: 997;
+  @include respond-up("tablet") {
+    display: none;
+  }
+}
+
+header {
+  position: sticky;
+  flex-shrink: 0;
+  z-index: 997;
+  height: fit-content;
+  background-color: $primary-700;
+  left: 0;
+  padding: 0rem 1rem;
+
+  @include respond-up("tablet") {
+    padding: 0;
+    top: 0;
+    grid-row: 1 / 2;
+  }
+}
+
+main {
+  overflow-y: auto;
+  height: 100%;
+  width: 100%;
+  max-width: 85rem;
+  margin: 0 auto;
+  -webkit-overflow-scrolling: touch;
+
+  @include respond-up("tablet") {
+    grid-row: 2 / 3;
+  }
+}
+
+nav,
+footer {
+  position: static;
+  width: inherit;
+  z-index: 999;
+}
+
+// Segmented buttons
+.segmented-buttons {
+  display: flex;
+  background-color: hsla(100, 100%, 100%, 0.12);
+  color: white;
+  border-radius: 14px;
+  width: 100%;
+  z-index: 1;
+
+  button {
+    @include primary-font($subheading, 400);
+    @extend %button-shared;
+    padding: clamp($sp-50, 1vw, $sp-100) clamp($sp-100, 1vw, $sp-200);
+    white-space: nowrap;
+    margin: 2px;
+    width: 100%;
+    color: white;
+
+    @include respond-up("tablet") {
+      width: 156px;
+    }
+  }
+
+  .active {
+    background-color: $accent-700;
+    box-shadow: 1px 1px 4px hsla(0, 0%, 0%, 0.2);
+    font-weight: 600;
+  }
+
+  @include respond-up("tablet") {
+    width: fit-content;
+  }
+}
+
+// Button group
+.button-group {
+  gap: $sp-200;
+  @include secondary-font($body);
+  width: auto;
+
+  .button {
+    @extend %button-shared;
+    padding: $sp-100 $sp-200;
+    width: 100%;
+
+    &,
+    &.default {
+      background-color: $accent-700;
+      color: $neutral-50;
+    }
+
+    &.checkout,
+    &.movies {
+      background-color: $neutral-50;
+      color: $accent-700;
+      border: 1px solid $accent-700;
+    }
+  }
+}

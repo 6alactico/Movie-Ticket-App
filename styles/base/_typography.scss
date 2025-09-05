@@ -1,0 +1,24 @@
+$large-title: 2rem; // 32px
+$heading-1: 1.75rem; // 28px
+$heading-2: 1.375rem; // 22px
+$heading-3: 1.25rem; // 20px
+$subheading: 1.125rem; // 18px
+$body: 1rem; // 16px
+$callout: 0.938rem; // 15px
+$subhead: 0.875rem; // 14px
+$footnote: 0.75rem; // 12px
+$caption: 0.688rem; // 11px
+
+@mixin primary-font($font-size, $font-weight: 400) {
+  font-family: "Montserrat", sans-serif;
+  font-size: clamp($font-size, 4vw, $font-size);
+  font-weight: $font-weight;
+  line-height: 150%;
+}
+
+@mixin secondary-font($font-size, $font-weight: 400) {
+  font-family: "proxima-nova", sans-serif;
+  font-size: $font-size;
+  font-weight: $font-weight;
+  line-height: 150%;
+}
